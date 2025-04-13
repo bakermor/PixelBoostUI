@@ -1,0 +1,31 @@
+class Strings {
+  signup_title = "Sign up";
+  signup_desc = "Welcome to Pixel Boost - Let's create an account";
+  login_prompt = "Already have an account?";
+
+  signup = "Create Account";
+  login = "Login";
+
+  in_username = "Username";
+  in_username_desc = "Enter your username";
+  in_email = "Email";
+  in_email_desc = "Enter your email";
+  in_password = "Password";
+  in_password_desc = "Enter your password";
+  in_confirm_password = "Confirm Password";
+  in_confirm_password_desc = "Confirm your password";
+
+  warn_user = "An account with this username already exists";
+  warn_user_pattern = "Username can only contain: A-z, 0-9, _, -";
+  warn_email = "Please enter a valid email";
+  warn_password_match = "Passwords do not match";
+
+  required = " is required";
+
+  get(key: string): string {
+    const value = this[key as keyof this];
+    return typeof value === "string" ? value : "";
+  }
+}
+
+export const STR = new Strings();
