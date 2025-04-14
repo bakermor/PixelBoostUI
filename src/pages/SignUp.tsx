@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { createUser, usernameCheck } from "../api/UserApi";
+import { Link, useNavigate } from "react-router-dom";
+import { createUser, getToken, usernameCheck } from "../api/UserApi";
 import { FormButton } from "../components/Buttons";
 import { InputBox } from "../components/InputBox";
 import { STR } from "../constants/Strings";
 
 const SignUp = () => {
   const pxl = window.innerWidth / 1920;
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -69,6 +71,15 @@ const SignUp = () => {
     if (warnings.password) changeWarning("password");
   };
 
+  const loginUser = async () => {
+    const result = await getToken({
+      username: formData.username,
+      password: formData.password,
+    });
+    if (result.status === 204) return true;
+    else return false;
+  };
+
   const createAccount = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -85,14 +96,21 @@ const SignUp = () => {
     // Check no field is invalid
     const noWarnings = Object.values(warnings).every((field) => field === "");
     if (noWarnings) {
+      // Create a new user
       const result = await createUser({
         username: formData.username,
         email: formData.email,
         password: formData.password,
       });
-      console.log(result);
       if (result.status === 201) {
-        // TODO: get login token and redirect to next setup page (name)
+        const authenticated = await loginUser();
+        if (authenticated) {
+          // Move on to next part of sign up process
+          navigate("/new-user");
+        } else {
+          // Authenticate the user
+          navigate("/login");
+        }
       } else {
         // Add a warning to invalid field
         if (result.field) {

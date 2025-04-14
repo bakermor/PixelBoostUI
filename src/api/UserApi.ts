@@ -23,6 +23,16 @@ interface UsernameCheckRes {
   description?: string;
 }
 
+interface UserLoginReq {
+  username: string;
+  password: string;
+}
+
+interface UserLoginRes {
+  status: number | undefined;
+  description?: string;
+}
+
 export async function usernameCheck(
   params: UsernameCheckReq
 ): Promise<UsernameCheckRes> {
@@ -69,6 +79,28 @@ export async function createUser(body: CreateUserReq): Promise<CreateUserRes> {
         };
       }
       return { status: error.status };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function getToken(body: UserLoginReq): Promise<UserLoginRes> {
+  const encodedBody = new URLSearchParams();
+  encodedBody.append("username", body.username);
+  encodedBody.append("password", body.password);
+
+  try {
+    const res = await api.post("/auth/token", encodedBody, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    console.log(res);
+    return { status: res.status };
+  } catch (error) {
+    console.log(error);
+    if (error instanceof AxiosError) {
+      return { status: error.status, description: error.message };
     }
     return { status: 500 };
   }
