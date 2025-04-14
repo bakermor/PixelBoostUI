@@ -3,8 +3,14 @@ class Strings {
   signup_desc = "Welcome to Pixel Boost - Let's create an account";
   login_prompt = "Already have an account?";
 
-  signup = "Create Account";
+  login_title = "Welcome back!";
+  login_desc = "Enter your username and password to continue";
+  signup_prompt = "Don't have an account?";
+
+  signup = "Sign up";
+  create_account = "Create account";
   login = "Login";
+  continue = "Continue";
 
   in_username = "Username";
   in_username_desc = "Enter your username";
@@ -19,6 +25,7 @@ class Strings {
   warn_user_pattern = "Username can only contain: A-z, 0-9, _, -";
   warn_email = "Please enter a valid email";
   warn_password_match = "Passwords do not match";
+  warn_user_invalid = "Invalid username or password";
 
   required = " is required";
 

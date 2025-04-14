@@ -1,7 +1,6 @@
 import { STR } from "../constants/Strings";
 
 interface FormButtonProps {
-  type: string;
   text: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }

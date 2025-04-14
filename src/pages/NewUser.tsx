@@ -1,7 +1,8 @@
 const NewUser = () => {
+  // TODO: Center screen Profile Card + Tutorial popups
   return (
     <div>
-      <div>New User</div>
+      <div></div>
     </div>
   );
 };

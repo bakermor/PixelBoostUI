@@ -54,7 +54,6 @@ export const InputBox = (props: InputBoxProps) => {
           className="w-full h-full"
           name={props.name}
           type={props.type}
-          required
           placeholder={STR.get(`in_${props.name}_desc`)}
           value={props.value}
           onChange={props.onChange}

@@ -106,7 +106,7 @@ const SignUp = () => {
         const authenticated = await loginUser();
         if (authenticated) {
           // Move on to next part of sign up process
-          navigate("/new-user");
+          navigate("/dashboard");
         } else {
           // Authenticate the user
           navigate("/login");
@@ -144,11 +144,11 @@ const SignUp = () => {
             paddingRight: pxl * 80,
           }}
         >
-          <div className="w-full flex justify-end" style={{ height: pxl * 85 }}>
+          <div className="w-full flex justify-end" style={{ height: pxl * 72 }}>
             <div
               className="w-full flex leading-none justify-center text-gray-600"
               style={{
-                fontSize: pxl * 73.5,
+                fontSize: pxl * 59.5,
                 fontFamily: "'pxlLarge', monospace",
               }}
             >
@@ -212,20 +212,20 @@ const SignUp = () => {
               onBlur={validatePassword}
             />
             <div style={{ marginTop: pxl * 10 }}>
-              <FormButton type="form" text="signup" onClick={createAccount} />
+              <FormButton text="create_account" onClick={createAccount} />
             </div>
           </form>
         </div>
         <div
           className="w-full flex justify-center"
-          style={{ height: pxl * 35 }}
+          style={{ height: pxl * 35, gap: pxl * 10 }}
         >
           <div
             className="h-full flex items-center"
             style={{ width: pxl * 260 }}
           >
             <div
-              className="w-full flex items-end leading-none text-gray-400"
+              className="w-full flex items-end leading-none justify-end text-gray-400"
               style={{
                 fontSize: pxl * 15.507,
                 fontFamily: "'pxlSmall', monospace",
@@ -234,10 +234,7 @@ const SignUp = () => {
               {STR.login_prompt}
             </div>
           </div>
-          <div
-            className="h-full flex items-center"
-            style={{ width: pxl * 100 }}
-          >
+          <div className="h-full flex items-center">
             <Link to="/login">
               <div
                 className="flex items-end leading-none text-gray-600"

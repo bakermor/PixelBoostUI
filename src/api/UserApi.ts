@@ -95,12 +95,11 @@ export async function getToken(body: UserLoginReq): Promise<UserLoginRes> {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-    console.log(res);
     return { status: res.status };
   } catch (error) {
-    console.log(error);
     if (error instanceof AxiosError) {
-      return { status: error.status, description: error.message };
+      if (error.status === 401 || error.status === 422)
+        return { status: error.status, description: STR.warn_user_invalid };
     }
     return { status: 500 };
   }
