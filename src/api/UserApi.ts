@@ -33,6 +33,35 @@ interface UserLoginRes {
   description?: string;
 }
 
+interface Stat {
+  current_level: number;
+  equation: Array<number>;
+  last_updated: number;
+}
+
+interface Health {
+  energy: Stat;
+  hunger: Stat;
+  thirst: Stat;
+  fun: Stat;
+  social: Stat;
+  hygiene: Stat;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  name: string;
+  current_activity: string | null;
+  heath: Health;
+}
+
+interface CurrentUserRes {
+  status: number | undefined;
+  user?: User;
+}
+
 export async function usernameCheck(
   params: UsernameCheckReq
 ): Promise<UsernameCheckRes> {
@@ -100,6 +129,30 @@ export async function getToken(body: UserLoginReq): Promise<UserLoginRes> {
     if (error instanceof AxiosError) {
       if (error.status === 401 || error.status === 422)
         return { status: error.status, description: STR.warn_user_invalid };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function refreshUser(): Promise<{ status: number | undefined }> {
+  try {
+    const res = await api.post("/auth/refresh");
+    return { status: res.status };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return { status: error.status };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function getCurrentUser(): Promise<CurrentUserRes> {
+  try {
+    const res = await api.get("/auth/me");
+    return { status: res.status, user: res.data };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return { status: error.status };
     }
     return { status: 500 };
   }

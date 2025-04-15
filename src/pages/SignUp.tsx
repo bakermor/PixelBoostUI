@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, getToken, usernameCheck } from "../api/UserApi";
 import { FormButton } from "../components/Buttons";
 import { InputBox } from "../components/InputBox";
 import { STR } from "../constants/Strings";
+import { AuthContext } from "../context/AuthProvider";
 
 const SignUp = () => {
   const pxl = window.innerWidth / 1920;
   const navigate = useNavigate();
+  const { updateAuth } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -106,6 +108,7 @@ const SignUp = () => {
         const authenticated = await loginUser();
         if (authenticated) {
           // Move on to next part of sign up process
+          await updateAuth();
           navigate("/dashboard");
         } else {
           // Authenticate the user
