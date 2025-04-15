@@ -1,7 +1,8 @@
 import { useEffect } from "react";
+import { InputBox } from "./pixel/InputBox";
 import { STR } from "../constants/Strings";
 
-interface InputBoxProps {
+interface InputProps {
   name: string;
   type: string;
   warning: string;
@@ -10,7 +11,7 @@ interface InputBoxProps {
   onBlur: React.FocusEventHandler<HTMLInputElement> | undefined;
 }
 
-export const InputBox = (props: InputBoxProps) => {
+export const Input = (props: InputProps) => {
   const pxl = window.innerWidth / 1920;
 
   useEffect(() => {}, [props]);
@@ -46,24 +47,23 @@ export const InputBox = (props: InputBoxProps) => {
           </div>
         ) : null}
       </div>
-      <div
-        className="w-full border-gray-500"
-        style={{ height: pxl * 70, borderWidth: pxl * 5 }}
-      >
-        <input
-          className="w-full h-full"
-          name={props.name}
-          type={props.type}
-          placeholder={STR.get(`in_${props.name}_desc`)}
-          value={props.value}
-          onChange={props.onChange}
-          onBlur={props.onBlur}
-          style={{
-            padding: 10 * pxl,
-            fontSize: pxl * 15.507,
-            fontFamily: "'pxlSmall', monospace",
-          }}
-        ></input>
+      <div className="w-full" style={{ height: pxl * 70 }}>
+        <InputBox>
+          <input
+            className="flex-1 outline-none"
+            name={props.name}
+            type={props.type}
+            placeholder={STR.get(`in_${props.name}_desc`)}
+            value={props.value}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+            style={{
+              padding: 10 * pxl,
+              fontSize: pxl * 15.507,
+              fontFamily: "'pxlSmall', monospace",
+            }}
+          />
+        </InputBox>
       </div>
     </div>
   );

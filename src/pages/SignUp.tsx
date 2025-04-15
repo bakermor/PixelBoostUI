@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, getToken, usernameCheck } from "../api/UserApi";
 import { FormButton } from "../components/Buttons";
-import { InputBox } from "../components/InputBox";
+import { Input } from "../components/Input";
 import { STR } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
 
@@ -176,13 +176,13 @@ const SignUp = () => {
         <div
           className="flex flex-col"
           style={{
-            paddingLeft: pxl * 50,
-            paddingRight: pxl * 50,
+            paddingLeft: pxl * 60,
+            paddingRight: pxl * 60,
             gap: pxl * 25,
           }}
         >
           <form className="flex flex-col" style={{ gap: pxl * 8 }}>
-            <InputBox
+            <Input
               name="username"
               type="text"
               warning={warnings.username}
@@ -190,7 +190,7 @@ const SignUp = () => {
               onChange={handleChange}
               onBlur={validateUsername}
             />
-            <InputBox
+            <Input
               name="email"
               type="email"
               warning={warnings.email}
@@ -198,7 +198,7 @@ const SignUp = () => {
               onChange={handleChange}
               onBlur={validateEmail}
             />
-            <InputBox
+            <Input
               name="password"
               type="password"
               warning={warnings.password}
@@ -206,7 +206,7 @@ const SignUp = () => {
               onChange={handleChange}
               onBlur={validatePassword}
             />
-            <InputBox
+            <Input
               name="confirm_password"
               type="password"
               warning={warnings.confirm_password}

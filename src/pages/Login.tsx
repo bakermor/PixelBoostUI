@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../api/UserApi";
 import { FormButton } from "../components/Buttons";
-import { InputBox } from "../components/InputBox";
+import { Input } from "../components/Input";
 import { STR } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
 
@@ -141,16 +141,17 @@ const Login = () => {
               </div>
             </div>
           ) : null}
-          <div
-            className="flex flex-col"
-            style={{
-              paddingLeft: pxl * 50,
-              paddingRight: pxl * 50,
-              gap: pxl * 25,
-            }}
-          ></div>
+        </div>
+        <div
+          className="flex flex-col"
+          style={{
+            paddingLeft: pxl * 60,
+            paddingRight: pxl * 60,
+            gap: pxl * 25,
+          }}
+        >
           <form className="flex flex-col" style={{ gap: pxl * 8 }}>
-            <InputBox
+            <Input
               name="username"
               type="text"
               warning={warnings.username}
@@ -158,7 +159,7 @@ const Login = () => {
               onChange={handleChange}
               onBlur={undefined}
             />
-            <InputBox
+            <Input
               name="password"
               type="password"
               warning={warnings.password}
