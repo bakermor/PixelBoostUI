@@ -1,4 +1,4 @@
-import { STR } from "../constants/Strings";
+import { Strings } from "../constants/Strings";
 import { SubmitButton } from "./pixel/SubmitButton";
 
 interface ButtonProps {
@@ -20,17 +20,18 @@ export const FormButton = (props: ButtonProps) => {
           onClick={props.onClick}
         >
           <div
-            className="w-full flex items-start"
+            className="w-full flex items-center"
             style={{ height: pxl * 35, marginTop: pxl * 5 }}
           >
             <div
-              className="w-full h-full flex leading-none justify-center items-center text-white"
+              className="w-full flex leading-none justify-center text-white"
               style={{
-                fontSize: pxl * 15.507,
+                height: pxl * 18,
+                fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
               }}
             >
-              {STR.get(props.text)}
+              {Strings[props.text]}
             </div>
           </div>
         </button>
@@ -44,18 +45,20 @@ export const SettingsButton = (props: ButtonProps) => {
 
   return (
     <button
-      className="w-full bg-gray-500 cursor-pointer"
-      style={{ height: pxl * 55 }}
+      className="w-full bg-gray-500 items-center cursor-pointer"
       onClick={props.onClick}
     >
-      <div
-        className="w-full h-full flex leading-none justify-center items-center text-gray-300"
-        style={{
-          fontSize: pxl * 15.507,
-          fontFamily: "'pxlSmall', monospace",
-        }}
-      >
-        {STR.get(props.text)}
+      <div className="w-full flex items-center" style={{ height: pxl * 60 }}>
+        <div
+          className="w-full flex leading-none justify-center text-gray-300"
+          style={{
+            height: pxl * 18,
+            fontSize: pxl * 16,
+            fontFamily: "'pxlSmall', monospace",
+          }}
+        >
+          {Strings[props.text]}
+        </div>
       </div>
     </button>
   );
@@ -66,18 +69,20 @@ export const StatButton = (props: ButtonProps) => {
 
   return (
     <button
-      className="w-full bg-gray-500 cursor-pointer"
-      style={{ height: pxl * 60 }}
+      className="w-full bg-gray-500 items-center cursor-pointer"
       onClick={props.onClick}
     >
-      <div
-        className="w-full h-full flex leading-none justify-center items-center text-gray-300"
-        style={{
-          fontSize: pxl * 15.507,
-          fontFamily: "'pxlSmall', monospace",
-        }}
-      >
-        {STR.get(props.text)}
+      <div className="w-full flex items-center" style={{ height: pxl * 65 }}>
+        <div
+          className="w-full flex leading-none justify-center text-gray-300"
+          style={{
+            height: pxl * 18,
+            fontSize: pxl * 16,
+            fontFamily: "'pxlSmall', monospace",
+          }}
+        >
+          {Strings[props.text]}
+        </div>
       </div>
     </button>
   );

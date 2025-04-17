@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../api/UserApi";
 import { FormButton } from "../components/Buttons";
 import { Input } from "../components/Input";
-import { STR } from "../constants/Strings";
+import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
 
 const Login = () => {
@@ -11,12 +11,12 @@ const Login = () => {
   const navigate = useNavigate();
   const { updateAuth } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Record<string, string>>({
     username: "",
     password: "",
   });
 
-  const [warnings, setWarnings] = useState({
+  const [warnings, setWarnings] = useState<Record<string, string>>({
     invalid: "",
     username: "",
     password: "",
@@ -57,8 +57,8 @@ const Login = () => {
     const requiredWarnings = { ...warnings };
     for (const [key, value] of Object.entries(formData)) {
       if (value === "") {
-        let test = `${STR.get(`in_${key}`)}${STR.required}`;
-        requiredWarnings[key as keyof typeof warnings] = test;
+        let test = `${Strings[`in_${key}`]}${Strings.required}`;
+        requiredWarnings[key] = test;
       }
     }
     setWarnings(requiredWarnings);
@@ -104,11 +104,12 @@ const Login = () => {
             <div
               className="w-full flex leading-none justify-center text-gray-600"
               style={{
-                fontSize: pxl * 59.5,
+                height: pxl * 66,
+                fontSize: pxl * 60,
                 fontFamily: "'pxlLarge', monospace",
               }}
             >
-              {STR.login_title}
+              {Strings.login_title}
             </div>
           </div>
           <div
@@ -118,11 +119,12 @@ const Login = () => {
             <div
               className="w-full flex leading-none justify-center items-start text-gray-400"
               style={{
-                fontSize: pxl * 15.507,
+                height: pxl * 18,
+                fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
               }}
             >
-              {STR.login_desc}
+              {Strings.login_desc}
             </div>
           </div>
           {warnings.invalid !== "" ? (
@@ -131,9 +133,10 @@ const Login = () => {
               style={{ height: pxl * 35, marginTop: pxl * 15 }}
             >
               <div
-                className="w-full flex leading-none justify-center items-end text-gray-400"
+                className="w-full flex leading-none justify-center items-start text-gray-400"
                 style={{
-                  fontSize: pxl * 15.507,
+                  height: pxl * 18,
+                  fontSize: pxl * 16,
                   fontFamily: "'pxlSmall', monospace",
                 }}
               >
@@ -181,25 +184,27 @@ const Login = () => {
             style={{ width: pxl * 260 }}
           >
             <div
-              className="w-full flex items-end leading-none justify-end text-gray-400"
+              className="w-full flex leading-none justify-end text-gray-400"
               style={{
-                fontSize: pxl * 15.507,
+                height: pxl * 18,
+                fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
               }}
             >
-              {STR.signup_prompt}
+              {Strings.signup_prompt}
             </div>
           </div>
           <div className="h-full flex items-center justify-start">
             <Link to="/signup">
               <div
-                className="flex items-end leading-none text-gray-600"
+                className="flex leading-none text-gray-600"
                 style={{
-                  fontSize: pxl * 15.507,
+                  height: pxl * 18,
+                  fontSize: pxl * 16,
                   fontFamily: "'pxlSmall', monospace",
                 }}
               >
-                {STR.signup}
+                {Strings.signup}
               </div>
             </Link>
           </div>

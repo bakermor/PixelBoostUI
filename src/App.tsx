@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { AuthProvider } from "./context/AuthProvider";
+import { StatUpdateProvider } from "./context/StatUpdateProvider";
+import Action from "./pages/Action";
+import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import NewUser from "./pages/NewUser";
 import SignUp from "./pages/SignUp";
-import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import { AuthProvider } from "./context/AuthProvider";
-import { StatUpdateProvider } from "./context/StatUpdateProvider";
-import Action from "./pages/Action";
 
 function App() {
   return (

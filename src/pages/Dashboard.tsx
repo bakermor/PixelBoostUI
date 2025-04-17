@@ -1,12 +1,12 @@
-import { ReactElement, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AvatarContainer } from "../components/AvatarContainer";
 import { SettingsButton } from "../components/Buttons";
+import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
 import { SideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
-import { ActionModal } from "../components/Modals";
 
 const Dashboard = () => {
   const pxl = window.innerWidth / 1920;

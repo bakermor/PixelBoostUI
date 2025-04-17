@@ -1,6 +1,6 @@
 import { useEffect } from "react";
+import { Strings } from "../constants/Strings";
 import { InputBox } from "./pixel/InputBox";
-import { STR } from "../constants/Strings";
 
 interface InputProps {
   name: string;
@@ -17,28 +17,30 @@ export const Input = (props: InputProps) => {
   useEffect(() => {}, [props]);
 
   return (
-    <div className="flex flex-col" style={{ gap: pxl * 10 }}>
+    <div className="flex flex-col" style={{ gap: pxl * 5 }}>
       <div
         className="w-full flex justify-between"
         style={{ height: pxl * 35, gap: pxl * 10 }}
       >
         <div className="h-full flex items-end">
           <div
-            className="w-full flex items-end leading-none text-gray-800"
+            className="w-full flex leading-none text-gray-800"
             style={{
-              fontSize: pxl * 15.507,
+              height: pxl * 18,
+              fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
             }}
           >
-            {STR.get(`in_${props.name}`)}
+            {Strings[`in_${props.name}`]}
           </div>
         </div>
         {props.warning !== "" ? (
-          <div className="h-full flex-1 flex">
+          <div className="h-full flex-1 flex items-end">
             <div
-              className="w-full flex items-end justify-end leading-none text-end text-gray-500"
+              className="w-full flex justify-end leading-none text-end text-gray-500"
               style={{
-                fontSize: pxl * 15.507,
+                height: pxl * 18,
+                fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
               }}
             >
@@ -53,13 +55,13 @@ export const Input = (props: InputProps) => {
             className="flex-1 outline-none"
             name={props.name}
             type={props.type}
-            placeholder={STR.get(`in_${props.name}_desc`)}
+            placeholder={Strings[`in_${props.name}_desc`]}
             value={props.value}
             onChange={props.onChange}
             onBlur={props.onBlur}
             style={{
-              padding: 10 * pxl,
-              fontSize: pxl * 15.507,
+              padding: pxl * 10,
+              fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
             }}
           />

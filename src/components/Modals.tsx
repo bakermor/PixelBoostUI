@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { STR } from "../constants/Strings";
+import { Strings } from "../constants/Strings";
 import { StatButton } from "./Buttons";
 
 interface ActionModalProps {
@@ -39,17 +39,17 @@ export const ActionModal = (props: ActionModalProps) => {
                 fontFamily: "'pxlLarge', monospace",
               }}
             >
-              {STR.get("do_action")}
+              {Strings.do_action}
             </div>
             <div
               className="flex leading-none text-gray-400"
               style={{
-                height: pxl * 16,
+                height: pxl * 18,
                 fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
               }}
             >
-              {STR.get("do_action_desc")}
+              {Strings.do_action_desc}
             </div>
           </div>
           <button

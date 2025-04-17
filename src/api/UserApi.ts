@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { STR } from "../constants/Strings";
+import { Strings } from "../constants/Strings";
 import { api } from "./axiosConfigs";
 
 interface CreateUserReq {
@@ -87,7 +87,7 @@ export async function usernameCheck(
       params: params,
     });
     if (res.data.status) return res.data;
-    else return { status: false, description: STR.warn_user };
+    else return { status: false, description: Strings.warn_user };
   } catch (error) {
     if (error instanceof AxiosError) {
       // FastAPI Validation Error
@@ -97,7 +97,7 @@ export async function usernameCheck(
 
         // Custom message for regex pattern mismatch
         if (errorDetail.type === "string_pattern_mismatch")
-          message = STR.warn_user_pattern;
+          message = Strings.warn_user_pattern;
         return {
           status: false,
           description: message.replace("String", "Username"),
@@ -145,7 +145,7 @@ export async function getToken(body: UserLoginReq): Promise<UserLoginRes> {
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.status === 401 || error.status === 422)
-        return { status: error.status, description: STR.warn_user_invalid };
+        return { status: error.status, description: Strings.warn_user_invalid };
     }
     return { status: 500 };
   }

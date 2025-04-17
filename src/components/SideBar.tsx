@@ -23,7 +23,7 @@ export const SideBar = () => {
           <div
             className="flex leading-none bg-gray-600 text-gray-600"
             style={{
-              height: pxl * 45,
+              height: pxl * 52,
               fontSize: pxl * 48,
               fontFamily: "'pxlLarge', monospace",
             }}

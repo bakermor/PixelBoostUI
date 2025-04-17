@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, getToken, usernameCheck } from "../api/UserApi";
 import { FormButton } from "../components/Buttons";
 import { Input } from "../components/Input";
-import { STR } from "../constants/Strings";
+import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
 
 const SignUp = () => {
@@ -11,14 +11,14 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { updateAuth } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Record<string, string>>({
     username: "",
     email: "",
     password: "",
     confirm_password: "",
   });
 
-  const [warnings, setWarnings] = useState({
+  const [warnings, setWarnings] = useState<Record<string, string>>({
     username: "",
     email: "",
     password: "",
@@ -57,7 +57,7 @@ const SignUp = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (e.target.value != "" && !emailPattern.test(e.target.value)) {
       // Add warning if invalid
-      changeWarning("email", STR.warn_email);
+      changeWarning("email", Strings.warn_email);
     } else changeWarning("email");
   };
 
@@ -68,7 +68,7 @@ const SignUp = () => {
       formData.password !== formData.confirm_password
     )
       // Add warning if invalid
-      changeWarning("confirm_password", STR.warn_password_match);
+      changeWarning("confirm_password", Strings.warn_password_match);
     else changeWarning("confirm_password");
     if (warnings.password) changeWarning("password");
   };
@@ -89,8 +89,8 @@ const SignUp = () => {
     const requiredWarnings = { ...warnings };
     for (const [key, value] of Object.entries(formData)) {
       if (value === "") {
-        let test = `${STR.get(`in_${key}`)}${STR.required}`;
-        requiredWarnings[key as keyof typeof warnings] = test;
+        let test = `${Strings[`in_${key}`]}${Strings.required}`;
+        requiredWarnings[key] = test;
       }
     }
     setWarnings(requiredWarnings);
@@ -151,11 +151,12 @@ const SignUp = () => {
             <div
               className="w-full flex leading-none justify-center text-gray-600"
               style={{
-                fontSize: pxl * 59.5,
+                height: pxl * 66,
+                fontSize: pxl * 60,
                 fontFamily: "'pxlLarge', monospace",
               }}
             >
-              {STR.signup_title}
+              {Strings.signup_title}
             </div>
           </div>
           <div
@@ -165,11 +166,12 @@ const SignUp = () => {
             <div
               className="w-full flex leading-none justify-center items-start text-gray-400"
               style={{
-                fontSize: pxl * 15.507,
+                height: pxl * 18,
+                fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
               }}
             >
-              {STR.signup_desc}
+              {Strings.signup_desc}
             </div>
           </div>
         </div>
@@ -228,25 +230,27 @@ const SignUp = () => {
             style={{ width: pxl * 260 }}
           >
             <div
-              className="w-full flex items-end leading-none justify-end text-gray-400"
+              className="w-full flex leading-none justify-end text-gray-400"
               style={{
-                fontSize: pxl * 15.507,
+                height: pxl * 18,
+                fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
               }}
             >
-              {STR.login_prompt}
+              {Strings.login_prompt}
             </div>
           </div>
           <div className="h-full flex items-center">
             <Link to="/login">
               <div
-                className="flex items-end leading-none text-gray-600"
+                className="flex leading-none text-gray-600"
                 style={{
-                  fontSize: pxl * 15.507,
+                  height: pxl * 18,
+                  fontSize: pxl * 16,
                   fontFamily: "'pxlSmall', monospace",
                 }}
               >
-                {STR.login}
+                {Strings.login}
               </div>
             </Link>
           </div>
