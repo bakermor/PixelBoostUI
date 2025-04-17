@@ -1,12 +1,12 @@
 import { STR } from "../constants/Strings";
 import { SubmitButton } from "./pixel/SubmitButton";
 
-interface FormButtonProps {
+interface ButtonProps {
   text: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const FormButton = (props: FormButtonProps) => {
+export const FormButton = (props: ButtonProps) => {
   const pxl = window.innerWidth / 1920;
 
   return (
@@ -36,5 +36,49 @@ export const FormButton = (props: FormButtonProps) => {
         </button>
       </SubmitButton>
     </div>
+  );
+};
+
+export const SettingsButton = (props: ButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  return (
+    <button
+      className="w-full bg-gray-500 cursor-pointer"
+      style={{ height: pxl * 55 }}
+      onClick={props.onClick}
+    >
+      <div
+        className="w-full h-full flex leading-none justify-center items-center text-gray-300"
+        style={{
+          fontSize: pxl * 15.507,
+          fontFamily: "'pxlSmall', monospace",
+        }}
+      >
+        {STR.get(props.text)}
+      </div>
+    </button>
+  );
+};
+
+export const StatButton = (props: ButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  return (
+    <button
+      className="w-full bg-gray-500 cursor-pointer"
+      style={{ height: pxl * 60 }}
+      onClick={props.onClick}
+    >
+      <div
+        className="w-full h-full flex leading-none justify-center items-center text-gray-300"
+        style={{
+          fontSize: pxl * 15.507,
+          fontFamily: "'pxlSmall', monospace",
+        }}
+      >
+        {STR.get(props.text)}
+      </div>
+    </button>
   );
 };

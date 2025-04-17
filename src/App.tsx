@@ -8,23 +8,29 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { AuthProvider } from "./context/AuthProvider";
+import { StatUpdateProvider } from "./context/StatUpdateProvider";
+import Action from "./pages/Action";
 
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="" element={<Home />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="login" element={<Login />} />
-            <Route path="new-user" element={<NewUser />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="dashboard" element={<Dashboard />} />
+      <StatUpdateProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route path="" element={<Home />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="login" element={<Login />} />
+              <Route path="new-user" element={<NewUser />} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="action" element={<Action />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </StatUpdateProvider>
     </AuthProvider>
   );
 }

@@ -1,7 +1,60 @@
+import { ReactElement, useContext, useEffect, useState } from "react";
+import { AvatarContainer } from "../components/AvatarContainer";
+import { SettingsButton } from "../components/Buttons";
+import { ProfileCard } from "../components/ProfileCard";
+import { SideBar } from "../components/SideBar";
+import { StatContainer } from "../components/StatContainer";
+import { AuthContext } from "../context/AuthProvider";
+import { StatUpdateContext } from "../context/StatUpdateProvider";
+import { ActionModal } from "../components/Modals";
+
 const Dashboard = () => {
+  const pxl = window.innerWidth / 1920;
+  const { user } = useContext(AuthContext);
+  const { health, loading } = useContext(StatUpdateContext);
+  const [modal, setModal] = useState<string | null>(null);
+
+  const doAction = () => {
+    setModal("action");
+  };
+
+  const exitModal = () => {
+    setModal(null);
+  };
+
+  useEffect(() => {
+    if (!loading) console.log(health);
+  }, [loading]);
+
   return (
-    <div>
-      <div></div>
+    <div className="h-screen w-screen flex">
+      {modal === "action" ? <ActionModal exit={exitModal} /> : null}
+      <SideBar />
+      <div className="flex-1 flex" style={{ padding: pxl * 20, gap: 20 }}>
+        <div className="flex-1 flex flex-col" style={{ gap: pxl * 15 }}>
+          <div className="w-full bg-gray-400" style={{ height: pxl * 15 }} />
+          <div className="w-full" style={{ height: pxl * 170 }}>
+            <AvatarContainer />
+          </div>
+          <div className="w-full flex" style={{ gap: pxl * 10 }}>
+            <StatContainer health={health} />
+            <div
+              className="flex flex-col justify-evenly bg-gray-300"
+              style={{
+                width: pxl * 380,
+                paddingLeft: pxl * 10,
+                paddingRight: pxl * 10,
+              }}
+            >
+              <SettingsButton text="edit_stat" onClick={doAction} />
+              <SettingsButton text="" onClick={() => {}} />
+              <SettingsButton text="" onClick={() => {}} />
+            </div>
+          </div>
+          <div className="flex-1 bg-gray-200" />
+        </div>
+        <ProfileCard user={user} />
+      </div>
     </div>
   );
 };

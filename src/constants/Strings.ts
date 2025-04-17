@@ -29,6 +29,19 @@ class Strings {
 
   required = " is required";
 
+  do_action = "Do an action";
+  do_action_desc = "Choose the stat to increase";
+
+  set_activity = "My activities";
+  edit_stat = "Take an action";
+
+  energy = "Energy";
+  hunger = "Hunger";
+  thirst = "Thirst";
+  fun = "Fun";
+  social = "Social";
+  hygiene = "Hygiene";
+
   get(key: string): string {
     const value = this[key as keyof this];
     return typeof value === "string" ? value : "";

@@ -1,9 +1,11 @@
+import { ActionModal } from "../components/Modals";
+
 const Home = () => {
   // const pxl = window.innerWidth / 1920;
-  // navigation bar
+
   return (
-    <div>
-      <div>Home</div>
+    <div className="w-screen h-screen">
+      <ActionModal exit={() => {}} />
     </div>
   );
 };
