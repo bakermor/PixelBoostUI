@@ -7,6 +7,11 @@ interface RangeContainerProps {
 
 interface SelectContainerProps {
   name: string;
+  multiple: boolean;
+}
+
+interface InputContainerProps {
+  name: string;
 }
 
 export const RangeContainer = (props: RangeContainerProps) => {
@@ -43,8 +48,8 @@ export const SelectContainer = (props: SelectContainerProps) => {
 
   return (
     <div
-      className="flex flex-col items-center justify-end bg-gray-200"
-      style={{ width: pxl * 115, padding: pxl * 8, gap: pxl * 5 }}
+      className="flex-1 flex flex-col items-center justify-end bg-gray-200"
+      style={{ maxWidth: pxl * 140, padding: pxl * 8, gap: pxl * 5 }}
     >
       <div
         className="flex leading-none text-gray-500"
@@ -56,7 +61,43 @@ export const SelectContainer = (props: SelectContainerProps) => {
       >
         {Strings[props.name]}
       </div>
-      <div className="flex-1 bg-gray-500" style={{ width: pxl * 85 }} />
+      <div className="flex-1 bg-gray-500" style={{ width: pxl * 95 }} />
+    </div>
+  );
+};
+
+export const InputContainer = (props: InputContainerProps) => {
+  const pxl = window.innerWidth / 1920;
+  return (
+    <div
+      className="flex-1 flex flex-col justify-center"
+      style={{ maxWidth: pxl * 280, gap: pxl * 10 }}
+    >
+      <div
+        className="flex justify-start leading-none text-gray-300"
+        style={{
+          height: pxl * 18,
+          fontSize: pxl * 16,
+          fontFamily: "'pxlSmall', monospace",
+        }}
+      >
+        {Strings[props.name]}
+      </div>
+      <div className="flex-1 flex bg-gray-200" style={{ maxHeight: pxl * 60 }}>
+        <input
+          className="flex-1 outline-none"
+          name={props.name}
+          type="text"
+          placeholder={Strings.input_placeholder}
+          value=""
+          onChange={() => {}}
+          style={{
+            padding: pxl * 10,
+            fontSize: pxl * 16,
+            fontFamily: "'pxlSmall', monospace",
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -71,6 +71,7 @@ export const StatButton = (props: ButtonProps) => {
     <button
       className="w-full bg-gray-500 items-center cursor-pointer"
       onClick={props.onClick}
+      name={props.text}
     >
       <div className="w-full flex items-center" style={{ height: pxl * 65 }}>
         <div
@@ -83,6 +84,28 @@ export const StatButton = (props: ButtonProps) => {
         >
           {Strings[props.text]}
         </div>
+      </div>
+    </button>
+  );
+};
+
+export const SwitchFormButton = (props: ButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+  return (
+    <button
+      className="absolute top-0 bg-gray-300 flex justify-center items-center cursor-pointer"
+      style={{ width: pxl * 120, height: pxl * 30, right: pxl * 5 }}
+      onClick={props.onClick}
+    >
+      <div
+        className="flex justify-start leading-none text-gray-500"
+        style={{
+          height: pxl * 18,
+          fontSize: pxl * 16,
+          fontFamily: "'pxlSmall', monospace",
+        }}
+      >
+        {Strings[props.text]}
       </div>
     </button>
   );

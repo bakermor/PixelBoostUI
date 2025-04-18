@@ -43,9 +43,13 @@ export const Strings: Record<string, string> = {
   social: "Social",
   hygiene: "Hygiene",
 
+  range: "Icons",
+  units: "Units",
+
   eat_food: "Eat some food",
   eat_food_desc: "Select the following options that apply",
-  food_quantity: "Click the option that fits with how much you ate",
+
+  food_quantity: "Select your meal size",
   food_quantity_small: "Snack",
   food_quantity_medium: "",
   food_quantity_large: "Feast",
@@ -56,4 +60,76 @@ export const Strings: Record<string, string> = {
   vegetables: "Veggies",
   protein: "Protein",
   dairy: "Dairy",
+
+  drink: "Drink something",
+  drink_desc: "Select the following options that apply",
+
+  drink_type: "Select the closest beverage type",
+  water: "Water",
+  milk: "Milk",
+  tea: "Tea",
+  juice: "Juice",
+  soda: "Soda",
+
+  input_placeholder: "Enter a number",
+
+  drink_quantity_in: "Enter how much you drank",
+  oz: "Ounces",
+  drink_quantity_range: "Select your drink size",
+  drink_quantity_range_small: "Cup",
+  drink_quantity_range_medium: "",
+  drink_quantity_range_large: "Gallon",
+
+  get_clean: "Get clean",
+  get_clean_desc: "Select the following options that apply",
+
+  clean: "Select one or more options",
+  shower: "Shower/Bath",
+  wash_hands: "Wash Hands",
+  wash_face: "Skincare",
+  brush_teeth: "Brush Teeth",
+
+  do_fun: "Do something fun",
+  do_fun_desc: "Select the following options that apply",
+
+  fun_length: "Enter how long you did something fun",
+  hours: "Hours",
+  minutes: "Minutes",
+
+  fun_quality: "From 1-5, select how much fun you had",
+  fun_quality_small: "Kinda Fun",
+  fun_quality_medium: "",
+  fun_quality_large: "Super Fun",
+
+  energy_actions: "Energy Actions",
+  energy_actions_desc: "Select one of the following actions",
+
+  coffee: "Drink Caffeine",
+  have_coffee: "Have some caffeine",
+  have_coffee_desc: "Select the following options that apply",
+  coffee_quantity: "Enter how much caffeine you drank",
+  mg: "Milligrams",
+
+  sleep: "Sleep",
+  get_sleep: "Get some sleep",
+  get_sleep_desc: "Select the following options that apply",
+  sleep_length: "Enter how long you slept",
+  sleep_quality: "Select what quality of sleep you had",
+  sleep_quality_small: "Bad",
+  sleep_quality_medium: "",
+  sleep_quality_large: "Excellent",
+
+  social_actions: "Social Actions",
+  social_actions_desc: "Select one of the following actions",
+
+  call: "Call/Message Someone",
+  hangout: "Hangout with People",
+  go_hangout: "Hangout with people",
+  go_hangout_desc: "Select the following options that apply",
+
+  social_hangout: "Enter how long you socialized",
+  social_quality: "Select you overall friendship with them",
+  social_quality_small: "Enemies",
+  social_quality_medium: "Strangers",
+  social_quality_large: "Friends",
 };
