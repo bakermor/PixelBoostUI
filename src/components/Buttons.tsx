@@ -2,6 +2,7 @@ import { Strings } from "../constants/Strings";
 import { SubmitButton } from "./pixel/SubmitButton";
 
 interface ButtonProps {
+  name?: string;
   text: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -96,6 +97,8 @@ export const SwitchFormButton = (props: ButtonProps) => {
       className="absolute top-0 bg-gray-300 flex justify-center items-center cursor-pointer"
       style={{ width: pxl * 120, height: pxl * 30, right: pxl * 5 }}
       onClick={props.onClick}
+      name={props.name}
+      value={props.text}
     >
       <div
         className="flex justify-start leading-none text-gray-500"

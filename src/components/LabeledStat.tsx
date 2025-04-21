@@ -56,7 +56,7 @@ export const LabeledStat = (props: LabeledStatProps) => {
 export const ModifiedStat = (props: ModifiedStatProps) => {
   const pxl = window.innerWidth / 1920;
 
-  useEffect(() => {}, [props.level]);
+  useEffect(() => {}, [props.level, props.modifier]);
 
   return (
     <div className="flex flex-col" style={{ width: pxl * 342, gap: pxl * 5 }}>
@@ -72,7 +72,7 @@ export const ModifiedStat = (props: ModifiedStatProps) => {
           {Strings[props.name]}
         </div>
       </div>
-      <Stat {...props} />
+      <Stat name={props.name} level={props.level + props.modifier} />
     </div>
   );
 };

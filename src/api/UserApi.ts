@@ -92,8 +92,8 @@ export async function usernameCheck(
     if (error instanceof AxiosError) {
       // FastAPI Validation Error
       if (error.status === 422) {
-        var errorDetail = error.response?.data.detail[0];
-        var message = errorDetail.msg;
+        let errorDetail = error.response?.data.detail[0];
+        let message = errorDetail.msg;
 
         // Custom message for regex pattern mismatch
         if (errorDetail.type === "string_pattern_mismatch")
@@ -116,8 +116,8 @@ export async function createUser(body: CreateUserReq): Promise<CreateUserRes> {
     if (error instanceof AxiosError) {
       // FastAPI Validation Error
       if (error.status === 422) {
-        var errorDetail = error.response?.data.detail[0];
-        var message = errorDetail.msg;
+        let errorDetail = error.response?.data.detail[0];
+        let message = errorDetail.msg;
         return {
           status: error.status,
           field: errorDetail.loc[1],

@@ -1,42 +1,24 @@
-import { ReactNode } from "react";
-import {
-  ActionInput,
-  ActionSelect,
-  PickActions,
-} from "../../constants/Actions";
+import { ReactNode, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { PickActions } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
 import { SettingsButton, StatButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
-import {
-  InputContainer,
-  RangeContainer,
-  SelectContainer,
-} from "./ActionFormElements";
+import { InputForm, RangeForm, SelectForm } from "./ActionFormTypes";
 
 interface ActionProps {
   children: ReactNode;
   stat: string;
   action: string;
   level: number;
+  modifier: number;
 }
 
 interface ActionFormProps {
   name: string;
   type: string;
   multiple?: boolean;
-}
-
-interface RangeFormProps {
-  name: string;
-}
-
-interface SelectFormProps {
-  name: string;
-  multiple: boolean;
-}
-
-interface InputFormProps {
-  name: string;
+  setModifier: (key: string, modifier: number) => void;
 }
 
 interface PickActionProps {
@@ -46,6 +28,15 @@ interface PickActionProps {
 
 export const BaseAction = (props: ActionProps) => {
   const pxl = window.innerWidth / 1920;
+  const navigate = useNavigate();
+
+  const updateLevel = () => {
+    // update level to level + modifier
+    console.log(`new level: ${props.level + props.modifier}`);
+    navigate("/dashboard");
+  };
+
+  useEffect(() => {}, [props]);
 
   return (
     <div
@@ -78,16 +69,20 @@ export const BaseAction = (props: ActionProps) => {
         </div>
       </div>
       <div className="flex self-end">
-        <ModifiedStat name={props.stat} level={props.level} modifier={0} />
+        <ModifiedStat
+          name={props.stat}
+          level={props.level}
+          modifier={props.modifier}
+        />
       </div>
       <div
-        className="flex-1 bg-gray-200"
+        className="flex-1"
         style={{ marginTop: pxl * 60, marginBottom: pxl * 10 }}
       >
         {props.children}
       </div>
       <div className="flex self-end" style={{ width: pxl * 400 }}>
-        <SettingsButton text="complete_action" onClick={() => {}} />
+        <SettingsButton text="complete_action" onClick={updateLevel} />
       </div>
     </div>
   );
@@ -95,6 +90,7 @@ export const BaseAction = (props: ActionProps) => {
 
 export const ActionForm = (props: ActionFormProps) => {
   const pxl = window.innerWidth / 1920;
+
   return (
     <div className="w-full flex flex-col" style={{ gap: pxl * 10 }}>
       <div
@@ -113,77 +109,17 @@ export const ActionForm = (props: ActionFormProps) => {
         style={{ height: pxl * 180, padding: pxl * 15 }}
       >
         {props.type === "range" ? (
-          <RangeForm name={props.name} />
+          <RangeForm name={props.name} setModifier={props.setModifier} />
         ) : props.type === "select" ? (
           <SelectForm
             name={props.name}
             multiple={props.multiple ? props.multiple : false}
+            setModifier={props.setModifier}
           />
         ) : props.type === "input" ? (
-          <InputForm name={props.name} />
+          <InputForm name={props.name} setModifier={props.setModifier} />
         ) : null}
       </div>
-    </div>
-  );
-};
-
-export const RangeForm = (props: RangeFormProps) => {
-  const pxl = window.innerWidth / 1920;
-
-  return (
-    <div
-      className="flex-1 flex justify-between"
-      style={{ paddingTop: pxl * 5, paddingBottom: pxl * 5 }}
-    >
-      <RangeContainer name={`${props.name}_small`} />
-      <div
-        className="bg-gray-400"
-        style={{ width: pxl * 75, height: pxl * 75, marginTop: pxl * 20 }}
-      />
-      <RangeContainer name={`${props.name}_medium`} />
-      <div
-        className="bg-gray-400"
-        style={{ width: pxl * 75, height: pxl * 75, marginTop: pxl * 20 }}
-      />
-      <RangeContainer name={`${props.name}_large`} />
-    </div>
-  );
-};
-
-export const SelectForm = (props: SelectFormProps) => {
-  const pxl = window.innerWidth / 1920;
-  return (
-    <div className="flex-1 flex justify-evenly" style={{ gap: pxl * 20 }}>
-      {ActionSelect[props.name]?.map((option) => (
-        <div className="flex-1 flex" key={option}>
-          <SelectContainer name={option} multiple={props.multiple} />
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export const InputForm = (props: InputFormProps) => {
-  const pxl = window.innerWidth / 1920;
-  return (
-    <div
-      className={`flex-1 flex ${
-        ActionInput[props.name].length === 1
-          ? "justify-start"
-          : "justify-evenly"
-      }`}
-      style={{
-        padding: pxl * 15,
-        paddingTop: pxl * 10,
-        paddingBottom: pxl * 10,
-        gap: pxl * 30,
-      }}
-    >
-      {ActionInput[props.name]?.map((option) => (
-        <div className="flex-1 flex" key={option}>
-          <InputContainer name={option} />
-        </div>
-      ))}
     </div>
   );
 };

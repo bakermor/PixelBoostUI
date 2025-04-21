@@ -10,10 +10,6 @@ export const AvatarContainer = () => {
         style={{ paddingLeft: pxl * 30, paddingRight: pxl * 30 }}
       >
         <AvatarSprite />
-        <AvatarSprite />
-        <AvatarSprite />
-        <AvatarSprite />
-        <AvatarSprite />
       </div>
       <div className="w-full bg-gray-500" style={{ height: pxl * 10 }} />
     </div>

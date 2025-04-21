@@ -44,7 +44,7 @@ export const Strings: Record<string, string> = {
   hygiene: "Hygiene",
 
   range: "Icons",
-  units: "Units",
+  input: "Units",
 
   eat_food: "Eat some food",
   eat_food_desc: "Select the following options that apply",
@@ -55,11 +55,10 @@ export const Strings: Record<string, string> = {
   food_quantity_large: "Feast",
 
   food_quality: "Select each of the food groups in your meal",
-  grain: "Grain",
+  starch: "Starch",
   fruits: "Fruits",
   vegetables: "Veggies",
   protein: "Protein",
-  dairy: "Dairy",
 
   drink: "Drink something",
   drink_desc: "Select the following options that apply",
@@ -73,12 +72,12 @@ export const Strings: Record<string, string> = {
 
   input_placeholder: "Enter a number",
 
-  drink_quantity_in: "Enter how much you drank",
+  drink_quantity_input: "Enter how much you drank",
   oz: "Ounces",
   drink_quantity_range: "Select your drink size",
-  drink_quantity_range_small: "Cup",
-  drink_quantity_range_medium: "",
-  drink_quantity_range_large: "Gallon",
+  drink_quantity_range_small: "Glass",
+  drink_quantity_range_medium: "Bottle",
+  drink_quantity_range_large: "Liter",
 
   get_clean: "Get clean",
   get_clean_desc: "Select the following options that apply",
