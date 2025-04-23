@@ -55,10 +55,13 @@ export const StatUpdateProvider = (props: UpdateProviderProps) => {
       for (const [key, value] of Object.entries(auth.user.health)) {
         let stat = auth.user.health[key as keyof typeof auth.user.health];
         let equation = stat.equation.reduce((sum, n) => sum + n, 0);
-        let modifier =
-          auth.user.current_activity.modifiers[
-            key as keyof typeof auth.user.current_activity.modifiers
-          ];
+        let modifier = undefined;
+        if (auth.user.current_activity) {
+          modifier =
+            auth.user.current_activity.modifiers[
+              key as keyof typeof auth.user.current_activity.modifiers
+            ];
+        }
 
         // New Value = initial val - (equation * modifier * time diff)
         result[key as keyof typeof auth.user.health] = Math.min(

@@ -26,12 +26,10 @@ export const RangeForm = (props: FormProps) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setFocused(e.currentTarget.name);
-    // TODO: REMOVE THE IF
-    if (props.setModifier)
-      props.setModifier(
-        props.name.replace("_range", ""),
-        parseFloat(e.currentTarget.value)
-      );
+    props.setModifier(
+      props.name.replace("_range", ""),
+      parseFloat(e.currentTarget.value)
+    );
   };
 
   return (
@@ -84,27 +82,25 @@ export const SelectForm = (props: FormProps) => {
     const name = e.currentTarget.name;
     if (!props.multiple) {
       setFocusedSingle(name);
-      if (props.setModifier)
-        props.setModifier(
-          props.name.replace("_select", ""),
-          parseFloat(e.currentTarget.value)
-        );
+
+      props.setModifier(
+        props.name.replace("_select", ""),
+        parseFloat(e.currentTarget.value)
+      );
     } else {
       const updateSet = new Set(focusedMultiple);
       if (updateSet.has(name)) {
         updateSet.delete(name);
-        if (props.setModifier)
-          props.setModifier(
-            props.name.replace("_select", ""),
-            -parseFloat(e.currentTarget.value)
-          );
+        props.setModifier(
+          props.name.replace("_select", ""),
+          -parseFloat(e.currentTarget.value)
+        );
       } else {
         updateSet.add(name);
-        if (props.setModifier)
-          props.setModifier(
-            props.name.replace("_select", ""),
-            parseFloat(e.currentTarget.value)
-          );
+        props.setModifier(
+          props.name.replace("_select", ""),
+          parseFloat(e.currentTarget.value)
+        );
       }
 
       setFocusedMultiple(updateSet);
@@ -156,9 +152,7 @@ export const InputForm = (props: FormProps) => {
         : 0;
     }
 
-    // removes type signifier for forms with multiple types
-    if (props.setModifier)
-      props.setModifier(props.name.replace("_input", ""), modifier);
+    props.setModifier(props.name.replace("_input", ""), modifier);
   }, [value]);
 
   return (

@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { User } from "../api/UserApi";
+import { User } from "../api/AuthApi";
 import { SettingsButton } from "./Buttons";
 
 interface ProfileCardProps {
   user: User | undefined;
+  setActivity: () => void;
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
@@ -104,7 +105,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
             fontSize: pxl * 16,
             fontFamily: "'pxlSmall', monospace",
           }}
-          title={props.user?.current_activity.name}
+          title={props.user?.current_activity?.name ?? undefined}
         >
           activity:
         </div>
@@ -115,10 +116,10 @@ export const ProfileCard = (props: ProfileCardProps) => {
             fontFamily: "'pxlSmall', monospace",
           }}
         >
-          {props.user?.current_activity.name}
+          {props.user?.current_activity?.name ?? ""}
         </div>
       </div>
-      <SettingsButton text="set_activity" onClick={() => {}} />
+      <SettingsButton text="set_activity" onClick={props.setActivity} />
     </div>
   );
 };

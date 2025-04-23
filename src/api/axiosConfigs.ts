@@ -1,5 +1,5 @@
 import axios from "axios";
-import { refreshUser } from "./UserApi";
+import { refreshUser } from "./AuthApi";
 
 export const api = axios.create({
   baseURL: "http://localhost:8000/api",

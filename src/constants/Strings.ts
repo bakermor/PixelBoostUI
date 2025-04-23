@@ -21,6 +21,13 @@ export const Strings: Record<string, string> = {
   in_confirm_password: "Confirm Password",
   in_confirm_password_desc: "Confirm your password",
 
+  in_name: "Name",
+  in_name_desc: "Enter name of activity",
+
+  time_limit: "Time Limit",
+  in_time_limit: "Time Limit",
+  in_time_limit_desc: "Enter run time in minutes",
+
   warn_user: "An account with this username already exists",
   warn_user_pattern: "Username can only contain: A-z, 0-9, _, -",
   warn_email: "Please enter a valid email",
@@ -35,6 +42,11 @@ export const Strings: Record<string, string> = {
   set_activity: "My activities",
   edit_stat: "Take an action",
   complete_action: "Submit",
+  choose_activity: "Set current activity",
+  new_activity: "New activity",
+  new_activity_desc: "Enter the activity details",
+  create_activity: "Create activity",
+  activity_modifiers: "Stat Modifiers",
 
   energy: "Energy",
   hunger: "Hunger",
@@ -45,6 +57,9 @@ export const Strings: Record<string, string> = {
 
   range: "Icons",
   input: "Units",
+
+  inc: "Increase",
+  dec: "Decrease",
 
   eat_food: "Eat some food",
   eat_food_desc: "Select the following options that apply",

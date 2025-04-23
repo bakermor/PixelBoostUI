@@ -5,10 +5,10 @@ import { InputBox } from "./pixel/InputBox";
 interface InputProps {
   name: string;
   type: string;
-  warning: string;
-  value: string;
+  warning?: string;
+  value: any;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur: React.FocusEventHandler<HTMLInputElement> | undefined;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export const Input = (props: InputProps) => {

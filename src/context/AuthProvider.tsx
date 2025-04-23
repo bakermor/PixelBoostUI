@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getCurrentUser, User } from "../api/UserApi";
+import { getCurrentUser, User } from "../api/AuthApi";
 
 interface Auth {
   user: User | undefined;
@@ -28,6 +28,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   const updateAuth = useCallback(async () => {
+    setLoading(true);
     const res = await getCurrentUser();
     if (res.status === 200) setUser(res.user);
     setLoading(false);

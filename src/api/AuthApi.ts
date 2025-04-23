@@ -33,7 +33,7 @@ interface UserLoginRes {
   description?: string;
 }
 
-interface Modifiers {
+export interface Modifiers {
   energy: number | undefined;
   hunger: number | undefined;
   thirst: number | undefined;

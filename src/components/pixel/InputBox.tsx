@@ -15,26 +15,14 @@ export const InputBox = (props: InputBoxProps) => {
           height: pxl * 5,
         }}
       >
-        <div className="flex-1 bg-gray-400" />
-      </div>
-      <div className="w-full flex" style={{ height: pxl * 5 }}>
-        <div className="bg-gray-400" style={{ width: pxl * 5 }} />
-        <div className="flex-1 bg-gray-600" />
-        <div className="bg-gray-400" style={{ width: pxl * 5 }} />
+        <div className="flex-1 bg-gray-500" />
       </div>
       <div className="flex-1 flex">
-        <div className=" bg-gray-400" style={{ width: pxl * 5 }} />
-        <div className=" bg-gray-600" style={{ width: pxl * 5 }} />
+        <div className=" bg-gray-500" style={{ width: pxl * 5 }} />
         <div className="flex-1 flex bg-gray-200" style={{ padding: pxl * 5 }}>
           {props.children}
         </div>
-        <div className="bg-gray-50" style={{ width: pxl * 5 }} />
-        <div className="bg-gray-400" style={{ width: pxl * 5 }} />
-      </div>
-      <div className="w-full flex" style={{ height: pxl * 5 }}>
-        <div className="bg-gray-400" style={{ width: pxl * 5 }} />
-        <div className="flex-1 bg-gray-50" />
-        <div className="bg-gray-400" style={{ width: pxl * 5 }} />
+        <div className="bg-gray-500" style={{ width: pxl * 5 }} />
       </div>
       <div
         className="w-full flex"
@@ -42,7 +30,7 @@ export const InputBox = (props: InputBoxProps) => {
           height: pxl * 5,
         }}
       >
-        <div className="flex-1 bg-gray-400" />
+        <div className="flex-1 bg-gray-500" />
       </div>
     </div>
   );

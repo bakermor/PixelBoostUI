@@ -1,4 +1,6 @@
 import { useContext, useEffect, useState } from "react";
+import { CreateActivityModal } from "../components/activities/CreateActivityModal";
+import { MyActivitiesModal } from "../components/activities/MyActivitiesModal";
 import { AvatarContainer } from "../components/AvatarContainer";
 import { SettingsButton } from "../components/Buttons";
 import { ActionModal } from "../components/Modals";
@@ -18,6 +20,10 @@ const Dashboard = () => {
     setModal("action");
   };
 
+  const setActivity = () => {
+    setModal("my_activities");
+  };
+
   const exitModal = () => {
     setModal(null);
   };
@@ -28,7 +34,17 @@ const Dashboard = () => {
 
   return (
     <div className="h-screen w-screen flex">
-      {modal === "action" ? <ActionModal exit={exitModal} /> : null}
+      {modal === "action" ? (
+        <ActionModal exit={exitModal} />
+      ) : modal === "my_activities" ? (
+        <MyActivitiesModal exit={exitModal} setModal={setModal} />
+      ) : modal === "create_activity" ? (
+        <CreateActivityModal
+          exit={exitModal}
+          setModal={setModal}
+          next="my_activities"
+        />
+      ) : null}
       <SideBar />
       <div className="flex-1 flex" style={{ padding: pxl * 20, gap: 20 }}>
         <div className="flex-1 flex flex-col" style={{ gap: pxl * 15 }}>
@@ -53,7 +69,7 @@ const Dashboard = () => {
           </div>
           <div className="flex-1 bg-gray-200" />
         </div>
-        <ProfileCard user={user} />
+        <ProfileCard user={user} setActivity={setActivity} />
       </div>
     </div>
   );

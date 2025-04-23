@@ -8,17 +8,10 @@ import {
 } from "../constants/ActionConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
+import { allowedStats } from "../constants/StatConstants";
 
 const Action = () => {
   const pxl = window.innerWidth / 1920;
-  const allowedStats = [
-    "energy",
-    "hunger",
-    "thirst",
-    "hygiene",
-    "social",
-    "fun",
-  ];
 
   const { health, loading } = useContext(StatUpdateContext);
   const { user } = useContext(AuthContext);

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getToken } from "../api/UserApi";
+import { getToken } from "../api/AuthApi";
 import { FormButton } from "../components/Buttons";
 import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
@@ -160,7 +160,6 @@ const Login = () => {
               warning={warnings.username}
               value={formData.username}
               onChange={handleChange}
-              onBlur={undefined}
             />
             <Input
               name="password"
@@ -168,7 +167,6 @@ const Login = () => {
               warning={warnings.password}
               value={formData.password}
               onChange={handleChange}
-              onBlur={undefined}
             />
             <div style={{ marginTop: pxl * 10 }}>
               <FormButton text="login" onClick={handleLogin} />

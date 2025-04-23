@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUser, getToken, usernameCheck } from "../api/UserApi";
+import { createUser, getToken, usernameCheck } from "../api/AuthApi";
 import { FormButton } from "../components/Buttons";
 import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";

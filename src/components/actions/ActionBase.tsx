@@ -1,10 +1,12 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PickActions } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
 import { SettingsButton, StatButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
 import { InputForm, RangeForm, SelectForm } from "./ActionFormTypes";
+import { AuthContext } from "../../context/AuthProvider";
+import { updateStat } from "../../api/HealthApi";
 
 interface ActionProps {
   children: ReactNode;
@@ -28,11 +30,24 @@ interface PickActionProps {
 
 export const BaseAction = (props: ActionProps) => {
   const pxl = window.innerWidth / 1920;
+
+  const { user, updateAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const updateLevel = () => {
+  const updateLevel = async () => {
     // update level to level + modifier
     console.log(`new level: ${props.level + props.modifier}`);
+
+    if (user) {
+      const result = await updateStat(user?.id, props.stat, {
+        current_level: props.level + props.modifier,
+        last_updated: Date.now() / 1000,
+      });
+
+      if (result.status === 200) {
+        await updateAuth();
+      }
+    }
     navigate("/dashboard");
   };
 
