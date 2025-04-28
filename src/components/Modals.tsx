@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { Strings } from "../constants/Strings";
-import { ExitModalButton, StatButton } from "./Buttons";
+import { ModalButton, StatButton } from "./Buttons";
 
 interface BaseModalProps {
   children?: ReactNode;
@@ -21,7 +21,7 @@ export const BaseModal = (props: BaseModalProps) => {
       onClick={props.exit}
     >
       <div
-        className="relative flex bg-gray-200"
+        className="flex bg-gray-200 overflow-clip"
         style={{
           width: pxl * 440,
           height: pxl * 720,
@@ -46,7 +46,7 @@ export const ActionModal = (props: ActionModalProps) => {
 
   return (
     <BaseModal {...props}>
-      <ExitModalButton onClick={props.exit} />
+      <ModalButton onClick={props.exit} />
       <div
         className="flex flex-col w-full"
         style={{

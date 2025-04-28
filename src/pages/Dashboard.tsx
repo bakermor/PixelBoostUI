@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CreateActivityModal } from "../components/activities/CreateActivityModal";
-import { MyActivitiesModal } from "../components/activities/MyActivitiesModal";
+import { ActivityModal } from "../components/activities/ActivityModal";
 import { AvatarContainer } from "../components/AvatarContainer";
 import { SettingsButton } from "../components/Buttons";
 import { ActionModal } from "../components/Modals";
@@ -14,6 +13,7 @@ const Dashboard = () => {
   const pxl = window.innerWidth / 1920;
   const { user } = useContext(AuthContext);
   const { health, loading } = useContext(StatUpdateContext);
+
   const [modal, setModal] = useState<string | null>(null);
 
   const doAction = () => {
@@ -21,7 +21,7 @@ const Dashboard = () => {
   };
 
   const setActivity = () => {
-    setModal("my_activities");
+    setModal("activities");
   };
 
   const exitModal = () => {
@@ -36,14 +36,8 @@ const Dashboard = () => {
     <div className="h-screen w-screen flex">
       {modal === "action" ? (
         <ActionModal exit={exitModal} />
-      ) : modal === "my_activities" ? (
-        <MyActivitiesModal exit={exitModal} setModal={setModal} />
-      ) : modal === "create_activity" ? (
-        <CreateActivityModal
-          exit={exitModal}
-          setModal={setModal}
-          next="my_activities"
-        />
+      ) : modal === "activities" ? (
+        <ActivityModal exit={exitModal} />
       ) : null}
       <SideBar />
       <div className="flex-1 flex" style={{ padding: pxl * 20, gap: 20 }}>

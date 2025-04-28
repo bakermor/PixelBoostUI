@@ -35,7 +35,7 @@ export const RangeContainer = (props: RangeContainerProps) => {
       <button
         className={`${
           props.focused ? "bg-gray-400" : "bg-gray-200"
-        } flex items-end justify-center cursor-pointer`}
+        } hover:bg-gray-400 flex items-end justify-center cursor-pointer`}
         style={{ width: pxl * 105, height: pxl * 105, padding: pxl * 10 }}
         name={props.name}
         onClick={props.onClick}
@@ -66,7 +66,7 @@ export const MidRangeContainer = (props: RangeContainerProps) => {
     <button
       className={`${
         props.focused ? "bg-gray-400" : "bg-gray-300"
-      } cursor-pointer`}
+      } hover:bg-gray-400 cursor-pointer`}
       style={{ width: pxl * 75, height: pxl * 75, marginTop: pxl * 20 }}
       name={props.name}
       onClick={props.onClick}
@@ -82,7 +82,7 @@ export const SelectContainer = (props: SelectContainerProps) => {
 
   return (
     <button
-      className={`flex-1 flex flex-col items-center justify-end cursor-pointer ${
+      className={`flex-1 flex flex-col items-center justify-end cursor-pointer hover:bg-gray-400 ${
         props.focused ? "bg-gray-400" : "bg-gray-200"
       }`}
       style={{ maxWidth: pxl * 140, padding: pxl * 8, gap: pxl * 5 }}

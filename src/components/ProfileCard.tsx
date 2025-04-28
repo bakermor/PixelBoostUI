@@ -119,7 +119,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
           {props.user?.current_activity?.name ?? ""}
         </div>
       </div>
-      <SettingsButton text="set_activity" onClick={props.setActivity} />
+      <SettingsButton text="my_activity" onClick={props.setActivity} />
     </div>
   );
 };

@@ -1,22 +1,31 @@
 import { useState } from "react";
+import { createActivity } from "../../api/ActivitiesApi";
+import { Activity } from "../../api/AuthApi";
 import { allowedStats } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
-import { AddNewButton, ExitModalButton, SettingsButton } from "../Buttons";
+import { AddNewButton, ModalButton, SettingsButton } from "../Buttons";
 import { Input } from "../Input";
-import { BaseModal } from "../Modals";
 import { StatModifier } from "./StatModifier";
-import { createActivity } from "../../api/ActivitiesApi";
 
 interface ModalProps {
   exit: React.MouseEventHandler<HTMLButtonElement>;
   setModal: (name: string) => void;
-  next: string;
+  nav: {
+    prev: string;
+    goBack: () => void;
+  };
+  state: {
+    activities: Activity[] | undefined;
+    current: Activity | undefined;
+    setActivities: (data: Activity[] | undefined) => void;
+    setCurrent: (data: Activity | undefined) => void;
+  };
 }
 
 export const CreateActivityModal = (props: ModalProps) => {
   const pxl = window.innerWidth / 1920;
 
-  const [chooseStat, setChooseStat] = useState(false);
+  const [openDropdown, setDropdown] = useState(false);
 
   const [statModifiers, setStatModifiers] = useState<string[]>([]);
   const [formData, setFormData] = useState<{
@@ -49,7 +58,7 @@ export const CreateActivityModal = (props: ModalProps) => {
   const addModifier = (stat: string) => {
     if (allowedStats.includes(stat)) {
       setStatModifiers([...statModifiers, stat]);
-      setChooseStat(false);
+      setDropdown(false);
     }
   };
 
@@ -62,13 +71,22 @@ export const CreateActivityModal = (props: ModalProps) => {
       ),
     });
     if (result.status === 200) {
-      props.setModal(props.next);
+      // TODO: add activity from result to activities
+      // If previous modal was "set", display created activity in dropdown
+      if (props.nav.prev === "set") props.state.setCurrent(result.activity);
+      if (result.activity)
+        props.state.setActivities([
+          ...(props.state.activities ?? []),
+          result.activity,
+        ]);
+      props.nav.goBack();
     }
   };
 
   return (
-    <BaseModal {...props}>
-      <ExitModalButton onClick={props.exit} />
+    <div className="flex-1 flex relative">
+      <ModalButton onClick={props.nav.goBack} right={52 * pxl} />
+      <ModalButton onClick={props.exit} />
       <div
         className="flex flex-col w-full"
         style={{
@@ -124,7 +142,7 @@ export const CreateActivityModal = (props: ModalProps) => {
             </div>
             <AddNewButton
               onClick={() => {
-                setChooseStat(!chooseStat);
+                setDropdown(!openDropdown);
               }}
             />
           </div>
@@ -133,7 +151,7 @@ export const CreateActivityModal = (props: ModalProps) => {
             style={{ height: pxl * 5 }}
           />
           <div className="flex-1 flex relative">
-            {chooseStat ? (
+            {openDropdown ? (
               <StatDropdown
                 onClick={addModifier}
                 options={allowedStats.filter(
@@ -163,7 +181,7 @@ export const CreateActivityModal = (props: ModalProps) => {
         </div>
         <SettingsButton text="create_activity" onClick={handleCreate} />
       </div>
-    </BaseModal>
+    </div>
   );
 };
 

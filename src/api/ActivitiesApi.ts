@@ -15,6 +15,11 @@ interface CreateActivityReq {
 
 interface CreateActivityRes {
   status: number;
+  activity?: Activity;
+}
+
+interface DeleteActivityRes {
+  status: number;
 }
 
 export async function getActivities(): Promise<GetActivitiesRes> {
@@ -34,6 +39,35 @@ export async function createActivity(
 ): Promise<CreateActivityRes> {
   try {
     const res = await api.post("/activities", body);
+    return { status: res.status, activity: res.data };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return { status: error.status ? error.status : 500 };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function updateActivity(
+  id: string,
+  body: Partial<CreateActivityReq>
+) {
+  try {
+    const res = await api.patch(`/activities/${id}`, body);
+    console.log(res);
+    return { status: res.status, activity: res.data };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return { status: error.status ? error.status : 500 };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function deleteActivity(id: string): Promise<DeleteActivityRes> {
+  try {
+    const res = await api.delete(`/activities/${id}`);
+    console.log(res);
     return { status: res.status };
   } catch (error) {
     if (error instanceof AxiosError) {

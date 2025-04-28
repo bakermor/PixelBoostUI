@@ -6,9 +6,9 @@ import {
   ActionComponentStat,
   ActionComponents,
 } from "../constants/ActionConstants";
+import { allowedStats } from "../constants/StatConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
-import { allowedStats } from "../constants/StatConstants";
 
 const Action = () => {
   const pxl = window.innerWidth / 1920;

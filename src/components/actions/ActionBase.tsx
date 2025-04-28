@@ -1,12 +1,12 @@
 import { ReactNode, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateStat } from "../../api/HealthApi";
 import { PickActions } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
+import { AuthContext } from "../../context/AuthProvider";
 import { SettingsButton, StatButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
 import { InputForm, RangeForm, SelectForm } from "./ActionFormTypes";
-import { AuthContext } from "../../context/AuthProvider";
-import { updateStat } from "../../api/HealthApi";
 
 interface ActionProps {
   children: ReactNode;

@@ -4,11 +4,15 @@ import { SubmitButton } from "./pixel/SubmitButton";
 interface ButtonProps {
   name?: string;
   text: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<any>;
+  icon?: {
+    onClick: () => void;
+  };
 }
 
 interface IconButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<any>;
+  right?: number;
 }
 
 export const FormButton = (props: ButtonProps) => {
@@ -99,20 +103,21 @@ export const ActionButton = (props: ButtonProps) => {
 
   return (
     <button
-      className="w-full bg-gray-300 hover:bg-gray-400 items-center cursor-pointer text-gray-500 hover:text-gray-600"
+      className="w-full overflow-clip group bg-gray-300 hover:bg-gray-400 items-center cursor-pointer"
       style={{ marginLeft: pxl * 5, marginRight: pxl * 5 }}
       onClick={props.onClick}
     >
       <div
-        className="w-full flex items-center"
+        className="flex-1 flex items-center justify-between"
         style={{
           paddingLeft: pxl * 15,
           paddingRight: pxl * 15,
           height: pxl * 50,
+          gap: pxl * 10,
         }}
       >
         <div
-          className="w-full flex whitespace-nowrap overflow-clip leading-none "
+          className="w-full flex whitespace-nowrap overflow-clip leading-none text-gray-500 group-hover:text-gray-600"
           style={{
             height: pxl * 18,
             fontSize: pxl * 16,
@@ -121,6 +126,7 @@ export const ActionButton = (props: ButtonProps) => {
         >
           {props.text}
         </div>
+        {props.icon ? <SmallSquareButton onClick={props.icon.onClick} /> : null}
       </div>
     </button>
   );
@@ -150,14 +156,14 @@ export const SwitchFormButton = (props: ButtonProps) => {
   );
 };
 
-export const ExitModalButton = (props: IconButtonProps) => {
+export const ModalButton = (props: IconButtonProps) => {
   const pxl = window.innerWidth / 1920;
 
   return (
     <button
       className="bg-gray-300 hover:bg-gray-400 absolute cursor-pointer"
       style={{
-        right: pxl * 5,
+        right: props.right ?? pxl * 5,
         top: pxl * 5,
         width: pxl * 40,
         height: pxl * 40,
@@ -179,5 +185,44 @@ export const AddNewButton = (props: IconButtonProps) => {
       }}
       onClick={props.onClick}
     />
+  );
+};
+
+export const SmallSquareButton = (props: IconButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  return (
+    <div
+      className="bg-gray-400 group-hover:bg-gray-500 cursor-pointer"
+      style={{
+        width: pxl * 30,
+        height: pxl * 30,
+      }}
+      onClick={props.onClick}
+    />
+  );
+};
+
+export const ConfirmDeleteButton = (props: ButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  return (
+    <button
+      className="w-full bg-gray-300 hover:bg-gray-400 items-center cursor-pointer"
+      onClick={props.onClick}
+    >
+      <div className="w-full flex items-center" style={{ height: pxl * 40 }}>
+        <div
+          className="w-full flex leading-none justify-center text-gray-500"
+          style={{
+            height: pxl * 18,
+            fontSize: pxl * 16,
+            fontFamily: "'pxlSmall', monospace",
+          }}
+        >
+          {Strings[props.text]}
+        </div>
+      </div>
+    </button>
   );
 };
