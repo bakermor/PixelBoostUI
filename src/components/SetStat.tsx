@@ -82,9 +82,6 @@ const DragStat = (props: DragStatProps) => {
     const rect = containerRef.current.getBoundingClientRect();
     setOffset(e.clientX - rect.left - width);
     setIsDragging(true);
-
-    e.preventDefault();
-    e.stopPropagation();
   };
 
   const onMouseMove = (e: MouseEvent) => {
@@ -115,7 +112,7 @@ const DragStat = (props: DragStatProps) => {
 
   return (
     <div
-      className="flex border-gray-500 bg-gray-200 cursor-pointer overflow-clip relative"
+      className="flex border-gray-500 bg-gray-200 overflow-clip relative"
       style={{ width: pxl * 820, height: pxl * 50, borderWidth: pxl * 5 }}
       ref={containerRef}
     >

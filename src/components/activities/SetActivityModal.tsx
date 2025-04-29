@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { startActivity } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
+import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
+import { AuthContext } from "../../context/AuthProvider";
+import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { ModalButton, SettingsButton } from "../Buttons";
 import { StatModifier } from "./StatModifier";
 
 interface ModalProps {
-  exit: React.MouseEventHandler<HTMLButtonElement>;
+  exit: () => void;
   setModal: (name: string) => void;
   nav: {
     setPrev: (prev: string) => void;
@@ -21,6 +25,8 @@ interface ModalProps {
 
 export const SetActivityModal = (props: ModalProps) => {
   const pxl = window.innerWidth / 1920;
+  const { health, loading } = useContext(StatUpdateContext);
+  const { updateAuth } = useContext(AuthContext);
 
   const [openDropdown, setDropdown] = useState(false);
 
@@ -34,12 +40,46 @@ export const SetActivityModal = (props: ModalProps) => {
     props.setModal("create");
   };
 
-  const handleSubmit = () => {
-    // TODO: api call update levels
-    // TODO: api call start activity
-    props.state.setCurrent(undefined);
-    props.nav.setPrev("");
-    props.setModal("all");
+  const handleSubmit = async () => {
+    // Update levels first so there is no conflict with the activity modifiers
+    if (!loading && health && props.state.current) {
+      const update = await updateHealth({
+        energy: {
+          current_level: health.energy,
+          last_updated: Date.now() / 1000,
+        },
+        hunger: {
+          current_level: health.hunger,
+          last_updated: Date.now() / 1000,
+        },
+        thirst: {
+          current_level: health.thirst,
+          last_updated: Date.now() / 1000,
+        },
+        fun: {
+          current_level: health.fun,
+          last_updated: Date.now() / 1000,
+        },
+        social: {
+          current_level: health.social,
+          last_updated: Date.now() / 1000,
+        },
+        hygiene: {
+          current_level: health.hygiene,
+          last_updated: Date.now() / 1000,
+        },
+      });
+
+      // Start Activity
+      const result = await startActivity(props.state.current.id, {
+        start_time: Date.now() / 1000,
+      });
+
+      if (update.status === 200 && result.status === 204) {
+        props.exit();
+        await updateAuth();
+      }
+    }
   };
 
   return (

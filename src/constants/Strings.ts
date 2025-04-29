@@ -1,33 +1,66 @@
 export const Strings: Record<string, string> = {
-  signup_title: "Sign up",
-  signup_desc: "Welcome to Pixel Boost - Let's create an account",
-  login_prompt: "Already have an account?",
+  // PAGE TITLES and descriptions
+  create_activity: "Create activity",
+
+  do_action: "Do an action",
+  do_action_desc: "Choose the stat to increase",
+
+  edit_activity: "Edit activity",
 
   login_title: "Welcome back!",
   login_desc: "Enter your username and password to continue",
+  login_prompt: "Already have an account?",
+
+  new_activity: "New activity",
+  new_activity_desc: "Enter the activity details",
+
+  set_activity: "Set activity",
+  set_activity_desc: "Choose an activity from the dropdown",
+  set_activity_placeholder: "Choose activity",
+
+  set_levels: "Set stat levels",
+  set_levels_desc:
+    "Click the buttons to increase and decrease or click and drag to set each level",
+
+  signup_title: "Sign up",
+  signup_desc: "Welcome to Pixel Boost - Let's create an account",
   signup_prompt: "Don't have an account?",
 
+  activity_modifiers: "Stat Modifiers",
+
+  // BUTTONS
   signup: "Sign up",
   create_account: "Create account",
   login: "Login",
   continue: "Continue",
+  time_limit: "Time Limit",
+  my_activity: "My activities",
+  edit_stat: "Take an action",
+  complete_action: "Submit",
+  choose_activity: "Set current activity",
+  delete: "Delete",
+  cancel: "Cancel",
+  update: "Update",
+  submit: "Submit",
+  fill_all: "Fill All",
 
-  in_username: "Username",
-  in_username_desc: "Enter your username",
-  in_email: "Email",
-  in_email_desc: "Enter your email",
-  in_password: "Password",
-  in_password_desc: "Enter your password",
+  // INPUT box title and placeholders
   in_confirm_password: "Confirm Password",
   in_confirm_password_desc: "Confirm your password",
-
+  in_email: "Email",
+  in_email_desc: "Enter your email",
   in_name: "Name",
   in_name_desc: "Enter name of activity",
-
-  time_limit: "Time Limit",
+  in_password: "Password",
+  in_password_desc: "Enter your password",
   in_time_limit: "Time Limit",
   in_time_limit_desc: "Enter run time in minutes",
+  in_username: "Username",
+  in_username_desc: "Enter your username",
 
+  create_act_drop: "Create new activity...",
+
+  // WARNINGS
   warn_user: "An account with this username already exists",
   warn_user_pattern: "Username can only contain: A-z, 0-9, _, -",
   warn_email: "Please enter a valid email",
@@ -35,32 +68,6 @@ export const Strings: Record<string, string> = {
   warn_user_invalid: "Invalid username or password",
 
   required: " is required",
-
-  do_action: "Do an action",
-  do_action_desc: "Choose the stat to increase",
-
-  my_activity: "My activities",
-  edit_stat: "Take an action",
-  complete_action: "Submit",
-  choose_activity: "Set current activity",
-  new_activity: "New activity",
-  new_activity_desc: "Enter the activity details",
-  edit_activity: "Edit activity",
-  set_activity: "Set activity",
-  set_activity_desc: "Choose an activity from the dropdown",
-  set_activity_placeholder: "Choose activity",
-  create_activity: "Create activity",
-  create_act_drop: "Create new activity...",
-  activity_modifiers: "Stat Modifiers",
-  set_levels: "Set stat levels",
-  set_levels_desc:
-    "Click the buttons to increase and decrease or click and drag to set each level",
-
-  delete: "Delete",
-  cancel: "Cancel",
-  update: "Update",
-  fill_all: "Fill All",
-
   level_display: " / 100",
 
   energy: "Energy",
@@ -70,9 +77,9 @@ export const Strings: Record<string, string> = {
   social: "Social",
   hygiene: "Hygiene",
 
+  // ACTIONS
   range: "Icons",
   input: "Units",
-
   inc: "Increase",
   dec: "Decrease",
 

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ActivityModal } from "../components/activities/ActivityModal";
-import { AvatarContainer } from "../components/AvatarContainer";
+import { AvatarContainer } from "../components/avatar/AvatarContainer";
 import { SettingsButton } from "../components/Buttons";
 import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
@@ -8,7 +9,6 @@ import { SideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
-import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const pxl = window.innerWidth / 1920;

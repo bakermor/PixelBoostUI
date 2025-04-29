@@ -16,15 +16,14 @@ const Stat = (props: LabeledStatProps) => {
   const pxl = window.innerWidth / 1920;
   return (
     <div
-      className="w-full flex bg-gray-600 overflow-clip"
-      style={{ height: pxl * 35, padding: pxl * 3 }}
+      className="w-full flex border-gray-600 bg-gray-300 overflow-clip"
+      style={{ height: pxl * 35, borderWidth: pxl * 3 }}
       title={`${props.name}: ${props.level}`}
     >
       <div
         className="bg-gray-500"
         style={{ width: Math.floor((props.level / 100) * 337) * pxl }}
       ></div>
-      <div className="flex-1 bg-gray-300"></div>
     </div>
   );
 };

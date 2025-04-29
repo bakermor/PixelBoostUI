@@ -192,14 +192,19 @@ export const AddNewButton = (props: IconButtonProps) => {
 export const SmallSquareButton = (props: IconButtonProps) => {
   const pxl = window.innerWidth / 1920;
 
+  const handleClick = (e: React.MouseEvent<any>) => {
+    e.stopPropagation();
+    props.onClick(e);
+  };
+
   return (
     <div
-      className="bg-gray-400 group-hover:bg-gray-500 cursor-pointer"
+      className="bg-gray-400 group-hover:bg-gray-500 hover:bg-gray-600 cursor-pointer"
       style={{
         width: pxl * 30,
         height: pxl * 30,
       }}
-      onClick={props.onClick}
+      onClick={handleClick}
     />
   );
 };

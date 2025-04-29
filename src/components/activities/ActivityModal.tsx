@@ -7,7 +7,7 @@ import { SetActivityModal } from "./SetActivityModal";
 import { UpdateActivityModal } from "./UpdateActivityModal";
 
 interface ModalProps {
-  exit: React.MouseEventHandler<HTMLButtonElement>;
+  exit: () => void;
 }
 
 export const ActivityModal = (props: ModalProps) => {
