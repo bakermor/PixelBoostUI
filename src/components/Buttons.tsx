@@ -13,6 +13,7 @@ interface ButtonProps {
 interface IconButtonProps {
   onClick: React.MouseEventHandler<any>;
   right?: number;
+  disabled?: boolean;
 }
 
 export const FormButton = (props: ButtonProps) => {
@@ -214,6 +215,50 @@ export const ConfirmDeleteButton = (props: ButtonProps) => {
       <div className="w-full flex items-center" style={{ height: pxl * 40 }}>
         <div
           className="w-full flex leading-none justify-center text-gray-500"
+          style={{
+            height: pxl * 18,
+            fontSize: pxl * 16,
+            fontFamily: "'pxlSmall', monospace",
+          }}
+        >
+          {Strings[props.text]}
+        </div>
+      </div>
+    </button>
+  );
+};
+
+export const SquareButton = (props: IconButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  return (
+    <button
+      className={`${
+        props.disabled
+          ? "bg-gray-400"
+          : "bg-gray-500 hover:bg-gray-600 cursor-pointer"
+      }`}
+      style={{
+        width: pxl * 46,
+        height: pxl * 46,
+      }}
+      onClick={props.onClick}
+    />
+  );
+};
+
+export const SmallRectButton = (props: ButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  return (
+    <button
+      className="group w-full bg-gray-300 hover:bg-gray-400 items-center cursor-pointer"
+      onClick={props.onClick}
+      name={props.text}
+    >
+      <div className="w-full flex items-center" style={{ height: pxl * 30 }}>
+        <div
+          className="w-full flex leading-none justify-center text-gray-500 group-hover:text-gray-200"
           style={{
             height: pxl * 18,
             fontSize: pxl * 16,

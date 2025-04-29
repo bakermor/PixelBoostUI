@@ -39,7 +39,7 @@ export const BaseAction = (props: ActionProps) => {
     console.log(`new level: ${props.level + props.modifier}`);
 
     if (user) {
-      const result = await updateStat(user?.id, props.stat, {
+      const result = await updateStat(props.stat, {
         current_level: props.level + props.modifier,
         last_updated: Date.now() / 1000,
       });

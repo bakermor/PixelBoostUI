@@ -22,7 +22,7 @@ const Stat = (props: LabeledStatProps) => {
     >
       <div
         className="bg-gray-500"
-        style={{ width: Math.floor((props.level / 100) * (337 * pxl)) }}
+        style={{ width: Math.floor((props.level / 100) * 337) * pxl }}
       ></div>
       <div className="flex-1 bg-gray-300"></div>
     </div>

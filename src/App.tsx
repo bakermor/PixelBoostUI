@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import NewUser from "./pages/NewUser";
+import SetLevels from "./pages/SetLevels";
 import SignUp from "./pages/SignUp";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
 
               <Route element={<ProtectedRoute />}>
                 <Route path="dashboard" element={<Dashboard />} />
+                <Route path="set-levels" element={<SetLevels />} />
                 <Route path="action" element={<Action />} />
               </Route>
             </Route>

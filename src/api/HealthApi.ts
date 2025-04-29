@@ -1,11 +1,10 @@
 import { AxiosError } from "axios";
-import { api } from "./axiosConfigs";
 import { Health } from "./AuthApi";
+import { api } from "./axiosConfigs";
 
 interface UpdateStatReq {
-  current_level?: number;
-  equation?: number[];
-  last_updated?: number;
+  current_level: number;
+  last_updated: number;
 }
 
 interface UpdateStatRes {
@@ -13,13 +12,34 @@ interface UpdateStatRes {
   health?: Health;
 }
 
+export interface UpdateHealthReq {
+  energy: UpdateStatReq;
+  hunger: UpdateStatReq;
+  thirst: UpdateStatReq;
+  fun: UpdateStatReq;
+  social: UpdateStatReq;
+  hygiene: UpdateStatReq;
+}
+
 export async function updateStat(
-  id: string,
   stat: string,
   body: UpdateStatReq
 ): Promise<UpdateStatRes> {
   try {
-    const res = await api.patch(`/health/${id}/${stat}`, body);
+    const res = await api.patch(`/health/${stat}`, body);
+    if (res.status === 200) return { status: res.status, health: res.data };
+    return { status: res.status };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return { status: error.status ? error.status : 500 };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function updateHealth(body: UpdateHealthReq) {
+  try {
+    const res = await api.patch("/health/", body);
     if (res.status === 200) return { status: res.status, health: res.data };
     return { status: res.status };
   } catch (error) {

@@ -52,10 +52,16 @@ export const Strings: Record<string, string> = {
   create_activity: "Create activity",
   create_act_drop: "Create new activity...",
   activity_modifiers: "Stat Modifiers",
+  set_levels: "Set stat levels",
+  set_levels_desc:
+    "Click the buttons to increase and decrease or click and drag to set each level",
 
   delete: "Delete",
   cancel: "Cancel",
   update: "Update",
+  fill_all: "Fill All",
+
+  level_display: " / 100",
 
   energy: "Energy",
   hunger: "Hunger",

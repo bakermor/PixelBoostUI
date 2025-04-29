@@ -8,11 +8,14 @@ import { SideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const pxl = window.innerWidth / 1920;
   const { user } = useContext(AuthContext);
   const { health, loading } = useContext(StatUpdateContext);
+
+  const navigate = useNavigate();
 
   const [modal, setModal] = useState<string | null>(null);
 
@@ -57,7 +60,12 @@ const Dashboard = () => {
               }}
             >
               <SettingsButton text="edit_stat" onClick={doAction} />
-              <SettingsButton text="" onClick={() => {}} />
+              <SettingsButton
+                text="set_levels"
+                onClick={() => {
+                  navigate("/set-levels");
+                }}
+              />
               <SettingsButton text="" onClick={() => {}} />
             </div>
           </div>
