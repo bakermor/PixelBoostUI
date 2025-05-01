@@ -31,6 +31,7 @@ const SetLevels = () => {
         ? -health[stat as keyof typeof health]
         : modifiers[stat] + value;
 
+    console.log(modifiers);
     setModifiers({
       ...modifiers,
       [stat]: newValue,
@@ -133,17 +134,13 @@ const SetLevels = () => {
             <div className="flex" key={stat} style={{ paddingBottom: pxl * 5 }}>
               <SetStat
                 stat={stat}
-                level={
-                  health[stat as keyof typeof health]
-                    ? Math.min(
-                        Math.max(
-                          health[stat as keyof typeof health] + modifiers[stat],
-                          0
-                        ),
-                        100
-                      )
-                    : 0
-                }
+                level={Math.min(
+                  Math.max(
+                    health[stat as keyof typeof health] + modifiers[stat],
+                    0
+                  ),
+                  100
+                )}
                 onClick={updateMod}
               />
             </div>

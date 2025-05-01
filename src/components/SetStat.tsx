@@ -21,6 +21,8 @@ interface LevelDisplayProps {
 export const SetStat = (props: Props) => {
   const pxl = window.innerWidth / 1920;
 
+  useEffect(() => {}, [props]);
+
   return (
     <div className="w-full flex flex-col" style={{ gap: pxl * 20 }}>
       <div className="w-full flex items-center" style={{ gap: pxl * 50 }}>
@@ -119,7 +121,7 @@ const DragStat = (props: DragStatProps) => {
       <div
         className="bg-gray-400 h-full"
         style={{
-          width: Math.floor((props.level / 100) * 810) * pxl,
+          width: width,
           position: "absolute",
           left: 0,
           top: 0,
