@@ -2,37 +2,6 @@ import { AxiosError } from "axios";
 import { Strings } from "../constants/Strings";
 import { api } from "./axiosConfigs";
 
-interface CreateUserReq {
-  username: string;
-  email: string;
-  password: string;
-}
-
-interface CreateUserRes {
-  status: number | undefined;
-  field?: string;
-  description?: string;
-}
-
-interface UsernameCheckReq {
-  username: string;
-}
-
-interface UsernameCheckRes {
-  status: boolean;
-  description?: string;
-}
-
-interface UserLoginReq {
-  username: string;
-  password: string;
-}
-
-interface UserLoginRes {
-  status: number | undefined;
-  description?: string;
-}
-
 export interface Modifiers {
   energy: number | undefined;
   hunger: number | undefined;
@@ -74,9 +43,39 @@ export interface User {
   health: Health;
 }
 
+interface BaseRes {
+  status: number;
+  field?: string;
+  description?: string;
+}
+
+interface CreateUserReq {
+  username: string;
+  email: string;
+  password: string;
+}
+
+interface UsernameCheckReq {
+  username: string;
+}
+
+interface UsernameCheckRes {
+  status: boolean;
+  description?: string;
+}
+
+interface UserLoginReq {
+  username: string;
+  password: string;
+}
+
 interface CurrentUserRes {
-  status: number | undefined;
+  status: number;
   user?: User;
+}
+
+interface UpdateUserReq {
+  name: string;
 }
 
 export async function usernameCheck(
@@ -108,7 +107,7 @@ export async function usernameCheck(
   }
 }
 
-export async function createUser(body: CreateUserReq): Promise<CreateUserRes> {
+export async function createUser(body: CreateUserReq): Promise<BaseRes> {
   try {
     const res = await api.post("/users/register", body);
     return { status: res.status };
@@ -124,13 +123,13 @@ export async function createUser(body: CreateUserReq): Promise<CreateUserRes> {
           description: message.replace("Value error, ", ""),
         };
       }
-      return { status: error.status };
+      return { status: error.status ?? 500 };
     }
     return { status: 500 };
   }
 }
 
-export async function getToken(body: UserLoginReq): Promise<UserLoginRes> {
+export async function getToken(body: UserLoginReq): Promise<BaseRes> {
   const encodedBody = new URLSearchParams();
   encodedBody.append("username", body.username);
   encodedBody.append("password", body.password);
@@ -169,7 +168,22 @@ export async function getCurrentUser(): Promise<CurrentUserRes> {
     return { status: res.status, user: res.data };
   } catch (error) {
     if (error instanceof AxiosError) {
-      return { status: error.status };
+      return { status: error.status ?? 500 };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function updateUser(
+  id: string,
+  body: UpdateUserReq
+): Promise<BaseRes> {
+  try {
+    const res = await api.patch(`/users/${id}`, body);
+    return { status: res.status };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return { status: error.status ?? 500 };
     }
     return { status: 500 };
   }

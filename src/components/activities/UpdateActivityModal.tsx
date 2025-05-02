@@ -12,6 +12,7 @@ interface ModalProps {
   setModal: (name: string) => void;
   nav: {
     prev: string;
+    setPrev: (name: string) => void;
     goBack: () => void;
   };
   state: {
@@ -69,6 +70,11 @@ export const UpdateActivityModal = (props: ModalProps) => {
       setStatModifiers([...statModifiers, stat]);
       setDropdown(false);
     }
+  };
+
+  const handleSet = () => {
+    props.nav.setPrev("all");
+    props.setModal("set");
   };
 
   const handleCreate = async () => {
@@ -145,12 +151,18 @@ export const UpdateActivityModal = (props: ModalProps) => {
             {Strings.new_activity_desc}
           </div>
         </div>
-        <Input
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleChange}
-        />
+        <div className="flex flex-col w-full relative">
+          <div className="absolute right-0">
+            <AddNewButton onClick={handleSet} />
+          </div>
+
+          <Input
+            name="name"
+            type="text"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
         <div
           className="flex-1 flex flex-col"
           style={{ marginTop: pxl * 15, gap: pxl * 10 }}

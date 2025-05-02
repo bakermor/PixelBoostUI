@@ -18,6 +18,9 @@ export const Strings: Record<string, string> = {
   set_activity_desc: "Choose an activity from the dropdown",
   set_activity_placeholder: "Choose activity",
 
+  current_activity: "Activity",
+  current_activity_desc: "Set or stop your current activity",
+
   set_levels: "Set stat levels",
   set_levels_desc:
     "Click the buttons to increase and decrease or click and drag to set each level",
@@ -35,9 +38,11 @@ export const Strings: Record<string, string> = {
   continue: "Continue",
   time_limit: "Time Limit",
   my_activity: "My activities",
+  now_activity: "Current activity",
   edit_stat: "Take an action",
   complete_action: "Submit",
   choose_activity: "Set current activity",
+  stop_activity: "Stop activity",
   delete: "Delete",
   cancel: "Cancel",
   update: "Update",
@@ -49,14 +54,15 @@ export const Strings: Record<string, string> = {
   in_confirm_password_desc: "Confirm your password",
   in_email: "Email",
   in_email_desc: "Enter your email",
-  in_name: "Name",
-  in_name_desc: "Enter name of activity",
+  in_act_name: "Name",
+  in_act_name_desc: "Enter name of activity",
   in_password: "Password",
   in_password_desc: "Enter your password",
   in_time_limit: "Time Limit",
   in_time_limit_desc: "Enter run time in minutes",
   in_username: "Username",
   in_username_desc: "Enter your username",
+  in_name_desc: "Enter your name",
 
   create_act_drop: "Create new activity...",
 
@@ -69,6 +75,7 @@ export const Strings: Record<string, string> = {
 
   required: " is required",
   level_display: " / 100",
+  activity: "activity:",
 
   energy: "Energy",
   hunger: "Hunger",

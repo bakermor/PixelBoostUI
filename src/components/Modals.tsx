@@ -21,7 +21,7 @@ export const BaseModal = (props: BaseModalProps) => {
       onClick={props.exit}
     >
       <div
-        className="flex bg-gray-200 overflow-clip"
+        className="flex bg-gray-200 overflow-clip relative"
         style={{
           width: pxl * 440,
           height: pxl * 720,

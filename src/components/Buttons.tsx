@@ -209,6 +209,26 @@ export const SmallSquareButton = (props: IconButtonProps) => {
   );
 };
 
+export const CardEditButton = (props: IconButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  const handleClick = (e: React.MouseEvent<any>) => {
+    e.stopPropagation();
+    props.onClick(e);
+  };
+
+  return (
+    <div
+      className="bg-gray-500 hover:bg-gray-400 cursor-pointer"
+      style={{
+        width: pxl * 36,
+        height: pxl * 36,
+      }}
+      onClick={handleClick}
+    />
+  );
+};
+
 export const ConfirmDeleteButton = (props: ButtonProps) => {
   const pxl = window.innerWidth / 1920;
 

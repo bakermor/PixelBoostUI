@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getActivities } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
 import { BaseModal } from "../Modals";
+import { CurrentActivityModal } from "./CurrentActivityModal";
 import { MyActivitiesModal } from "./MyActivitiesModal";
 import { SetActivityModal } from "./SetActivityModal";
 import { UpdateActivityModal } from "./UpdateActivityModal";
@@ -49,7 +50,7 @@ export const ActivityModal = (props: ModalProps) => {
       ) : modal === "create" ? (
         <UpdateActivityModal
           {...modalProps}
-          nav={{ prev, goBack }}
+          nav={{ prev, setPrev, goBack }}
           state={{
             activities,
             current: undefined,
@@ -60,7 +61,7 @@ export const ActivityModal = (props: ModalProps) => {
       ) : modal === "edit" ? (
         <UpdateActivityModal
           {...modalProps}
-          nav={{ prev, goBack }}
+          nav={{ prev, setPrev, goBack }}
           state={{
             activities,
             current,
@@ -70,6 +71,12 @@ export const ActivityModal = (props: ModalProps) => {
         />
       ) : modal === "set" ? (
         <SetActivityModal
+          {...modalProps}
+          nav={{ setPrev, goBack }}
+          state={{ activities, current, setActivities, setCurrent }}
+        />
+      ) : modal === "current" ? (
+        <CurrentActivityModal
           {...modalProps}
           nav={{ setPrev, goBack }}
           state={{ activities, current, setActivities, setCurrent }}

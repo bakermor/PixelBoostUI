@@ -23,7 +23,7 @@ const Dashboard = () => {
     setModal("action");
   };
 
-  const setActivity = () => {
+  const doActivity = () => {
     setModal("activities");
   };
 
@@ -71,7 +71,7 @@ const Dashboard = () => {
           </div>
           <div className="flex-1 bg-gray-200" />
         </div>
-        <ProfileCard user={user} setActivity={setActivity} />
+        <ProfileCard user={user} setModal={doActivity} />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { deleteActivity } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
 import { Strings } from "../../constants/Strings";
 import {
@@ -7,7 +8,6 @@ import {
   ConfirmDeleteButton,
   SettingsButton,
 } from "../Buttons";
-import { deleteActivity } from "../../api/ActivitiesApi";
 
 interface ModalProps {
   exit: React.MouseEventHandler<HTMLButtonElement>;
@@ -74,9 +74,9 @@ export const MyActivitiesModal = (props: ModalProps) => {
           style={{ marginLeft: pxl * 5, marginRight: pxl * 5 }}
         >
           <SettingsButton
-            text="choose_activity"
+            text="now_activity"
             onClick={() => {
-              nextModal("set");
+              nextModal("current");
             }}
           />
         </div>
