@@ -35,6 +35,9 @@ export const Strings: Record<string, string> = {
   set_username: "Change Username",
   set_email: "Change Email",
   set_password: "Change Password",
+  edit_decay: "Modify Decay Functions",
+  edit_decay_desc:
+    "Select an option to make your stats decrease faster or slower",
 
   // BUTTONS
   signup: "Sign up",
@@ -57,6 +60,7 @@ export const Strings: Record<string, string> = {
   sec_profile: "Profile",
   sec_stat: "Stats",
   settings: "Settings",
+  edit_equations: "Edit decay speed",
 
   // INPUT box title and placeholders
   in_confirm_password: "Confirm Password",
@@ -104,6 +108,8 @@ export const Strings: Record<string, string> = {
   input: "Units",
   inc: "Increase",
   dec: "Decrease",
+  dec_fast: "Decay Faster",
+  dec_slow: "Decay Slower",
 
   eat_food: "Eat some food",
   eat_food_desc: "Select the following options that apply",

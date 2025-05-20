@@ -66,7 +66,12 @@ const Dashboard = () => {
                   navigate("/set-levels");
                 }}
               />
-              <SettingsButton text="" onClick={() => {}} />
+              <SettingsButton
+                text="edit_equations"
+                onClick={() => {
+                  navigate("/settings/stat");
+                }}
+              />
             </div>
           </div>
           <div className="flex-1 bg-gray-200" />

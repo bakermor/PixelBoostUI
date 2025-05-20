@@ -54,7 +54,7 @@ export const StatUpdateProvider = (props: UpdateProviderProps) => {
     if (auth.user?.health) {
       for (const [key, value] of Object.entries(auth.user.health)) {
         let stat = auth.user.health[key as keyof typeof auth.user.health];
-        let equation = stat.equation.reduce((sum, n) => sum + n, 0);
+        let equation = stat.equation[0];
         let modifier = undefined;
         if (auth.user.current_activity) {
           modifier =

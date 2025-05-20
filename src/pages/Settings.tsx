@@ -25,10 +25,17 @@ const Settings = () => {
         style={{
           width: pxl * 450,
           padding: pxl * 15,
-          paddingTop: pxl * 60,
+          paddingTop: pxl * 20,
           gap: pxl * 5,
         }}
       >
+        <button
+          className="flex bg-gray-300 hover:bg-gray-400"
+          style={{ width: pxl * 80, height: pxl * 50, marginBottom: pxl * 30 }}
+          onClick={() => {
+            navigate("/dashboard");
+          }}
+        />
         {allowedSections.map((option) => (
           <div className="flex" key={option}>
             <SectionButton

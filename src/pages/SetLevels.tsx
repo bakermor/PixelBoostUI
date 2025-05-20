@@ -31,7 +31,6 @@ const SetLevels = () => {
         ? -health[stat as keyof typeof health]
         : modifiers[stat] + value;
 
-    console.log(modifiers);
     setModifiers({
       ...modifiers,
       [stat]: newValue,
@@ -84,7 +83,7 @@ const SetLevels = () => {
   };
 
   useEffect(() => {
-    if (!loading) console.log(health);
+    // if (!loading) console.log(health);
   }, [loading]);
 
   return (
