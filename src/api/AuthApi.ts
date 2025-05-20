@@ -78,6 +78,19 @@ interface UpdateUserReq {
   name: string;
 }
 
+interface UpdateUsernameReq {
+  username: string;
+}
+
+interface UpdateEmailReq {
+  email: string;
+}
+
+interface UpdatePasswordReq {
+  current_password: string;
+  new_password: string;
+}
+
 export async function usernameCheck(
   params: UsernameCheckReq
 ): Promise<UsernameCheckRes> {
@@ -183,6 +196,83 @@ export async function updateUser(
     return { status: res.status };
   } catch (error) {
     if (error instanceof AxiosError) {
+      return { status: error.status ?? 500 };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function updateUsername(id: string, body: UpdateUsernameReq) {
+  try {
+    const res = await api.patch(`/users/${id}/change-username`, body);
+    return { status: res.status };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.status === 409) {
+        return {
+          status: error.status,
+          field: "username",
+          description: Strings.warn_user,
+        };
+      }
+      if (error.status === 422) {
+        let errorDetail = error.response?.data.detail[0];
+        let message = errorDetail.msg;
+        return {
+          status: error.status,
+          field: "username",
+          description: message.replace("Value error, ", ""),
+        };
+      }
+      return { status: error.status ?? 500 };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function updateEmail(id: string, body: UpdateEmailReq) {
+  try {
+    const res = await api.patch(`/users/${id}/change-email`, body);
+    return { status: res.status };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.status === 422) {
+        let errorDetail = error.response?.data.detail[0];
+        let message = errorDetail.msg;
+        return {
+          status: error.status,
+          field: "email",
+          description: message.replace("Value error, ", ""),
+        };
+      }
+      return { status: error.status ?? 500 };
+    }
+    return { status: 500 };
+  }
+}
+
+export async function updatePassword(id: string, body: UpdatePasswordReq) {
+  try {
+    const res = await api.patch(`/users/${id}/change-password`, body);
+    return { status: res.status };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.status === 400) {
+        return {
+          status: error.status,
+          field: "current_password",
+          description: Strings.warn_password_invalid,
+        };
+      }
+      if (error.status === 422) {
+        let errorDetail = error.response?.data.detail[0];
+        let message = errorDetail.msg;
+        return {
+          status: error.status,
+          field: errorDetail.loc[1],
+          description: message.replace("Value error, ", ""),
+        };
+      }
       return { status: error.status ?? 500 };
     }
     return { status: 500 };

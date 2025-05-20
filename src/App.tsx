@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import NewUser from "./pages/NewUser";
 import SetLevels from "./pages/SetLevels";
 import SignUp from "./pages/SignUp";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="set-levels" element={<SetLevels />} />
                 <Route path="action" element={<Action />} />
+                <Route path="settings/:section?" element={<Settings />} />
               </Route>
             </Route>
           </Routes>

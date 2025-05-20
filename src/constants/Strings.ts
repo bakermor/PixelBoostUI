@@ -31,6 +31,11 @@ export const Strings: Record<string, string> = {
 
   activity_modifiers: "Stat Modifiers",
 
+  set_profile: "Update Profile",
+  set_username: "Change Username",
+  set_email: "Change Email",
+  set_password: "Change Password",
+
   // BUTTONS
   signup: "Sign up",
   create_account: "Create account",
@@ -47,11 +52,17 @@ export const Strings: Record<string, string> = {
   cancel: "Cancel",
   update: "Update",
   submit: "Submit",
+  save: "Save",
   fill_all: "Fill All",
+  sec_profile: "Profile",
+  sec_stat: "Stats",
+  settings: "Settings",
 
   // INPUT box title and placeholders
   in_confirm_password: "Confirm Password",
   in_confirm_password_desc: "Confirm your password",
+  in_current_password: "Current Password",
+  in_current_password_desc: "Enter your password",
   in_email: "Email",
   in_email_desc: "Enter your email",
   in_act_name: "Name",
@@ -62,7 +73,10 @@ export const Strings: Record<string, string> = {
   in_time_limit_desc: "Enter run time in minutes",
   in_username: "Username",
   in_username_desc: "Enter your username",
+  in_name: "Name",
   in_name_desc: "Enter your name",
+  in_new_password: "New Password",
+  in_new_password_desc: "Enter your new password",
 
   create_act_drop: "Create new activity...",
 
@@ -72,6 +86,7 @@ export const Strings: Record<string, string> = {
   warn_email: "Please enter a valid email",
   warn_password_match: "Passwords do not match",
   warn_user_invalid: "Invalid username or password",
+  warn_password_invalid: "Invalid password",
 
   required: " is required",
   level_display: " / 100",

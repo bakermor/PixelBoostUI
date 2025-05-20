@@ -1,16 +1,36 @@
+import { useNavigate } from "react-router-dom";
+import { SettingsButton } from "./Buttons";
+
 export const SideBar = () => {
   const pxl = window.innerWidth / 1920;
+  const navigate = useNavigate();
+
+  const clickButton = () => {
+    navigate("/settings");
+  };
 
   return (
     <div
-      className="h-full bg-gray-400 flex flex-col justify-end"
+      className="h-full bg-gray-400 flex flex-col items-center"
       style={{
         width: pxl * 350,
         paddingLeft: pxl * 10,
         paddingRight: pxl * 10,
+        gap: pxl * 20,
       }}
     >
-      <div className="h-3/5 flex flex-col" style={{ gap: pxl * 10 }}>
+      <div
+        className="bg-gray-200"
+        style={{
+          width: pxl * 200,
+          height: pxl * 180,
+          marginTop: pxl * 50,
+          marginBottom: pxl * 10,
+        }}
+      />
+      <SettingsButton text="settings" onClick={clickButton} />
+
+      {/* <div className="h-3/5 flex flex-col" style={{ gap: pxl * 10 }}>
         <div
           className="border-gray-600"
           style={{
@@ -37,7 +57,7 @@ export const SideBar = () => {
           <div className="flex bg-gray-500" style={{ height: pxl * 65 }} />
           <div className="flex bg-gray-500" style={{ height: pxl * 65 }} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

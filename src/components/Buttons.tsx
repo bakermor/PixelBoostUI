@@ -2,9 +2,11 @@ import { Strings } from "../constants/Strings";
 import { SubmitButton } from "./pixel/SubmitButton";
 
 interface ButtonProps {
-  name?: string;
   text: string;
   onClick: React.MouseEventHandler<any>;
+
+  name?: string;
+  focused?: boolean;
   icon?: {
     onClick: () => void;
   };
@@ -128,6 +130,63 @@ export const ActionButton = (props: ButtonProps) => {
           {props.text}
         </div>
         {props.icon ? <SmallSquareButton onClick={props.icon.onClick} /> : null}
+      </div>
+    </button>
+  );
+};
+
+export const SectionButton = (props: ButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+  return (
+    <button
+      className={`group w-full items-center cursor-pointer ${
+        props.focused
+          ? "bg-gray-500 hover:bg-gray-400"
+          : "bg-gray-300 hover:bg-gray-400"
+      }`}
+      onClick={props.onClick}
+    >
+      <div className="w-full flex items-center" style={{ height: pxl * 50 }}>
+        <div
+          className={`w-full flex leading-none ${
+            props.focused
+              ? "text-gray-300 group-hover:text-gray-600"
+              : "text-gray-600"
+          }`}
+          style={{
+            paddingLeft: pxl * 15,
+            height: pxl * 18,
+            fontSize: pxl * 16,
+            fontFamily: "'pxlSmall', monospace",
+          }}
+        >
+          {Strings[props.text]}
+        </div>
+      </div>
+    </button>
+  );
+};
+
+export const UpdateButton = (props: ButtonProps) => {
+  const pxl = window.innerWidth / 1920;
+
+  return (
+    <button
+      className="group w-full bg-gray-300 hover:bg-gray-500 items-center cursor-pointer"
+      onClick={props.onClick}
+      name={props.text}
+    >
+      <div className="w-full flex items-center" style={{ height: pxl * 50 }}>
+        <div
+          className="w-full flex leading-none justify-center text-gray-500 group-hover:text-gray-200"
+          style={{
+            height: pxl * 18,
+            fontSize: pxl * 16,
+            fontFamily: "'pxlSmall', monospace",
+          }}
+        >
+          {Strings[props.text]}
+        </div>
       </div>
     </button>
   );
