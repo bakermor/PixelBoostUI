@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 import { InputBox } from "./pixel/InputBox";
 
 interface InputProps {
@@ -12,8 +13,6 @@ interface InputProps {
 }
 
 export const Input = (props: InputProps) => {
-  const pxl = window.innerWidth / 1920;
-
   useEffect(() => {}, [props]);
 
   return (

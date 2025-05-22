@@ -7,6 +7,7 @@ import {
   User,
 } from "../../api/AuthApi";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 import { UpdateButton } from "../Buttons";
 import { Input } from "../Input";
 
@@ -21,8 +22,6 @@ interface SectionProps {
 }
 
 export const ProfileSettings = (props: Props) => {
-  const pxl = window.innerWidth / 1920;
-
   const saveGeneral = async (newData: { name: string }) => {
     const result = await updateUser(props.user.id, newData);
     return result;
@@ -94,8 +93,6 @@ export const ProfileSettings = (props: Props) => {
 };
 
 const SettingsSection = (props: SectionProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const [formData, setFormData] = useState(props.inputs);
   const [warnings, setWarnings] = useState(
     Object.fromEntries(Object.keys(props.inputs).map((key) => [key, ""]))

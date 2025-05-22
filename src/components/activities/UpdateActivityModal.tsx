@@ -3,6 +3,7 @@ import { createActivity, updateActivity } from "../../api/ActivitiesApi";
 import { Activity, Modifiers } from "../../api/AuthApi";
 import { allowedStats } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 import { AddNewButton, ModalButton, SettingsButton } from "../Buttons";
 import { Input } from "../Input";
 import { StatModifier } from "./StatModifier";
@@ -24,10 +25,7 @@ interface ModalProps {
 }
 
 export const UpdateActivityModal = (props: ModalProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const [openDropdown, setDropdown] = useState(false);
-
   const [formData, setFormData] = useState<{
     name: string;
     time_limit: undefined;
@@ -236,8 +234,6 @@ interface StatDropdownProps {
 }
 
 const StatDropdown = (props: StatDropdownProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div
       className="absolute top-0 right-0 flex flex-col self-end bg-gray-400"

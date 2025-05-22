@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
+import { pxl } from "../../constants/ThemeConstants";
 
 interface SubmitButtonProps {
   children: ReactNode;
 }
 
 export const SubmitButton = (props: SubmitButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div className="flex-1 flex flex-col">
       <div

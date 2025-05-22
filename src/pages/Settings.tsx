@@ -3,10 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SectionButton } from "../components/Buttons";
 import { ProfileSettings } from "../components/settings/ProfileSettings";
 import { StatsSettings } from "../components/settings/StatsSettings";
+import { pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 
 const Settings = () => {
-  const pxl = window.innerWidth / 1920;
   const allowedSections = ["profile", "stat"];
 
   const { user } = useContext(AuthContext);

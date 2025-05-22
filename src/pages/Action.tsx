@@ -7,12 +7,11 @@ import {
   ActionComponents,
 } from "../constants/ActionConstants";
 import { allowedStats } from "../constants/StatConstants";
+import { pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
 
 const Action = () => {
-  const pxl = window.innerWidth / 1920;
-
   const { health, loading } = useContext(StatUpdateContext);
   const { user } = useContext(AuthContext);
   const [params] = useSearchParams();

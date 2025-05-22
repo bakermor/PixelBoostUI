@@ -8,7 +8,6 @@ import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
-import NewUser from "./pages/NewUser";
 import SetLevels from "./pages/SetLevels";
 import SignUp from "./pages/SignUp";
 import Settings from "./pages/Settings";
@@ -23,7 +22,6 @@ function App() {
               <Route path="" element={<Home />} />
               <Route path="signup" element={<SignUp />} />
               <Route path="login" element={<Login />} />
-              <Route path="new-user" element={<NewUser />} />
 
               <Route element={<ProtectedRoute />}>
                 <Route path="dashboard" element={<Dashboard />} />

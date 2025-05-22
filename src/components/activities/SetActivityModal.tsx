@@ -3,6 +3,7 @@ import { startActivity } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
 import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { ModalButton, SettingsButton } from "../Buttons";
@@ -24,7 +25,6 @@ interface ModalProps {
 }
 
 export const SetActivityModal = (props: ModalProps) => {
-  const pxl = window.innerWidth / 1920;
   const { health, loading } = useContext(StatUpdateContext);
   const { updateAuth } = useContext(AuthContext);
 
@@ -176,8 +176,6 @@ interface DropdownProps {
 }
 
 const FullDropdown = (props: DropdownProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div
       className="absolute top-0 left-0 w-full flex flex-col bg-gray-400"
@@ -245,8 +243,6 @@ interface ActivityDisplayProps {
 }
 
 const ActivityDisplay = (props: ActivityDisplayProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div className="flex-1 flex flex-col" style={{ gap: pxl * 5 }}>
       <div

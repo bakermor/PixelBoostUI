@@ -3,6 +3,7 @@ import { User } from "../../api/AuthApi";
 import { updateEquations, updateHealth } from "../../api/HealthApi";
 import { statEquations } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { UpdateButton } from "../Buttons";
@@ -25,8 +26,6 @@ interface StatEquationProps {
 }
 
 export const StatsSettings = (props: Props) => {
-  const pxl = window.innerWidth / 1920;
-
   const { updateAuth } = useContext(AuthContext);
   const { health } = useContext(StatUpdateContext);
 
@@ -146,8 +145,6 @@ export const StatsSettings = (props: Props) => {
 };
 
 const SettingsSection = (props: SectionProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const handleSubmit = async () => {
     const result = await props.onSubmit();
     console.log(result);
@@ -189,7 +186,6 @@ const SettingsSection = (props: SectionProps) => {
 };
 
 const EquationSection = (props: StatEquationProps) => {
-  const pxl = window.innerWidth / 1920;
   const equationModifiers = [4, 3, 2, 1, 0.5, 0.3, 0.25];
 
   return (

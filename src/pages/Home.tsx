@@ -1,8 +1,7 @@
 import { ActionModal } from "../components/Modals";
+// import { pxl } from "../constants/ThemeConstants";
 
 const Home = () => {
-  // const pxl = window.innerWidth / 1920;
-
   return (
     <div className="w-screen h-screen">
       <ActionModal exit={() => {}} />

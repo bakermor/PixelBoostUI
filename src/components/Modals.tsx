@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 import { ModalButton, StatButton } from "./Buttons";
 
 interface BaseModalProps {
@@ -13,8 +14,6 @@ interface ActionModalProps {
 }
 
 export const BaseModal = (props: BaseModalProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)]"
@@ -36,7 +35,6 @@ export const BaseModal = (props: BaseModalProps) => {
 };
 
 export const ActionModal = (props: ActionModalProps) => {
-  const pxl = window.innerWidth / 1920;
   const navigate = useNavigate();
 
   const navigateAction = (stat: string) => {

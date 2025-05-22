@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 
 interface LabeledStatProps {
   name: string;
@@ -13,7 +14,6 @@ interface ModifiedStatProps {
 }
 
 const Stat = (props: LabeledStatProps) => {
-  const pxl = window.innerWidth / 1920;
   return (
     <div
       className="w-full flex border-gray-600 bg-gray-300 overflow-clip"
@@ -29,8 +29,6 @@ const Stat = (props: LabeledStatProps) => {
 };
 
 export const LabeledStat = (props: LabeledStatProps) => {
-  const pxl = window.innerWidth / 1920;
-
   useEffect(() => {}, [props.level]);
 
   return (
@@ -53,8 +51,6 @@ export const LabeledStat = (props: LabeledStatProps) => {
 };
 
 export const ModifiedStat = (props: ModifiedStatProps) => {
-  const pxl = window.innerWidth / 1920;
-
   useEffect(() => {}, [props.level, props.modifier]);
 
   return (

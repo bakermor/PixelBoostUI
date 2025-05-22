@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 import { SquareButton } from "./Buttons";
 
 interface Props {
@@ -19,8 +20,6 @@ interface LevelDisplayProps {
 }
 
 export const SetStat = (props: Props) => {
-  const pxl = window.innerWidth / 1920;
-
   useEffect(() => {}, [props]);
 
   return (
@@ -65,7 +64,6 @@ export const SetStat = (props: Props) => {
 };
 
 const DragStat = (props: DragStatProps) => {
-  const pxl = window.innerWidth / 1920;
   const width = Math.floor((props.level / 100) * 810) * pxl;
 
   const [isDragging, setIsDragging] = useState(false);
@@ -141,8 +139,6 @@ const DragStat = (props: DragStatProps) => {
 };
 
 const LevelDisplay = (props: LevelDisplayProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div
       className="flex border-gray-400 bg-gray-200 justify-between items-center"

@@ -5,12 +5,11 @@ import { SettingsButton, SmallRectButton } from "../components/Buttons";
 import { SetStat } from "../components/SetStat";
 import { allowedStats } from "../constants/StatConstants";
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
 
 const SetLevels = () => {
-  const pxl = window.innerWidth / 1920;
-
   const { health, loading } = useContext(StatUpdateContext);
   const { updateAuth } = useContext(AuthContext);
   const [modifiers, setModifiers] = useState(

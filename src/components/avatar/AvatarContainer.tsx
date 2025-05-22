@@ -1,8 +1,7 @@
+import { pxl } from "../../constants/ThemeConstants";
 import { AvatarSprite } from "./AvatarSprite";
 
 export const AvatarContainer = () => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div className="h-full w-full flex flex-col bg-gray-200">
       <div

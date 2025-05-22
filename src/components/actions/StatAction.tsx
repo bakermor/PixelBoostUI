@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ActionComponents } from "../../constants/ActionConstants";
+import { pxl } from "../../constants/ThemeConstants";
 import { SwitchFormButton } from "../Buttons";
 import { ActionForm, BaseAction } from "./ActionBase";
 
@@ -12,8 +13,6 @@ interface StatActionProps {
 }
 
 export const StatAction = (props: StatActionProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const [modifiers, setModifiers] = useState<Record<string, number>>(
     Object.fromEntries(
       ActionComponents[props.action]?.map((form) => [form.name, 0])

@@ -1,5 +1,6 @@
 import { ActionRanges, RangeValues } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 
 interface RangeContainerProps {
   action: string;
@@ -22,7 +23,6 @@ interface InputContainerProps {
 }
 
 export const RangeContainer = (props: RangeContainerProps) => {
-  const pxl = window.innerWidth / 1920;
   const IconComponent = ActionRanges[props.action]
     ? ActionRanges[props.action][props.name]
     : null;
@@ -60,8 +60,6 @@ export const RangeContainer = (props: RangeContainerProps) => {
 };
 
 export const MidRangeContainer = (props: RangeContainerProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className={`${
@@ -78,8 +76,6 @@ export const MidRangeContainer = (props: RangeContainerProps) => {
 };
 
 export const SelectContainer = (props: SelectContainerProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className={`flex-1 flex flex-col items-center justify-end cursor-pointer hover:bg-gray-400 ${
@@ -106,7 +102,6 @@ export const SelectContainer = (props: SelectContainerProps) => {
 };
 
 export const InputContainer = (props: InputContainerProps) => {
-  const pxl = window.innerWidth / 1920;
   return (
     <div
       className="flex-1 flex flex-col justify-center"

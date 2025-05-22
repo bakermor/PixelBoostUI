@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { updateStat } from "../../api/HealthApi";
 import { PickActions } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { SettingsButton, StatButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
@@ -29,8 +30,6 @@ interface PickActionProps {
 }
 
 export const BaseAction = (props: ActionProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const { user, updateAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -104,8 +103,6 @@ export const BaseAction = (props: ActionProps) => {
 };
 
 export const ActionForm = (props: ActionFormProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div className="w-full flex flex-col" style={{ gap: pxl * 10 }}>
       <div
@@ -140,8 +137,6 @@ export const ActionForm = (props: ActionFormProps) => {
 };
 
 export const PickAction = (props: PickActionProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div
       className="flex-1 flex flex-col"

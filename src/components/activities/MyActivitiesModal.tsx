@@ -2,6 +2,7 @@ import { useState } from "react";
 import { deleteActivity } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 import {
   ActionButton,
   AddNewButton,
@@ -24,8 +25,6 @@ interface ModalProps {
 }
 
 export const MyActivitiesModal = (props: ModalProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const [deletePopup, setPopup] = useState<Activity | undefined>(undefined);
 
   const nextModal = (next: string) => {
@@ -143,7 +142,6 @@ interface PopupProps {
 }
 
 const Popup = (props: PopupProps) => {
-  const pxl = window.innerWidth / 1920;
   return (
     <div className="absolute w-full h-full flex justify-center">
       <div

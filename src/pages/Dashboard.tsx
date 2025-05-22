@@ -7,11 +7,11 @@ import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
 import { SideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
+import { pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
 
 const Dashboard = () => {
-  const pxl = window.innerWidth / 1920;
   const { user } = useContext(AuthContext);
   const { health, loading } = useContext(StatUpdateContext);
 

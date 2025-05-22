@@ -5,6 +5,7 @@ import {
   InputValues,
   SelectValues,
 } from "../../constants/ActionConstants";
+import { pxl } from "../../constants/ThemeConstants";
 import {
   InputContainer,
   MidRangeContainer,
@@ -19,7 +20,6 @@ interface FormProps {
 }
 
 export const RangeForm = (props: FormProps) => {
-  const pxl = window.innerWidth / 1920;
   const [focused, setFocused] = useState("");
 
   console.log(props);
@@ -72,7 +72,6 @@ export const RangeForm = (props: FormProps) => {
 };
 
 export const SelectForm = (props: FormProps) => {
-  const pxl = window.innerWidth / 1920;
   const [focusedSingle, setFocusedSingle] = useState("");
   const [focusedMultiple, setFocusedMultiple] = useState<Set<string>>(
     new Set()
@@ -130,7 +129,6 @@ export const SelectForm = (props: FormProps) => {
 };
 
 export const InputForm = (props: FormProps) => {
-  const pxl = window.innerWidth / 1920;
   const [value, setValue] = useState(
     Object.fromEntries(ActionInput[props.name].map((key) => [key, 0]))
   );

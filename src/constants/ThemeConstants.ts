@@ -1,1 +1,1 @@
-export const pxl = 0.9;
+export const pxl = 0.8;

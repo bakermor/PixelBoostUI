@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { pxl } from "../constants/ThemeConstants";
 import { SettingsButton } from "./Buttons";
 
 export const SideBar = () => {
-  const pxl = window.innerWidth / 1920;
   const navigate = useNavigate();
 
   const clickButton = () => {

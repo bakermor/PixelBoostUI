@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { pxl } from "../constants/ThemeConstants";
 import { HealthLevels } from "../context/StatUpdateProvider";
 import { LabeledStat } from "./LabeledStat";
 
@@ -7,8 +8,6 @@ interface StatContainerProps {
 }
 
 export const StatContainer = (props: StatContainerProps) => {
-  const pxl = window.innerWidth / 1920;
-
   useEffect(() => {}, [props.health]);
 
   return (

@@ -4,10 +4,10 @@ import { createUser, getToken, usernameCheck } from "../api/AuthApi";
 import { FormButton } from "../components/Buttons";
 import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 
 const SignUp = () => {
-  const pxl = window.innerWidth / 1920;
   const navigate = useNavigate();
   const { updateAuth } = useContext(AuthContext);
 

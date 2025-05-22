@@ -1,4 +1,5 @@
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 
 interface StatModifierProps {
   stat: string;
@@ -7,7 +8,6 @@ interface StatModifierProps {
 }
 
 export const StatModifier = (props: StatModifierProps) => {
-  const pxl = window.innerWidth / 1920;
   const buttonValues = [2, 1.5, 1, 0.5, -1, -1.5, -2];
 
   return (

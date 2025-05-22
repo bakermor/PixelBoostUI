@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { updateUser, User } from "../api/AuthApi";
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 import { CardEditButton, SettingsButton } from "./Buttons";
 
 interface ProfileCardProps {
@@ -10,8 +11,6 @@ interface ProfileCardProps {
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const [edit, setEdit] = useState(props.edit ?? false);
   const [name, setName] = useState(props.user?.name ?? "");
 

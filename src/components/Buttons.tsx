@@ -1,4 +1,5 @@
 import { Strings } from "../constants/Strings";
+import { pxl } from "../constants/ThemeConstants";
 import { SubmitButton } from "./pixel/SubmitButton";
 
 interface ButtonProps {
@@ -19,8 +20,6 @@ interface IconButtonProps {
 }
 
 export const FormButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div
       className="w-full flex"
@@ -53,8 +52,6 @@ export const FormButton = (props: ButtonProps) => {
 };
 
 export const SettingsButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="w-full bg-gray-500 hover:bg-gray-600 items-center cursor-pointer"
@@ -77,8 +74,6 @@ export const SettingsButton = (props: ButtonProps) => {
 };
 
 export const StatButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="w-full bg-gray-500 hover:bg-gray-600 items-center cursor-pointer"
@@ -102,8 +97,6 @@ export const StatButton = (props: ButtonProps) => {
 };
 
 export const ActionButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="w-full overflow-clip group bg-gray-300 hover:bg-gray-400 items-center cursor-pointer"
@@ -136,7 +129,6 @@ export const ActionButton = (props: ButtonProps) => {
 };
 
 export const SectionButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
   return (
     <button
       className={`group w-full items-center cursor-pointer ${
@@ -168,8 +160,6 @@ export const SectionButton = (props: ButtonProps) => {
 };
 
 export const UpdateButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="group w-full bg-gray-300 hover:bg-gray-500 items-center cursor-pointer"
@@ -193,7 +183,6 @@ export const UpdateButton = (props: ButtonProps) => {
 };
 
 export const SwitchFormButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
   return (
     <button
       className="absolute top-0 bg-gray-300 flex justify-center items-center cursor-pointer"
@@ -217,8 +206,6 @@ export const SwitchFormButton = (props: ButtonProps) => {
 };
 
 export const ModalButton = (props: IconButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="bg-gray-300 hover:bg-gray-400 absolute cursor-pointer"
@@ -234,8 +221,6 @@ export const ModalButton = (props: IconButtonProps) => {
 };
 
 export const AddNewButton = (props: IconButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="bg-gray-400 hover:bg-gray-500 cursor-pointer"
@@ -249,8 +234,6 @@ export const AddNewButton = (props: IconButtonProps) => {
 };
 
 export const SmallSquareButton = (props: IconButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const handleClick = (e: React.MouseEvent<any>) => {
     e.stopPropagation();
     props.onClick(e);
@@ -269,8 +252,6 @@ export const SmallSquareButton = (props: IconButtonProps) => {
 };
 
 export const CardEditButton = (props: IconButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   const handleClick = (e: React.MouseEvent<any>) => {
     e.stopPropagation();
     props.onClick(e);
@@ -289,8 +270,6 @@ export const CardEditButton = (props: IconButtonProps) => {
 };
 
 export const ConfirmDeleteButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="w-full bg-gray-300 hover:bg-gray-400 items-center cursor-pointer"
@@ -313,8 +292,6 @@ export const ConfirmDeleteButton = (props: ButtonProps) => {
 };
 
 export const SquareButton = (props: IconButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className={`${
@@ -332,8 +309,6 @@ export const SquareButton = (props: IconButtonProps) => {
 };
 
 export const SmallRectButton = (props: ButtonProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <button
       className="group w-full bg-gray-300 hover:bg-gray-400 items-center cursor-pointer"

@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
+import { pxl } from "../../constants/ThemeConstants";
 
 interface InputBoxProps {
   children: ReactNode;
 }
 
 export const InputBox = (props: InputBoxProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div className="flex-1 flex flex-col">
       <div

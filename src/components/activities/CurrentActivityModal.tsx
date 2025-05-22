@@ -3,6 +3,7 @@ import { stopActivity } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
 import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
+import { pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { ModalButton, SettingsButton } from "../Buttons";
@@ -24,7 +25,6 @@ interface ModalProps {
 }
 
 export const CurrentActivityModal = (props: ModalProps) => {
-  const pxl = window.innerWidth / 1920;
   const { health, loading } = useContext(StatUpdateContext);
   const { user, updateAuth } = useContext(AuthContext);
 
@@ -128,8 +128,6 @@ interface ActivityDisplayProps {
 }
 
 const ActivityDisplay = (props: ActivityDisplayProps) => {
-  const pxl = window.innerWidth / 1920;
-
   return (
     <div className="flex-1 flex flex-col" style={{ gap: pxl * 5 }}>
       <div
