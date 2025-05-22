@@ -62,7 +62,7 @@ export const BaseAction = (props: ActionProps) => {
         style={{ paddingRight: pxl * 150, gap: pxl * 5 }}
       >
         <div
-          className="flex justify-start leading-none text-gray-400"
+          className="flex justify-start whitespace-nowrap leading-none text-gray-400"
           style={{
             height: pxl * 52,
             fontSize: pxl * 48,
@@ -147,7 +147,7 @@ export const PickAction = (props: PickActionProps) => {
         style={{ paddingRight: pxl * 150, gap: pxl * 5 }}
       >
         <div
-          className="flex justify-start leading-none text-gray-400"
+          className="flex justify-start whitespace-nowrap leading-none text-gray-400"
           style={{
             height: pxl * 52,
             fontSize: pxl * 48,

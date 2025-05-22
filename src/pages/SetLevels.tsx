@@ -88,7 +88,7 @@ const SetLevels = () => {
   return (
     <div className="h-screen w-screen flex justify-end bg-gray-200">
       <div
-        className="h-full flex flex-col bg-white"
+        className="h-full flex flex-col bg-white overflow-x-auto"
         style={{ width: pxl * 1480, gap: pxl * 30, padding: pxl * 45 }}
       >
         <div className="flex flex-col w-full" style={{ gap: pxl * 5 }}>
@@ -119,6 +119,7 @@ const SetLevels = () => {
             paddingLeft: pxl * 30,
             paddingRight: pxl * 30,
             gap: pxl * 15,
+            minWidth: pxl * 1350,
           }}
         >
           <div
@@ -143,16 +144,17 @@ const SetLevels = () => {
               />
             </div>
           ))}
-        </div>
-        <div
-          className="flex self-end"
-          style={{
-            width: pxl * 320,
-            marginRight: pxl * 70,
-            marginBottom: pxl * 40,
-          }}
-        >
-          <SettingsButton text="update" onClick={handleSubmit} />
+          <div
+            className="flex self-end"
+            style={{
+              width: pxl * 320,
+              marginRight: pxl * 100,
+              marginTop: pxl * 25,
+              marginBottom: pxl * 40,
+            }}
+          >
+            <SettingsButton text="update" onClick={handleSubmit} />
+          </div>
         </div>
       </div>
     </div>

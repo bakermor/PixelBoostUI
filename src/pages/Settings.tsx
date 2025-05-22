@@ -24,6 +24,7 @@ const Settings = () => {
         className="h-full flex flex-col bg-gray-200"
         style={{
           width: pxl * 450,
+          minWidth: pxl * 250,
           padding: pxl * 15,
           paddingTop: pxl * 20,
           gap: pxl * 5,
@@ -51,6 +52,7 @@ const Settings = () => {
       <div
         className="flex-1 flex flex-col overflow-y-auto"
         style={{
+          minWidth: pxl * 900,
           paddingLeft: pxl * 30,
           paddingRight: pxl * 30,
           marginTop: pxl * 40,

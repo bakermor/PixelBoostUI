@@ -133,7 +133,7 @@ const SettingsSection = (props: SectionProps) => {
   return (
     <div className="w-full flex flex-col" style={{ gap: pxl * 8 }}>
       <div
-        className="flex justify-start leading-none text-gray-400"
+        className="flex justify-start leading-none whitespace-nowrap text-gray-400"
         style={{
           height: pxl * 26,
           fontSize: pxl * 24,
