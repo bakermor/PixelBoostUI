@@ -1,6 +1,7 @@
 import { ActionRanges, RangeValues } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
-import { pxl } from "../../constants/ThemeConstants";
+import { Colors, pxl } from "../../constants/ThemeConstants";
+import "../../styles/Clickable.css";
 
 interface RangeContainerProps {
   action: string;
@@ -33,10 +34,16 @@ export const RangeContainer = (props: RangeContainerProps) => {
       style={{ width: 130, gap: pxl * 8 }}
     >
       <button
-        className={`${
-          props.focused ? "bg-gray-400" : "bg-gray-200"
-        } hover:bg-gray-400 flex items-end justify-center cursor-pointer`}
-        style={{ width: pxl * 105, height: pxl * 105, padding: pxl * 10 }}
+        className="clickable flex items-end justify-center cursor-pointer"
+        style={
+          {
+            width: `${pxl * 105}px`,
+            height: `${pxl * 105}px`,
+            padding: `${pxl * 10}px`,
+            "--main-color": props.focused ? Colors.p5 : Colors.p3,
+            "--hover-color": Colors.p5,
+          } as React.CSSProperties & Record<string, string>
+        }
         name={props.name}
         onClick={props.onClick}
         value={
@@ -46,11 +53,12 @@ export const RangeContainer = (props: RangeContainerProps) => {
         {IconComponent ? <IconComponent /> : null}
       </button>
       <div
-        className="flex justify-start leading-none text-gray-400"
+        className="flex justify-start leading-none"
         style={{
           height: pxl * 18,
           fontSize: pxl * 16,
           fontFamily: "'pxlSmall', monospace",
+          color: Colors.p1,
         }}
       >
         {Strings[`${props.action}_${props.name}`]}
@@ -62,10 +70,16 @@ export const RangeContainer = (props: RangeContainerProps) => {
 export const MidRangeContainer = (props: RangeContainerProps) => {
   return (
     <button
-      className={`${
-        props.focused ? "bg-gray-400" : "bg-gray-300"
-      } hover:bg-gray-400 cursor-pointer`}
-      style={{ width: pxl * 75, height: pxl * 75, marginTop: pxl * 20 }}
+      className="clickable cursor-pointer"
+      style={
+        {
+          width: `${pxl * 75}px`,
+          height: `${pxl * 75}px`,
+          marginTop: `${pxl * 20}px`,
+          "--main-color": props.focused ? Colors.p5 : Colors.p4,
+          "--hover-color": Colors.p5,
+        } as React.CSSProperties & Record<string, string>
+      }
       name={props.name}
       onClick={props.onClick}
       value={
@@ -78,25 +92,35 @@ export const MidRangeContainer = (props: RangeContainerProps) => {
 export const SelectContainer = (props: SelectContainerProps) => {
   return (
     <button
-      className={`flex-1 flex flex-col items-center justify-end cursor-pointer hover:bg-gray-400 ${
-        props.focused ? "bg-gray-400" : "bg-gray-200"
-      }`}
-      style={{ maxWidth: pxl * 140, padding: pxl * 8, gap: pxl * 5 }}
+      className="clickable flex-1 flex flex-col items-center justify-end cursor-pointer"
+      style={
+        {
+          maxWidth: `${pxl * 140}px`,
+          padding: `${pxl * 8}px`,
+          gap: `${pxl * 5}px`,
+          "--main-color": props.focused ? Colors.p5 : Colors.p3,
+          "--hover-color": Colors.p5,
+        } as React.CSSProperties & Record<string, string>
+      }
       name={props.name}
       value={props.value}
       onClick={props.onClick}
     >
       <div
-        className="flex leading-none text-gray-500"
+        className="flex leading-none"
         style={{
           height: pxl * 18,
           fontSize: pxl * 16,
           fontFamily: "'pxlSmall', monospace",
+          color: Colors.a6,
         }}
       >
         {Strings[props.name]}
       </div>
-      <div className="flex-1 bg-gray-500" style={{ width: pxl * 95 }} />
+      <div
+        className="flex-1"
+        style={{ width: pxl * 95, backgroundColor: Colors.p1 }}
+      />
     </button>
   );
 };
@@ -113,11 +137,15 @@ export const InputContainer = (props: InputContainerProps) => {
           height: pxl * 18,
           fontSize: pxl * 16,
           fontFamily: "'pxlSmall', monospace",
+          color: Colors.p1,
         }}
       >
         {Strings[props.name]}
       </div>
-      <div className="flex-1 flex bg-gray-200" style={{ maxHeight: pxl * 60 }}>
+      <div
+        className="flex-1 flex"
+        style={{ maxHeight: pxl * 60, backgroundColor: Colors.p3 }}
+      >
         <input
           className="flex-1 outline-none"
           name={props.name}
@@ -129,6 +157,7 @@ export const InputContainer = (props: InputContainerProps) => {
             padding: pxl * 10,
             fontSize: pxl * 16,
             fontFamily: "'pxlSmall', monospace",
+            color: Colors.a6,
           }}
         />
       </div>

@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { updateStat } from "../../api/HealthApi";
 import { PickActions } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
-import { pxl } from "../../constants/ThemeConstants";
+import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
-import { SettingsButton, StatButton } from "../Buttons";
+import { DefaultButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
 import { InputForm, RangeForm, SelectForm } from "./ActionFormTypes";
 
@@ -62,21 +62,23 @@ export const BaseAction = (props: ActionProps) => {
         style={{ paddingRight: pxl * 150, gap: pxl * 5 }}
       >
         <div
-          className="flex justify-start whitespace-nowrap leading-none text-gray-400"
+          className="flex justify-start whitespace-nowrap leading-none"
           style={{
             height: pxl * 52,
             fontSize: pxl * 48,
             fontFamily: "'pxlLarge', monospace",
+            color: Colors.a5,
           }}
         >
           {Strings[props.action]}
         </div>
         <div
-          className="flex justify-start leading-none text-gray-300"
+          className="flex justify-start leading-none"
           style={{
             height: pxl * 18,
             fontSize: pxl * 16,
             fontFamily: "'pxlSmall', monospace",
+            color: Colors.a3,
           }}
         >
           {Strings[`${props.action}_desc`]}
@@ -86,6 +88,7 @@ export const BaseAction = (props: ActionProps) => {
         <ModifiedStat
           name={props.stat}
           level={props.level}
+          color={Colors.a5}
           modifier={props.modifier}
         />
       </div>
@@ -96,7 +99,11 @@ export const BaseAction = (props: ActionProps) => {
         {props.children}
       </div>
       <div className="flex self-end" style={{ width: pxl * 400 }}>
-        <SettingsButton text="complete_action" onClick={updateLevel} />
+        <DefaultButton
+          text={Strings.complete_action}
+          onClick={updateLevel}
+          colors={[Colors.a3, Colors.a4, Colors.p1]}
+        />
       </div>
     </div>
   );
@@ -106,19 +113,24 @@ export const ActionForm = (props: ActionFormProps) => {
   return (
     <div className="w-full flex flex-col" style={{ gap: pxl * 10 }}>
       <div
-        className="flex justify-start leading-none text-gray-400"
+        className="flex justify-start leading-none"
         style={{
           marginRight: pxl * 80,
           height: pxl * 26,
           fontSize: pxl * 24,
           fontFamily: "'pxlLarge', monospace",
+          color: Colors.a3,
         }}
       >
         {Strings[props.name]}
       </div>
       <div
-        className="w-full flex bg-gray-600"
-        style={{ height: pxl * 180, padding: pxl * 15 }}
+        className="w-full flex"
+        style={{
+          height: pxl * 180,
+          padding: pxl * 15,
+          backgroundColor: Colors.p6,
+        }}
       >
         {props.type === "range" ? (
           <RangeForm name={props.name} setModifier={props.setModifier} />
@@ -147,21 +159,23 @@ export const PickAction = (props: PickActionProps) => {
         style={{ paddingRight: pxl * 150, gap: pxl * 5 }}
       >
         <div
-          className="flex justify-start whitespace-nowrap leading-none text-gray-400"
+          className="flex justify-start whitespace-nowrap leading-none"
           style={{
             height: pxl * 52,
             fontSize: pxl * 48,
             fontFamily: "'pxlLarge', monospace",
+            color: Colors.a5,
           }}
         >
           {Strings[`${props.stat}_actions`]}
         </div>
         <div
-          className="flex justify-start leading-none text-gray-300"
+          className="flex justify-start leading-none"
           style={{
             height: pxl * 18,
             fontSize: pxl * 16,
             fontFamily: "'pxlSmall', monospace",
+            color: Colors.a3,
           }}
         >
           {Strings[`${props.stat}_actions_desc`]}
@@ -178,7 +192,13 @@ export const PickAction = (props: PickActionProps) => {
       >
         {PickActions[props.stat]?.map((option) => (
           <div className="flex" key={option}>
-            <StatButton text={option} onClick={props.onClick} />
+            <DefaultButton
+              text={Strings[`${option}_b`]}
+              name={option}
+              onClick={props.onClick}
+              colors={[Colors.a3, Colors.a4, Colors.p1]}
+              size={65}
+            />
           </div>
         ))}
       </div>

@@ -2,13 +2,8 @@ import { useState } from "react";
 import { deleteActivity } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
 import { Strings } from "../../constants/Strings";
-import { pxl } from "../../constants/ThemeConstants";
-import {
-  ActionButton,
-  AddNewButton,
-  ConfirmDeleteButton,
-  SettingsButton,
-} from "../Buttons";
+import { Colors, pxl } from "../../constants/ThemeConstants";
+import { DefaultButton, DefaultIconButton } from "../Buttons";
 
 interface ModalProps {
   exit: React.MouseEventHandler<HTMLButtonElement>;
@@ -72,11 +67,12 @@ export const MyActivitiesModal = (props: ModalProps) => {
           className="flex"
           style={{ marginLeft: pxl * 5, marginRight: pxl * 5 }}
         >
-          <SettingsButton
-            text="now_activity"
+          <DefaultButton
+            text={Strings.now_activity}
             onClick={() => {
               nextModal("current");
             }}
+            colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
           />
         </div>
         <div className="flex-1 flex flex-col relative" style={{ gap: pxl * 8 }}>
@@ -89,24 +85,30 @@ export const MyActivitiesModal = (props: ModalProps) => {
           ) : null}
           <div className="flex w-full justify-between items-end">
             <div
-              className="flex justify-start leading-none text-gray-400"
+              className="flex justify-start leading-none"
               style={{
                 height: pxl * 26,
                 fontSize: pxl * 24,
                 fontFamily: "'pxlLarge', monospace",
+                color: Colors.p6,
               }}
             >
               {Strings.my_activity}
             </div>
-            <AddNewButton
+            <DefaultIconButton
               onClick={() => {
                 nextModal("create");
               }}
+              size={[50, 30]}
+              colors={[Colors.p4, Colors.p5]}
             />
           </div>
-          <div className="w-full bg-gray-400" style={{ height: pxl * 5 }} />
           <div
-            className="flex-1 flex flex-col bg-gray-200 overflow-y-auto"
+            className="w-full"
+            style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
+          />
+          <div
+            className="flex-1 flex flex-col overflow-y-auto"
             style={{ gap: pxl * 5, maxHeight: pxl * 490 }}
           >
             {props.state.activities?.map((activity) => (
@@ -115,16 +117,20 @@ export const MyActivitiesModal = (props: ModalProps) => {
                 style={{ maxWidth: pxl * 390 }}
                 key={activity.id}
               >
-                <ActionButton
+                <DefaultButton
                   text={activity.name}
                   icon={{
                     onClick: () => {
                       setPopup(activity);
                     },
+                    colors: [Colors.a5, Colors.a6],
                   }}
                   onClick={() => {
                     editActivity(activity);
                   }}
+                  alignLeft={true}
+                  size={50}
+                  colors={[Colors.a3, Colors.a4, Colors.p1]}
                 />
               </div>
             ))}
@@ -145,13 +151,16 @@ const Popup = (props: PopupProps) => {
   return (
     <div className="absolute w-full h-full flex justify-center">
       <div
-        className="bg-white flex flex-col"
+        className="flex flex-col"
         style={{
-          width: pxl * 300,
-          height: pxl * 150,
+          width: pxl * 310,
+          height: pxl * 160,
           marginTop: pxl * 88,
           padding: pxl * 20,
           gap: pxl * 10,
+          borderWidth: pxl * 5,
+          borderColor: Colors.a6,
+          backgroundColor: Colors.p4,
         }}
       >
         <div
@@ -159,21 +168,23 @@ const Popup = (props: PopupProps) => {
           style={{ gap: pxl * 10 }}
         >
           <div
-            className="flex justify-start leading-none text-gray-400"
+            className="flex justify-start leading-none"
             style={{
               height: pxl * 26,
               fontSize: pxl * 24,
               fontFamily: "'pxlLarge', monospace",
+              color: Colors.a6,
             }}
           >
             {Strings.delete}:
           </div>
           <div
-            className="max-w-full flex leading-none whitespace-nowrap text-gray-400"
+            className="max-w-full flex leading-none whitespace-nowrap"
             style={{
               height: pxl * 18,
               fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
+              color: Colors.a5,
             }}
           >
             {props.name}
@@ -187,8 +198,18 @@ const Popup = (props: PopupProps) => {
             paddingLeft: pxl * 15,
           }}
         >
-          <ConfirmDeleteButton text="cancel" onClick={props.cancel} />
-          <ConfirmDeleteButton text="delete" onClick={props.onClick} />
+          <DefaultButton
+            text={Strings.cancel}
+            onClick={props.cancel}
+            size={40}
+            colors={[Colors.p2, Colors.p3, Colors.p6]}
+          />
+          <DefaultButton
+            text={Strings.delete}
+            onClick={props.onClick}
+            size={40}
+            colors={[Colors.a3, Colors.a4, Colors.a6, Colors.p1]}
+          />
         </div>
       </div>
     </div>

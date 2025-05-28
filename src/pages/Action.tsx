@@ -7,7 +7,7 @@ import {
   ActionComponents,
 } from "../constants/ActionConstants";
 import { allowedStats } from "../constants/StatConstants";
-import { pxl } from "../constants/ThemeConstants";
+import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
 
@@ -62,8 +62,11 @@ const Action = () => {
 
   return (
     <div className="w-screen h-screen flex">
-      <div className="flex-1 bg-gray-200" />
-      <div className="flex h-full" style={{ width: pxl * 850 }}>
+      <div className="flex-1" style={{ backgroundColor: Colors.p4 }} />
+      <div
+        className="flex h-full"
+        style={{ width: pxl * 850, backgroundColor: Colors.p1 }}
+      >
         {action === "" ? (
           <PickAction stat={stat} onClick={chooseAction} />
         ) : ActionComponents[action] ? (
@@ -76,7 +79,7 @@ const Action = () => {
           />
         ) : null}
       </div>
-      <div className="flex-1 bg-gray-200" />
+      <div className="flex-1" style={{ backgroundColor: Colors.p4 }} />
     </div>
   );
 };

@@ -3,10 +3,10 @@ import { User } from "../../api/AuthApi";
 import { updateEquations, updateHealth } from "../../api/HealthApi";
 import { statEquations } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
-import { pxl } from "../../constants/ThemeConstants";
+import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
-import { UpdateButton } from "../Buttons";
+import { DefaultButton } from "../Buttons";
 
 interface Props {
   user: User;
@@ -107,21 +107,23 @@ export const StatsSettings = (props: Props) => {
           }}
         >
           <div
-            className="flex justify-start leading-none text-gray-500"
+            className="flex justify-start leading-none"
             style={{
               height: pxl * 13,
               fontSize: pxl * 12,
               fontFamily: "'pxlLarge', monospace",
+              color: Colors.a6,
             }}
           >
             {Strings.dec_fast}
           </div>
           <div
-            className="flex justify-start leading-none text-gray-500"
+            className="flex justify-start leading-none"
             style={{
               height: pxl * 13,
               fontSize: pxl * 12,
               fontFamily: "'pxlLarge', monospace",
+              color: Colors.a6,
             }}
           >
             {Strings.dec_slow}
@@ -153,33 +155,43 @@ const SettingsSection = (props: SectionProps) => {
   return (
     <div className="w-full flex flex-col" style={{ gap: pxl * 8 }}>
       <div
-        className="flex justify-start leading-none text-gray-400"
+        className="flex justify-start leading-none"
         style={{
           height: pxl * 26,
           fontSize: pxl * 24,
           fontFamily: "'pxlLarge', monospace",
+          color: Colors.p6,
         }}
       >
         {Strings[props.title]}
       </div>
       {props.subtitle ? (
         <div
-          className="flex justify-start leading-none text-gray-400"
+          className="flex justify-start leading-none"
           style={{
             marginTop: pxl * 10,
             height: pxl * 18,
             fontSize: pxl * 16,
             fontFamily: "'pxlSmall', monospace",
+            color: Colors.p6,
           }}
         >
           {Strings[`${props.title}_desc`]}
         </div>
       ) : null}
 
-      <div className="w-full bg-gray-300" style={{ height: pxl * 5 }} />
+      <div
+        className="w-full"
+        style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
+      />
       {props.children}
       <div className="flex" style={{ width: pxl * 180, paddingTop: pxl * 25 }}>
-        <UpdateButton text="save" onClick={handleSubmit} />
+        <DefaultButton
+          text={Strings.save}
+          onClick={handleSubmit}
+          size={50}
+          colors={[Colors.a3, Colors.a4, Colors.p1]}
+        />
       </div>
     </div>
   );
@@ -199,12 +211,13 @@ const EquationSection = (props: StatEquationProps) => {
       }}
     >
       <div
-        className="flex justify-start leading-none text-gray-400"
+        className="flex justify-start leading-none"
         style={{
           height: pxl * 18,
           width: pxl * 100,
           fontSize: pxl * 16,
           fontFamily: "'pxlSmall', monospace",
+          color: Colors.a5,
         }}
       >
         {Strings[props.stat]}
@@ -216,12 +229,16 @@ const EquationSection = (props: StatEquationProps) => {
             name={props.stat}
             value={value}
             onClick={props.onClick}
-            className={`${
-              props.equation === value
-                ? "bg-gray-400"
-                : "bg-gray-300 hover:bg-gray-400 cursor-pointer"
-            }`}
-            style={{ height: pxl * 30, width: pxl * 40 }}
+            className="clickable cursor-pointer"
+            style={
+              {
+                "--main-color":
+                  props.equation === value ? Colors.a4 : Colors.p3,
+                "--hover-color": Colors.a4,
+                height: `${pxl * 30}px`,
+                width: `${pxl * 40}px`,
+              } as React.CSSProperties & Record<string, string>
+            }
           />
         ))}
       </div>

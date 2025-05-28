@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, getToken, usernameCheck } from "../api/AuthApi";
-import { FormButton } from "../components/Buttons";
+import { DefaultButton } from "../components/Buttons";
 import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
-import { pxl } from "../constants/ThemeConstants";
+import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 
 const SignUp = () => {
@@ -82,6 +82,13 @@ const SignUp = () => {
     else return false;
   };
 
+  const validateFunction: Record<string, (e?: any) => any> = {
+    username: validateUsername,
+    email: validateEmail,
+    password: validatePassword,
+    confirm_password: validatePassword,
+  };
+
   const createAccount = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -124,8 +131,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-end">
-      <div className="flex-1 bg-gray-200" style={{ width: pxl * 1050 }}></div>
+    <div
+      className="h-screen w-screen flex justify-end"
+      style={{ backgroundColor: Colors.p1 }}
+    >
+      <div
+        className="flex-1"
+        style={{ width: pxl * 1050, backgroundColor: Colors.p4 }}
+      ></div>
       <div
         className="h-full flex flex-col justify-center"
         style={{
@@ -136,9 +149,9 @@ const SignUp = () => {
         }}
       >
         <div
-          className="w-full flex  bg-gray-300"
-          style={{ height: pxl * 64 }}
-        ></div>
+          className="w-full flex"
+          style={{ backgroundColor: Colors.p4, height: pxl * 64 }}
+        />
         <div
           className="flex flex-col"
           style={{
@@ -149,11 +162,12 @@ const SignUp = () => {
         >
           <div className="w-full flex justify-end" style={{ height: pxl * 72 }}>
             <div
-              className="w-full flex leading-none justify-center text-gray-600"
+              className="w-full flex leading-none justify-center"
               style={{
                 height: pxl * 66,
                 fontSize: pxl * 60,
                 fontFamily: "'pxlLarge', monospace",
+                color: Colors.a5,
               }}
             >
               {Strings.signup_title}
@@ -164,11 +178,12 @@ const SignUp = () => {
             style={{ height: pxl * 35, marginTop: pxl * 5 }}
           >
             <div
-              className="w-full flex leading-none justify-center items-start text-gray-400"
+              className="w-full flex leading-none justify-center items-start"
               style={{
                 height: pxl * 18,
                 fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
+                color: Colors.a3,
               }}
             >
               {Strings.signup_desc}
@@ -176,48 +191,34 @@ const SignUp = () => {
           </div>
         </div>
         <div
-          className="flex flex-col"
+          className="flex flex-col w-full"
           style={{
             paddingLeft: pxl * 60,
             paddingRight: pxl * 60,
             gap: pxl * 25,
           }}
         >
-          <form className="flex flex-col" style={{ gap: pxl * 8 }}>
-            <Input
-              name="username"
-              type="text"
-              warning={warnings.username}
-              value={formData.username}
-              onChange={handleChange}
-              onBlur={validateUsername}
-            />
-            <Input
-              name="email"
-              type="email"
-              warning={warnings.email}
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={validateEmail}
-            />
-            <Input
-              name="password"
-              type="password"
-              warning={warnings.password}
-              value={formData.password}
-              onChange={handleChange}
-              onBlur={validatePassword}
-            />
-            <Input
-              name="confirm_password"
-              type="password"
-              warning={warnings.confirm_password}
-              value={formData.confirm_password}
-              onChange={handleChange}
-              onBlur={validatePassword}
-            />
+          <form className="flex w-full flex-col" style={{ gap: pxl * 8 }}>
+            {Object.entries(formData).map(([input, value]) => (
+              <div key={input} className="flex w-full">
+                <Input
+                  name={input}
+                  type={input.includes("password") ? "password" : "text"}
+                  warning={warnings[input]}
+                  value={value}
+                  onChange={handleChange}
+                  onBlur={validateFunction[input]}
+                  colors={[Colors.p6, Colors.p2, Colors.a6, Colors.a3]}
+                />
+              </div>
+            ))}
             <div style={{ marginTop: pxl * 10 }}>
-              <FormButton text="create_account" onClick={createAccount} />
+              <DefaultButton
+                text={Strings.create_account}
+                onClick={createAccount}
+                size={70}
+                colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
+              />
             </div>
           </form>
         </div>
@@ -230,11 +231,12 @@ const SignUp = () => {
             style={{ width: pxl * 260 }}
           >
             <div
-              className="w-full flex leading-none justify-end text-gray-400"
+              className="w-full flex leading-none justify-end"
               style={{
                 height: pxl * 18,
                 fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
+                color: Colors.p4,
               }}
             >
               {Strings.login_prompt}
@@ -243,11 +245,12 @@ const SignUp = () => {
           <div className="h-full flex items-center">
             <Link to="/login">
               <div
-                className="flex leading-none text-gray-600"
+                className="flex leading-none"
                 style={{
                   height: pxl * 18,
                   fontSize: pxl * 16,
                   fontFamily: "'pxlSmall', monospace",
+                  color: Colors.a3,
                 }}
               >
                 {Strings.login}

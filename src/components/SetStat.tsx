@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Strings } from "../constants/Strings";
-import { pxl } from "../constants/ThemeConstants";
-import { SquareButton } from "./Buttons";
+import { Colors, pxl } from "../constants/ThemeConstants";
+import { DefaultIconButton } from "./Buttons";
 
 interface Props {
   stat: string;
@@ -26,7 +26,7 @@ export const SetStat = (props: Props) => {
     <div className="w-full flex flex-col" style={{ gap: pxl * 20 }}>
       <div className="w-full flex items-center" style={{ gap: pxl * 50 }}>
         <div
-          className="flex justify-start leading-none text-gray-400"
+          className="flex justify-start leading-none"
           style={{
             marginTop: pxl * 2,
             paddingLeft: pxl * 15,
@@ -34,6 +34,7 @@ export const SetStat = (props: Props) => {
             height: pxl * 26,
             fontSize: pxl * 24,
             fontFamily: "'pxlLarge', monospace",
+            color: Colors.p6,
           }}
         >
           {Strings[props.stat]}
@@ -42,23 +43,30 @@ export const SetStat = (props: Props) => {
           className="flex items-center"
           style={{ gap: pxl * 5, marginRight: pxl * 20 }}
         >
-          <SquareButton
+          <DefaultIconButton
             onClick={() => {
               props.onClick(props.stat, -5);
             }}
             disabled={props.level <= 0}
+            size={[46]}
+            colors={[Colors.a3, Colors.a4, Colors.a2]}
           />
           <DragStat {...props} />
-          <SquareButton
+          <DefaultIconButton
             onClick={() => {
               props.onClick(props.stat, 5);
             }}
             disabled={props.level >= 100}
+            size={[46]}
+            colors={[Colors.a3, Colors.a4, Colors.a2]}
           />
         </div>
         <LevelDisplay {...props} />
       </div>
-      <div className="w-full bg-gray-200" style={{ height: pxl * 5 }} />
+      <div
+        className="w-full"
+        style={{ height: pxl * 5, backgroundColor: Colors.p3 }}
+      />
     </div>
   );
 };
@@ -112,26 +120,44 @@ const DragStat = (props: DragStatProps) => {
 
   return (
     <div
-      className="flex border-gray-500 bg-gray-200 overflow-clip relative"
-      style={{ width: pxl * 820, height: pxl * 50, borderWidth: pxl * 5 }}
+      className="flex overflow-clip relative"
+      style={{
+        width: pxl * 820,
+        height: pxl * 50,
+        borderWidth: pxl * 5,
+        borderColor: Colors.a6,
+        backgroundColor: Colors.a1,
+      }}
       ref={containerRef}
     >
       <div
-        className="bg-gray-400 h-full"
+        className="h-full"
         style={{
           width: width,
           position: "absolute",
           left: 0,
           top: 0,
+          backgroundColor:
+            props.level > 65
+              ? Colors.green
+              : props.level > 27
+              ? Colors.yellow
+              : Colors.red,
         }}
       />
 
       <div
         onMouseDown={onMouseDown}
-        className="absolute top-0 bg-gray-400 h-full cursor-ew-resize"
+        className="absolute top-0 h-full cursor-ew-resize"
         style={{
           width: pxl * 10,
           left: width - pxl * 5,
+          backgroundColor:
+            props.level > 65
+              ? Colors.green
+              : props.level > 27
+              ? Colors.yellow
+              : Colors.red,
         }}
       />
     </div>
@@ -141,20 +167,23 @@ const DragStat = (props: DragStatProps) => {
 const LevelDisplay = (props: LevelDisplayProps) => {
   return (
     <div
-      className="flex border-gray-400 bg-gray-200 justify-between items-center"
+      className="flex justify-between items-center pointer-events-none"
       style={{
         width: pxl * 120,
         height: pxl * 54,
-        borderWidth: pxl * 5,
         padding: pxl * 5,
+        borderWidth: pxl * 5,
+        borderColor: Colors.p5,
+        backgroundColor: Colors.p3,
       }}
     >
       <div
-        className="flex-1 flex justify-center leading-none text-gray-500"
+        className="flex-1 flex justify-center leading-none"
         style={{
           height: pxl * 18,
           fontSize: pxl * 16,
           fontFamily: "'pxlSmall', monospace",
+          color: Colors.a6,
         }}
       >
         {`${Math.floor(props.level)}${Strings.level_display}`}

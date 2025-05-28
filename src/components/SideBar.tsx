@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { pxl } from "../constants/ThemeConstants";
-import { SettingsButton } from "./Buttons";
+import { Strings } from "../constants/Strings";
+import { Colors, pxl } from "../constants/ThemeConstants";
+import { DefaultButton } from "./Buttons";
 
 export const SideBar = () => {
   const navigate = useNavigate();
@@ -11,24 +12,29 @@ export const SideBar = () => {
 
   return (
     <div
-      className="h-full bg-gray-400 flex flex-col items-center"
+      className="h-full flex flex-col items-center"
       style={{
         width: pxl * 350,
         paddingLeft: pxl * 10,
         paddingRight: pxl * 10,
         gap: pxl * 20,
+        backgroundColor: Colors.p4,
       }}
     >
       <div
-        className="bg-gray-200"
         style={{
           width: pxl * 200,
           height: pxl * 180,
           marginTop: pxl * 50,
           marginBottom: pxl * 10,
+          backgroundColor: Colors.p1,
         }}
       />
-      <SettingsButton text="settings" onClick={clickButton} />
+      <DefaultButton
+        text={Strings.settings}
+        onClick={clickButton}
+        colors={[Colors.p6, Colors.p5, Colors.p1]}
+      />
 
       {/* <div className="h-3/5 flex flex-col" style={{ gap: pxl * 10 }}>
         <div

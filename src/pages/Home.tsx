@@ -1,10 +1,20 @@
-import { ActionModal } from "../components/Modals";
-// import { pxl } from "../constants/ThemeConstants";
+import { Colors, pxl } from "../constants/ThemeConstants";
 
 const Home = () => {
   return (
     <div className="w-screen h-screen">
-      <ActionModal exit={() => {}} />
+      <div className="flex" style={{ margin: pxl * 100 }}>
+        {Object.entries(Colors).map(([key, color]) => (
+          <div
+            key={key}
+            style={{
+              width: pxl * 50,
+              height: pxl * 50,
+              backgroundColor: color,
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };

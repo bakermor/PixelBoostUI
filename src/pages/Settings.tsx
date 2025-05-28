@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { SectionButton } from "../components/Buttons";
+import { DefaultButton, DefaultIconButton } from "../components/Buttons";
 import { ProfileSettings } from "../components/settings/ProfileSettings";
 import { StatsSettings } from "../components/settings/StatsSettings";
-import { pxl } from "../constants/ThemeConstants";
+import { Strings } from "../constants/Strings";
+import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 
 const Settings = () => {
@@ -19,35 +20,46 @@ const Settings = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex" style={{ gap: pxl * 10 }}>
+    <div
+      className="w-screen h-screen flex"
+      style={{ gap: pxl * 10, backgroundColor: Colors.p1 }}
+    >
       <div
-        className="h-full flex flex-col bg-gray-200"
+        className="h-full flex flex-col"
         style={{
           width: pxl * 450,
           minWidth: pxl * 250,
           padding: pxl * 15,
           paddingTop: pxl * 20,
-          gap: pxl * 5,
+          gap: pxl * 30,
+          backgroundColor: Colors.a5,
         }}
       >
-        <button
-          className="flex bg-gray-300 hover:bg-gray-400"
-          style={{ width: pxl * 80, height: pxl * 50, marginBottom: pxl * 30 }}
+        <DefaultIconButton
           onClick={() => {
             navigate("/dashboard");
           }}
+          size={[80, 50]}
+          colors={[Colors.a4, Colors.a3]}
         />
-        {allowedSections.map((option) => (
-          <div className="flex" key={option}>
-            <SectionButton
-              text={`sec_${option}`}
-              onClick={() => {
-                navigate(`/settings/${option}`);
-              }}
-              focused={option === section || (option === "profile" && !section)}
-            />
-          </div>
-        ))}
+        <div className="flex-1 flex flex-col" style={{ gap: pxl * 5 }}>
+          {allowedSections.map((option) => (
+            <div className="flex" key={option}>
+              <DefaultButton
+                text={Strings[`sec_${option}`]}
+                onClick={() => {
+                  navigate(`/settings/${option}`);
+                }}
+                focused={
+                  option === section || (option === "profile" && !section)
+                }
+                size={50}
+                alignLeft
+                colors={[Colors.a2, Colors.a3, Colors.a5, Colors.p1]}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <div
         className="flex-1 flex flex-col overflow-y-auto"

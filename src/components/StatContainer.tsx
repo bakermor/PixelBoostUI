@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { pxl } from "../constants/ThemeConstants";
+import { allowedStats } from "../constants/StatConstants";
+import { Colors, pxl } from "../constants/ThemeConstants";
 import { HealthLevels } from "../context/StatUpdateProvider";
 import { LabeledStat } from "./LabeledStat";
 
@@ -12,39 +13,45 @@ export const StatContainer = (props: StatContainerProps) => {
 
   return (
     <div
-      className="flex bg-gray-200"
+      className="flex"
       style={{
         height: pxl * 225,
         width: pxl * 715,
         gap: pxl * 10,
         paddingLeft: pxl * 10,
         paddingRight: pxl * 10,
+        backgroundColor: Colors.p6,
       }}
     >
       <div className="flex-1 flex flex-col justify-evenly">
-        <LabeledStat
-          name="energy"
-          level={props.health ? props.health.energy : 0}
-        />
-        <LabeledStat
-          name="hunger"
-          level={props.health ? props.health.hunger : 0}
-        />
-        <LabeledStat
-          name="thirst"
-          level={props.health ? props.health.thirst : 0}
-        />
+        {allowedStats.slice(0, 3).map((stat) => (
+          <div key={stat} className="flex">
+            <LabeledStat
+              name={stat}
+              level={
+                props.health
+                  ? props.health[stat as keyof typeof props.health]
+                  : 0
+              }
+              color={Colors.p1}
+            />
+          </div>
+        ))}
       </div>
       <div className="flex-1 flex flex-col justify-evenly">
-        <LabeledStat
-          name="hygiene"
-          level={props.health ? props.health.hygiene : 0}
-        />
-        <LabeledStat
-          name="social"
-          level={props.health ? props.health.social : 0}
-        />
-        <LabeledStat name="fun" level={props.health ? props.health.fun : 0} />
+        {allowedStats.slice(3, 7).map((stat) => (
+          <div key={stat} className="flex">
+            <LabeledStat
+              name={stat}
+              level={
+                props.health
+                  ? props.health[stat as keyof typeof props.health]
+                  : 0
+              }
+              color={Colors.p1}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

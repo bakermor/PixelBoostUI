@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ActionComponents } from "../../constants/ActionConstants";
-import { pxl } from "../../constants/ThemeConstants";
-import { SwitchFormButton } from "../Buttons";
+import { Colors, pxl } from "../../constants/ThemeConstants";
+import { AbsoluteButton } from "../Buttons";
 import { ActionForm, BaseAction } from "./ActionBase";
 
 interface StatActionProps {
@@ -58,7 +58,6 @@ export const StatAction = (props: StatActionProps) => {
     props.setModifier(
       Object.values(modifiers).reduce((acc, val) => acc * val, 1)
     );
-    console.log(modifiers);
   }, [modifiers]);
 
   return (
@@ -77,7 +76,7 @@ export const StatAction = (props: StatActionProps) => {
               />
             ) : (
               <div className="relative flex-1">
-                <SwitchFormButton
+                <AbsoluteButton
                   name={form.name}
                   text={
                     form.types[
@@ -86,6 +85,7 @@ export const StatAction = (props: StatActionProps) => {
                     ]
                   }
                   onClick={updateFormType}
+                  colors={[Colors.a5, Colors.a4, Colors.a2]}
                 />
                 <ActionForm
                   name={`${form.name}_${visibleForm[form.name]}`}

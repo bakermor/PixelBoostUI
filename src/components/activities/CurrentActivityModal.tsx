@@ -3,10 +3,10 @@ import { stopActivity } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
 import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
-import { pxl } from "../../constants/ThemeConstants";
+import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
-import { ModalButton, SettingsButton } from "../Buttons";
+import { DefaultButton, DefaultIconButton } from "../Buttons";
 import { StatModifier } from "./StatModifier";
 
 interface ModalProps {
@@ -74,8 +74,25 @@ export const CurrentActivityModal = (props: ModalProps) => {
 
   return (
     <div className="flex-1 flex relative">
-      <ModalButton onClick={props.nav.goBack} right={52 * pxl} />
-      <ModalButton onClick={props.exit} />
+      <div
+        className="absolute flex"
+        style={{
+          right: pxl * 5,
+          top: pxl * 5,
+          gap: pxl * 8,
+        }}
+      >
+        <DefaultIconButton
+          onClick={props.nav.goBack}
+          size={[40]}
+          colors={[Colors.p4, Colors.p6]}
+        />
+        <DefaultIconButton
+          onClick={props.exit}
+          size={[40]}
+          colors={[Colors.p4, Colors.p6]}
+        />
+      </div>
       <div
         className="flex flex-col w-full"
         style={{
@@ -89,34 +106,44 @@ export const CurrentActivityModal = (props: ModalProps) => {
           style={{ gap: pxl * 5, padding: pxl * 5 }}
         >
           <div
-            className="flex justify-start leading-none text-gray-400"
+            className="flex justify-start leading-none"
             style={{
               height: pxl * 39,
               fontSize: pxl * 36,
               fontFamily: "'pxlLarge', monospace",
+              color: Colors.a5,
             }}
           >
             {Strings.current_activity}
           </div>
           <div
-            className="flex leading-none text-gray-400"
+            className="flex leading-none"
             style={{
               height: pxl * 18,
               fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
+              color: Colors.a3,
             }}
           >
             {Strings.current_activity_desc}
           </div>
         </div>
-        <SettingsButton text="choose_activity" onClick={clickSet} />
+        <DefaultButton
+          text={Strings.choose_activity}
+          onClick={clickSet}
+          colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
+        />
         <div className="flex-1 flex">
           {user && user.current_activity ? (
             <ActivityDisplay activity={user.current_activity} />
           ) : null}
         </div>
         {user && user.current_activity ? (
-          <SettingsButton text="stop_activity" onClick={handleSubmit} />
+          <DefaultButton
+            text={Strings.stop_activity}
+            onClick={handleSubmit}
+            colors={[Colors.a3, Colors.a4, Colors.p1]}
+          />
         ) : null}
       </div>
     </div>
@@ -131,16 +158,20 @@ const ActivityDisplay = (props: ActivityDisplayProps) => {
   return (
     <div className="flex-1 flex flex-col" style={{ gap: pxl * 5 }}>
       <div
-        className="flex justify-start leading-none text-gray-400"
+        className="flex justify-start leading-none"
         style={{
           height: pxl * 26,
           fontSize: pxl * 24,
           fontFamily: "'pxlLarge', monospace",
+          color: Colors.p6,
         }}
       >
         {props.activity.name}
       </div>
-      <div className="w-full flex bg-gray-400" style={{ height: pxl * 5 }} />
+      <div
+        className="w-full flex"
+        style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
+      />
       <div
         className="flex-1 flex flex-col overflow-y-auto"
         style={{

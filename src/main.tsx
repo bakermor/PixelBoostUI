@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import pxlLarge from "./assets/fonts/pxl-large.woff2";
 import pxlSmall from "./assets/fonts/pxl-small.woff2";
 import "./index.css";
+import "./styles/Clickable.css";
 
 const preloadFonts = [
   { id: "8pxl", url: pxlSmall },

@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../api/AuthApi";
-import { FormButton } from "../components/Buttons";
+import { DefaultButton } from "../components/Buttons";
 import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
-import { pxl } from "../constants/ThemeConstants";
+import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 
 const Login = () => {
@@ -77,8 +77,14 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-end">
-      <div className="flex-1 bg-gray-200" style={{ width: pxl * 1050 }}></div>
+    <div
+      className="h-screen w-screen flex justify-end"
+      style={{ backgroundColor: Colors.p1 }}
+    >
+      <div
+        className="flex-1"
+        style={{ backgroundColor: Colors.p4, width: pxl * 1050 }}
+      ></div>
       <div
         className="h-full flex flex-col justify-center"
         style={{
@@ -89,8 +95,8 @@ const Login = () => {
         }}
       >
         <div
-          className="w-full flex  bg-gray-300"
-          style={{ height: pxl * 64 }}
+          className="w-full flex"
+          style={{ backgroundColor: Colors.p4, height: pxl * 64 }}
         ></div>
         <div
           className="flex flex-col"
@@ -102,11 +108,12 @@ const Login = () => {
         >
           <div className="w-full flex justify-end" style={{ height: pxl * 72 }}>
             <div
-              className="w-full flex leading-none justify-center text-gray-600"
+              className="w-full flex leading-none justify-center"
               style={{
                 height: pxl * 66,
                 fontSize: pxl * 60,
                 fontFamily: "'pxlLarge', monospace",
+                color: Colors.a5,
               }}
             >
               {Strings.login_title}
@@ -117,11 +124,12 @@ const Login = () => {
             style={{ height: pxl * 35, marginTop: pxl * 5 }}
           >
             <div
-              className="w-full flex leading-none justify-center items-start text-gray-400"
+              className="w-full flex leading-none justify-center items-start"
               style={{
                 height: pxl * 18,
                 fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
+                color: Colors.a3,
               }}
             >
               {Strings.login_desc}
@@ -133,11 +141,12 @@ const Login = () => {
               style={{ height: pxl * 35, marginTop: pxl * 15 }}
             >
               <div
-                className="w-full flex leading-none justify-center items-start text-gray-400"
+                className="w-full flex leading-none justify-center items-start"
                 style={{
                   height: pxl * 18,
                   fontSize: pxl * 16,
                   fontFamily: "'pxlSmall', monospace",
+                  color: Colors.a3,
                 }}
               >
                 {warnings.invalid}
@@ -154,22 +163,25 @@ const Login = () => {
           }}
         >
           <form className="flex flex-col" style={{ gap: pxl * 8 }}>
-            <Input
-              name="username"
-              type="text"
-              warning={warnings.username}
-              value={formData.username}
-              onChange={handleChange}
-            />
-            <Input
-              name="password"
-              type="password"
-              warning={warnings.password}
-              value={formData.password}
-              onChange={handleChange}
-            />
+            {Object.entries(formData).map(([input, value]) => (
+              <div key={input} className="flex">
+                <Input
+                  name={input}
+                  type={input.includes("password") ? "password" : "text"}
+                  warning={warnings[input]}
+                  value={value}
+                  onChange={handleChange}
+                  colors={[Colors.p6, Colors.p2, Colors.a6, Colors.a3]}
+                />
+              </div>
+            ))}
             <div style={{ marginTop: pxl * 10 }}>
-              <FormButton text="login" onClick={handleLogin} />
+              <DefaultButton
+                text={Strings.login}
+                onClick={handleLogin}
+                size={70}
+                colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
+              />
             </div>
           </form>
         </div>
@@ -182,11 +194,12 @@ const Login = () => {
             style={{ width: pxl * 260 }}
           >
             <div
-              className="w-full flex leading-none justify-end text-gray-400"
+              className="w-full flex leading-none justify-end"
               style={{
                 height: pxl * 18,
                 fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
+                color: Colors.p4,
               }}
             >
               {Strings.signup_prompt}
@@ -195,11 +208,12 @@ const Login = () => {
           <div className="h-full flex items-center justify-start">
             <Link to="/signup">
               <div
-                className="flex leading-none text-gray-600"
+                className="flex leading-none"
                 style={{
                   height: pxl * 18,
                   fontSize: pxl * 16,
                   fontFamily: "'pxlSmall', monospace",
+                  color: Colors.a3,
                 }}
               >
                 {Strings.signup}

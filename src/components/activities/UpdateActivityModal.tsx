@@ -3,8 +3,8 @@ import { createActivity, updateActivity } from "../../api/ActivitiesApi";
 import { Activity, Modifiers } from "../../api/AuthApi";
 import { allowedStats } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
-import { pxl } from "../../constants/ThemeConstants";
-import { AddNewButton, ModalButton, SettingsButton } from "../Buttons";
+import { Colors, pxl } from "../../constants/ThemeConstants";
+import { DefaultButton, DefaultIconButton } from "../Buttons";
 import { Input } from "../Input";
 import { StatModifier } from "./StatModifier";
 
@@ -27,11 +27,11 @@ interface ModalProps {
 export const UpdateActivityModal = (props: ModalProps) => {
   const [openDropdown, setDropdown] = useState(false);
   const [formData, setFormData] = useState<{
-    name: string;
+    act_name: string;
     time_limit: undefined;
     modifiers: Partial<Modifiers>;
   }>({
-    name: props.state.current ? props.state.current.name : "",
+    act_name: props.state.current ? props.state.current.name : "",
     time_limit: undefined,
     modifiers: props.state.current // remove null modifiers
       ? Object.fromEntries(
@@ -79,6 +79,7 @@ export const UpdateActivityModal = (props: ModalProps) => {
     // Remove modifiers that won't affect the decay
     const result = await createActivity({
       ...formData,
+      name: formData.act_name,
       modifiers: Object.fromEntries(
         Object.entries(formData.modifiers).filter(([_, value]) => value !== 1)
       ),
@@ -115,8 +116,25 @@ export const UpdateActivityModal = (props: ModalProps) => {
 
   return (
     <div className="flex-1 flex relative">
-      <ModalButton onClick={props.nav.goBack} right={52 * pxl} />
-      <ModalButton onClick={props.exit} />
+      <div
+        className="absolute flex"
+        style={{
+          right: pxl * 5,
+          top: pxl * 5,
+          gap: pxl * 8,
+        }}
+      >
+        <DefaultIconButton
+          onClick={props.nav.goBack}
+          size={[40]}
+          colors={[Colors.p4, Colors.p6]}
+        />
+        <DefaultIconButton
+          onClick={props.exit}
+          size={[40]}
+          colors={[Colors.p4, Colors.p6]}
+        />
+      </div>
       <div
         className="flex flex-col w-full"
         style={{
@@ -129,21 +147,23 @@ export const UpdateActivityModal = (props: ModalProps) => {
           style={{ gap: pxl * 5, padding: pxl * 10 }}
         >
           <div
-            className="flex justify-start leading-none text-gray-400"
+            className="flex justify-start leading-none"
             style={{
               height: pxl * 39,
               fontSize: pxl * 36,
               fontFamily: "'pxlLarge', monospace",
+              color: Colors.a5,
             }}
           >
             {props.state.current ? Strings.edit_activity : Strings.new_activity}
           </div>
           <div
-            className="flex leading-none text-gray-400"
+            className="flex leading-none"
             style={{
               height: pxl * 18,
               fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
+              color: Colors.a3,
             }}
           >
             {Strings.new_activity_desc}
@@ -151,14 +171,19 @@ export const UpdateActivityModal = (props: ModalProps) => {
         </div>
         <div className="flex flex-col w-full relative">
           <div className="absolute right-0">
-            <AddNewButton onClick={handleSet} />
+            <DefaultIconButton
+              onClick={handleSet}
+              size={[50, 30]}
+              colors={[Colors.p4, Colors.p5]}
+            />
           </div>
 
           <Input
-            name="name"
+            name="act_name"
             type="text"
-            value={formData.name}
+            value={formData.act_name}
             onChange={handleChange}
+            colors={[Colors.a5, Colors.a2, Colors.a6, Colors.a3]}
           />
         </div>
         <div
@@ -167,24 +192,27 @@ export const UpdateActivityModal = (props: ModalProps) => {
         >
           <div className="flex w-full justify-between items-end">
             <div
-              className="flex justify-start leading-none text-gray-400"
+              className="flex justify-start leading-none"
               style={{
                 height: pxl * 26,
                 fontSize: pxl * 24,
                 fontFamily: "'pxlLarge', monospace",
+                color: Colors.p6,
               }}
             >
               {Strings.activity_modifiers}
             </div>
-            <AddNewButton
+            <DefaultIconButton
               onClick={() => {
                 setDropdown(!openDropdown);
               }}
+              size={[50, 30]}
+              colors={[Colors.p4, Colors.p5]}
             />
           </div>
           <div
-            className="w-full flex bg-gray-400"
-            style={{ height: pxl * 5 }}
+            className="w-full flex"
+            style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
           />
           <div className="flex-1 flex relative">
             {openDropdown ? (
@@ -219,9 +247,10 @@ export const UpdateActivityModal = (props: ModalProps) => {
             </div>
           </div>
         </div>
-        <SettingsButton
-          text={props.state.current ? "update" : "create_activity"}
+        <DefaultButton
+          text={props.state.current ? Strings.update : Strings.create_activity}
           onClick={props.state.current ? handleUpdate : handleCreate}
+          colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
         />
       </div>
     </div>
@@ -236,36 +265,26 @@ interface StatDropdownProps {
 const StatDropdown = (props: StatDropdownProps) => {
   return (
     <div
-      className="absolute top-0 right-0 flex flex-col self-end bg-gray-400"
+      className="absolute top-0 right-0 flex flex-col self-end"
       style={{
         width: pxl * 160,
         gap: pxl * 3,
         padding: pxl * 3,
+        backgroundColor: Colors.a6,
       }}
     >
       {props.options.map((option) => (
-        <button
-          key={option}
-          className="w-full flex items-center bg-gray-300 hover:bg-gray-400 text-gray-400 hover:text-gray-600 cursor-pointer"
-          style={{
-            height: pxl * 24,
-            paddingLeft: pxl * 5,
-          }}
-          onClick={() => {
-            props.onClick(option);
-          }}
-        >
-          <div
-            className="w-full flex justify-start leading-none "
-            style={{
-              height: pxl * 18,
-              fontSize: pxl * 16,
-              fontFamily: "'pxlSmall', monospace",
+        <div key={option} className="flex">
+          <DefaultButton
+            text={Strings[option]}
+            onClick={() => {
+              props.onClick(option);
             }}
-          >
-            {Strings[option]}
-          </div>
-        </button>
+            size={26}
+            alignLeft
+            colors={[Colors.a2, Colors.a3, Colors.a5, Colors.p1]}
+          />
+        </div>
       ))}
     </div>
   );

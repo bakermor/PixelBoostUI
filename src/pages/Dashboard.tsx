@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ActivityModal } from "../components/activities/ActivityModal";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
-import { SettingsButton } from "../components/Buttons";
+import { DefaultButton } from "../components/Buttons";
 import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
 import { SideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
-import { pxl } from "../constants/ThemeConstants";
+import { Strings } from "../constants/Strings";
+import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
 
@@ -36,7 +37,10 @@ const Dashboard = () => {
   }, [loading]);
 
   return (
-    <div className="h-screen w-screen flex">
+    <div
+      className="h-screen w-screen flex"
+      style={{ backgroundColor: Colors.p1 }}
+    >
       {modal === "action" ? (
         <ActionModal exit={exitModal} />
       ) : modal === "activities" ? (
@@ -45,36 +49,50 @@ const Dashboard = () => {
       <SideBar />
       <div className="flex-1 flex" style={{ padding: pxl * 20, gap: 20 }}>
         <div className="flex-1 flex flex-col" style={{ gap: pxl * 15 }}>
-          <div className="w-full bg-gray-400" style={{ height: pxl * 15 }} />
+          <div
+            className="w-full"
+            style={{ height: pxl * 8, backgroundColor: Colors.p4 }}
+          />
           <div className="w-full" style={{ height: pxl * 170 }}>
             <AvatarContainer />
           </div>
           <div className="w-full flex" style={{ gap: pxl * 10 }}>
             <StatContainer health={health} />
             <div
-              className="flex flex-col justify-evenly bg-gray-300"
+              className="flex flex-col justify-evenly"
               style={{
                 width: pxl * 380,
                 paddingLeft: pxl * 10,
                 paddingRight: pxl * 10,
+                backgroundColor: Colors.p3,
               }}
             >
-              <SettingsButton text="edit_stat" onClick={doAction} />
-              <SettingsButton
-                text="set_levels"
+              <DefaultButton
+                colors={[Colors.p5, Colors.p6, Colors.p1]}
+                text={Strings.edit_stat}
+                onClick={doAction}
+              />
+              <DefaultButton
+                colors={[Colors.p5, Colors.p6, Colors.p1]}
+                text={Strings.set_levels}
                 onClick={() => {
                   navigate("/set-levels");
                 }}
               />
-              <SettingsButton
-                text="edit_equations"
+              <DefaultButton
+                colors={[Colors.p5, Colors.p6, Colors.p1]}
+                text={Strings.edit_equations}
                 onClick={() => {
                   navigate("/settings/stat");
                 }}
               />
             </div>
           </div>
-          <div className="flex-1 bg-gray-200" />
+          <div
+            className="w-full"
+            style={{ height: pxl * 8, backgroundColor: Colors.p4 }}
+          />
+          {/* <div className="flex-1 bg-gray-200" /> */}
         </div>
         <ProfileCard user={user} setModal={doActivity} />
       </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getActivities } from "../../api/ActivitiesApi";
 import { Activity } from "../../api/AuthApi";
+import { Colors } from "../../constants/ThemeConstants";
 import { BaseModal } from "../Modals";
 import { CurrentActivityModal } from "./CurrentActivityModal";
 import { MyActivitiesModal } from "./MyActivitiesModal";
@@ -40,7 +41,7 @@ export const ActivityModal = (props: ModalProps) => {
   }, [activities]);
 
   return (
-    <BaseModal {...props}>
+    <BaseModal {...props} color={Colors.p2}>
       {modal === "all" ? (
         <MyActivitiesModal
           {...modalProps}

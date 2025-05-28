@@ -10,24 +10,27 @@ interface InputProps {
   value: any;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+
+  colors: string[];
 }
 
 export const Input = (props: InputProps) => {
   useEffect(() => {}, [props]);
 
   return (
-    <div className="flex flex-col" style={{ gap: pxl * 5 }}>
+    <div className="flex flex-col w-full" style={{ gap: pxl * 5 }}>
       <div
         className="w-full flex justify-between"
         style={{ height: pxl * 35, gap: pxl * 10 }}
       >
         <div className="h-full flex items-end">
           <div
-            className="w-full flex leading-none text-gray-800"
+            className="w-full flex leading-none"
             style={{
               height: pxl * 18,
               fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
+              color: props.colors[2],
             }}
           >
             {Strings[`in_${props.name}`]}
@@ -36,11 +39,12 @@ export const Input = (props: InputProps) => {
         {props.warning !== "" ? (
           <div className="h-full flex-1 flex items-end">
             <div
-              className="w-full flex justify-end leading-none text-end text-gray-500"
+              className="w-full flex justify-end leading-none text-end"
               style={{
                 height: pxl * 18,
                 fontSize: pxl * 16,
                 fontFamily: "'pxlSmall', monospace",
+                color: props.colors[3] ?? props.colors[2],
               }}
             >
               {props.warning}
@@ -49,7 +53,7 @@ export const Input = (props: InputProps) => {
         ) : null}
       </div>
       <div className="w-full" style={{ height: pxl * 70 }}>
-        <InputBox>
+        <InputBox colors={props.colors}>
           <input
             className="flex-1 outline-none"
             name={props.name}
@@ -62,6 +66,7 @@ export const Input = (props: InputProps) => {
               padding: pxl * 10,
               fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
+              color: props.colors[2],
             }}
           />
         </InputBox>

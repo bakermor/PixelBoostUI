@@ -7,8 +7,8 @@ import {
   User,
 } from "../../api/AuthApi";
 import { Strings } from "../../constants/Strings";
-import { pxl } from "../../constants/ThemeConstants";
-import { UpdateButton } from "../Buttons";
+import { Colors, pxl } from "../../constants/ThemeConstants";
+import { DefaultButton } from "../Buttons";
 import { Input } from "../Input";
 
 interface Props {
@@ -133,16 +133,20 @@ const SettingsSection = (props: SectionProps) => {
   return (
     <div className="w-full flex flex-col" style={{ gap: pxl * 8 }}>
       <div
-        className="flex justify-start leading-none whitespace-nowrap text-gray-400"
+        className="flex justify-start leading-none whitespace-nowrap"
         style={{
           height: pxl * 26,
           fontSize: pxl * 24,
           fontFamily: "'pxlLarge', monospace",
+          color: Colors.p6,
         }}
       >
         {Strings[props.title]}
       </div>
-      <div className="w-full bg-gray-300" style={{ height: pxl * 5 }} />
+      <div
+        className="w-full"
+        style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
+      />
       {Object.entries(formData).map(([key, value]) => (
         <div key={key} style={{ width: pxl * 820 }}>
           <Input
@@ -151,11 +155,17 @@ const SettingsSection = (props: SectionProps) => {
             type={key.includes("password") ? "password" : "text"}
             warning={warnings[key]}
             onChange={handleChange}
+            colors={[Colors.p5, Colors.p3, Colors.a6, Colors.a3]}
           />
         </div>
       ))}
       <div className="flex" style={{ width: pxl * 180, paddingTop: pxl * 25 }}>
-        <UpdateButton text="save" onClick={handleSubmit} />
+        <DefaultButton
+          text={Strings.save}
+          onClick={handleSubmit}
+          size={50}
+          colors={[Colors.a3, Colors.a4, Colors.p1]}
+        />
       </div>
     </div>
   );

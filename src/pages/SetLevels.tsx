@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateHealth } from "../api/HealthApi";
-import { SettingsButton, SmallRectButton } from "../components/Buttons";
+import { DefaultButton } from "../components/Buttons";
 import { SetStat } from "../components/SetStat";
 import { allowedStats } from "../constants/StatConstants";
 import { Strings } from "../constants/Strings";
-import { pxl } from "../constants/ThemeConstants";
+import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
 
@@ -86,28 +86,38 @@ const SetLevels = () => {
   }, [loading]);
 
   return (
-    <div className="h-screen w-screen flex justify-end bg-gray-200">
+    <div
+      className="h-screen w-screen flex justify-end"
+      style={{ backgroundColor: Colors.p4 }}
+    >
       <div
-        className="h-full flex flex-col bg-white overflow-x-auto"
-        style={{ width: pxl * 1480, gap: pxl * 30, padding: pxl * 45 }}
+        className="h-full flex flex-col overflow-x-auto"
+        style={{
+          width: pxl * 1480,
+          gap: pxl * 30,
+          padding: pxl * 45,
+          backgroundColor: Colors.p1,
+        }}
       >
         <div className="flex flex-col w-full" style={{ gap: pxl * 5 }}>
           <div
-            className="flex justify-start leading-none text-gray-400"
+            className="flex justify-start leading-none"
             style={{
               height: pxl * 52,
               fontSize: pxl * 48,
               fontFamily: "'pxlLarge', monospace",
+              color: Colors.a5,
             }}
           >
             {Strings.set_levels}
           </div>
           <div
-            className="flex justify-start leading-none text-gray-300"
+            className="flex justify-start leading-none"
             style={{
               height: pxl * 18,
               fontSize: pxl * 16,
               fontFamily: "'pxlSmall', monospace",
+              color: Colors.a3,
             }}
           >
             {Strings.set_levels_desc}
@@ -126,7 +136,13 @@ const SetLevels = () => {
             className="self-end flex"
             style={{ width: pxl * 180, marginRight: pxl * 218 }}
           >
-            <SmallRectButton text="fill_all" onClick={fillAll} />
+            <DefaultButton
+              text={Strings.fill_all}
+              name="fill_all"
+              onClick={fillAll}
+              size={30}
+              colors={[Colors.a2, Colors.a3, Colors.a6, Colors.p1]}
+            />
           </div>
 
           {allowedStats.map((stat) => (
@@ -153,7 +169,11 @@ const SetLevels = () => {
               marginBottom: pxl * 40,
             }}
           >
-            <SettingsButton text="update" onClick={handleSubmit} />
+            <DefaultButton
+              text={Strings.update}
+              onClick={handleSubmit}
+              colors={[Colors.a5, Colors.a4, Colors.a2, Colors.p1]}
+            />
           </div>
         </div>
       </div>
