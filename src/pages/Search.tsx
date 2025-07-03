@@ -2,7 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../api/AuthApi";
-import { SideBar } from "../components/SideBar";
+import { NewSideBar } from "../components/SideBar";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
 
@@ -18,8 +18,8 @@ const Search = () => {
   const unfollowUser = () => {};
 
   return (
-    <div className="w-screen h-screen flex">
-      <SideBar />
+    <div className="w-screen h-screen flex bg-linear-to-t from-[#FFFFFC] to-[#FFFEE0]">
+      <NewSideBar focused="search" />
       <div className="flex-1 flex flex-col py-5 px-12 gap-5">
         <SearchBar val={search} change={setSearch} />
         {user ? (
@@ -100,14 +100,12 @@ interface ButtonProps {
 const SmallButton = (props: ButtonProps) => {
   return (
     <button
-      className={`group flex justify-center items-center w-32 h-8 rounded-sm cursor-pointer bg-${
-        props.focused ? "[#C957BC]" : "[#FBC0E5]"
-      } hover:bg-[#C957BC] transition-colors duration-300`}
+      className={`group flex justify-center items-center w-32 h-8 rounded-sm cursor-pointer ${
+        props.focused ? "bg-[#C957BC]" : "bg-[#FBC0E5]"
+      } hover:bg-[#C957BC] text-[#752092] hover:text-[#FFFFFC] transition-colors duration-300`}
       onClick={props.onClick}
     >
-      <div className="sans leading-none text-sm text-[#752092] group-hover:text-[#FFFFFC] transition-colors duration-300">
-        {props.text}
-      </div>
+      <div className="sans leading-none text-sm">{props.text}</div>
     </button>
   );
 };

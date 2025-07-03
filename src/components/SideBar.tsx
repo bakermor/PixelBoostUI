@@ -73,3 +73,52 @@ export const SideBar = () => {
     </div>
   );
 };
+
+interface Props {
+  focused?: string;
+}
+
+export const NewSideBar = (props: Props) => {
+  const navigate = useNavigate();
+
+  const buttons = ["dashboard", "settings", "search"];
+
+  const clickButton = (path: string) => {
+    navigate(path);
+  };
+
+  return (
+    <div className="h-full flex flex-col gap-3 items-center w-72 bg-linear-to-t from-[#FFC872] to-[#FFF0A6] to-50% outline-3 outline-[#C957BC] pt-48">
+      <div className="w-full flex flex-col">
+        {buttons.map((item, index) => (
+          <Button
+            key={index}
+            text={Strings[item]}
+            onClick={() => clickButton(`/${item}`)}
+            focused={item === props.focused}
+          />
+        ))}
+      </div>
+      <div className="w-68 h-4 bg-[#FFC872]" />
+    </div>
+  );
+};
+
+interface ButtonProps {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  focused?: boolean;
+}
+
+const Button = (props: ButtonProps) => {
+  return (
+    <button
+      className={`sans text-start px-4 w-full h-11 cursor-pointer ${
+        props.focused ? "bg-[#FFD785]" : "bg-[#FFF0A6]"
+      } hover:bg-[#FFC872] outline-2 outline-[#FFC872] text-[#752092] transition-colors duration-300`}
+      onClick={props.onClick}
+    >
+      {props.text}
+    </button>
+  );
+};

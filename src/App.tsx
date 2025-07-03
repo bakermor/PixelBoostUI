@@ -1,3 +1,5 @@
+import "@fontsource/kameron";
+import "@fontsource/work-sans";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -12,8 +14,7 @@ import Search from "./pages/Search";
 import SetLevels from "./pages/SetLevels";
 import Settings from "./pages/Settings";
 import SignUp from "./pages/SignUp";
-import "@fontsource/work-sans";
-import "@fontsource/kameron";
+import UserProfile from "./pages/User";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="action" element={<Action />} />
                 <Route path="settings/:section?" element={<Settings />} />
                 <Route path="search" element={<Search />} />
+                <Route path=":username" element={<UserProfile />} />
               </Route>
             </Route>
           </Routes>
