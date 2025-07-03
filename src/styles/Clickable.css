@@ -14,3 +14,11 @@
   background-color: var(--hover-color);
   color: var(--text-hover);
 }
+
+.sans {
+  font-family: "Work Sans", "sans-serif";
+}
+
+.kameron {
+  font-family: "Kameron", "serif";
+}

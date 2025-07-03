@@ -61,6 +61,9 @@ export const Strings: Record<string, string> = {
   sec_stat: "Stats",
   settings: "Settings",
   edit_equations: "Edit decay speed",
+  find_users: "Find friends",
+  following: "Following",
+  follow: "Follow",
 
   // INPUT box title and placeholders
   in_confirm_password: "Confirm Password",
@@ -81,6 +84,7 @@ export const Strings: Record<string, string> = {
   in_name_desc: "Enter your name",
   in_new_password: "New Password",
   in_new_password_desc: "Enter your new password",
+  search_ph: "Search",
 
   create_act_drop: "Create new activity...",
 

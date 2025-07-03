@@ -1,7 +1,6 @@
 import { ActionRanges, RangeValues } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";
-import "../../styles/Clickable.css";
 
 interface RangeContainerProps {
   action: string;

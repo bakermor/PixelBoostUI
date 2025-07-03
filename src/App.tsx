@@ -8,9 +8,12 @@ import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
+import Search from "./pages/Search";
 import SetLevels from "./pages/SetLevels";
-import SignUp from "./pages/SignUp";
 import Settings from "./pages/Settings";
+import SignUp from "./pages/SignUp";
+import "@fontsource/work-sans";
+import "@fontsource/kameron";
 
 function App() {
   return (
@@ -28,6 +31,7 @@ function App() {
                 <Route path="set-levels" element={<SetLevels />} />
                 <Route path="action" element={<Action />} />
                 <Route path="settings/:section?" element={<Settings />} />
+                <Route path="search" element={<Search />} />
               </Route>
             </Route>
           </Routes>
