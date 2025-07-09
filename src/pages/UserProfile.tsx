@@ -1,7 +1,7 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { User } from "../api/AuthApi";
+import { User } from "../models/User";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
 import { NewSideBar } from "../components/SideBar";
 import { Strings } from "../constants/Strings";
@@ -11,7 +11,9 @@ const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const { username } = useParams();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    //get user from username
+  }, []);
 
   return (
     <div className="w-screen h-screen flex bg-linear-to-t from-[#FFFEE0] to-[#FFFFFC]">

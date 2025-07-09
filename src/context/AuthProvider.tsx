@@ -5,7 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getCurrentUser, User } from "../api/AuthApi";
+import { getCurrentUser } from "../api/AuthApi";
+import { User } from "../models/User";
 
 interface Auth {
   user: User | undefined;

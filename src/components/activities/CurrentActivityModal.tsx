@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { stopActivity } from "../../api/ActivitiesApi";
-import { Activity } from "../../api/AuthApi";
+import { Activity } from "../../models/User";
 import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";

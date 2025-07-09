@@ -1,5 +1,5 @@
 import { ReactNode, useContext, useState } from "react";
-import { User } from "../../api/AuthApi";
+import { User } from "../../models/User";
 import { updateEquations, updateHealth } from "../../api/HealthApi";
 import { statEquations } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";

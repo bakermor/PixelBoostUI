@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
-import { Activity, Modifiers } from "./AuthApi";
 import { api } from "./axiosConfigs";
+import { Activity, Modifiers } from "../models/User";
 
 interface BaseRes {
   status: number;

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { updateUser, User } from "../api/AuthApi";
+import { updateUser } from "../api/AuthApi";
 import { Strings } from "../constants/Strings";
 import { Colors, pxl } from "../constants/ThemeConstants";
 import { DefaultButton, DefaultIconButton } from "./Buttons";
+import { User } from "../models/User";
 
 interface ProfileCardProps {
   user: User | undefined;

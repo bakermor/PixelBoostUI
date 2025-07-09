@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deleteActivity } from "../../api/ActivitiesApi";
-import { Activity } from "../../api/AuthApi";
+import { Activity } from "../../models/User";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";
 import { DefaultButton, DefaultIconButton } from "../Buttons";

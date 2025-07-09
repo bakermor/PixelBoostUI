@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { Health } from "./AuthApi";
+import { Health } from "../models/User";
 import { api } from "./axiosConfigs";
 
 interface UpdateStatReq {

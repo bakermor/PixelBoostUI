@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createActivity, updateActivity } from "../../api/ActivitiesApi";
-import { Activity, Modifiers } from "../../api/AuthApi";
+import { Activity, Modifiers } from "../../models/User";
 import { allowedStats } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";

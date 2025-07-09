@@ -14,7 +14,7 @@ import Search from "./pages/Search";
 import SetLevels from "./pages/SetLevels";
 import Settings from "./pages/Settings";
 import SignUp from "./pages/SignUp";
-import UserProfile from "./pages/User";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
