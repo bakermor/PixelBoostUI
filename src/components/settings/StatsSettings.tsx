@@ -1,11 +1,12 @@
 import { ReactNode, useContext, useState } from "react";
-import { User } from "../../models/User";
 import { updateEquations, updateHealth } from "../../api/HealthApi";
 import { statEquations } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
+import { User } from "../../models/User";
+import { createHealthUpdate } from "../../utils/createHealthUpdate";
 import { DefaultButton } from "../Buttons";
 
 interface Props {
@@ -47,32 +48,7 @@ export const StatsSettings = (props: Props) => {
 
   const handleSubmit = async () => {
     // update health so past levels aren't affected when the equation changes
-    const update = await updateHealth({
-      energy: {
-        current_level: health.energy,
-        last_updated: Date.now() / 1000,
-      },
-      hunger: {
-        current_level: health.hunger,
-        last_updated: Date.now() / 1000,
-      },
-      thirst: {
-        current_level: health.thirst,
-        last_updated: Date.now() / 1000,
-      },
-      fun: {
-        current_level: health.fun,
-        last_updated: Date.now() / 1000,
-      },
-      social: {
-        current_level: health.social,
-        last_updated: Date.now() / 1000,
-      },
-      hygiene: {
-        current_level: health.hygiene,
-        last_updated: Date.now() / 1000,
-      },
-    });
+    const update = await updateHealth(createHealthUpdate(health));
 
     // update equations if health update succeeds
     if (update.status === 200) {

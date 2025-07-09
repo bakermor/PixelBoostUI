@@ -37,6 +37,17 @@ export const createEmptyUser = (): User => ({
   username: "",
   email: "",
   name: "",
+  following: [],
+  followers: [],
   current_activity: createEmptyActivity(),
   health: createEmptyHealth(),
+});
+
+export const createEmptyHealthLevels = () => ({
+  energy: 0,
+  hunger: 0,
+  thirst: 0,
+  fun: 0,
+  social: 0,
+  hygiene: 0,
 });

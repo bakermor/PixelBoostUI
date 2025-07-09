@@ -9,7 +9,7 @@ import { DefaultButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
 import { InputForm, RangeForm, SelectForm } from "./ActionFormTypes";
 
-interface ActionProps {
+interface Props {
   children: ReactNode;
   stat: string;
   action: string;
@@ -29,7 +29,7 @@ interface PickActionProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const BaseAction = (props: ActionProps) => {
+export const BaseAction = (props: Props) => {
   const { user, updateAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 

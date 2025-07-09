@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { deleteActivity } from "../../api/ActivitiesApi";
-import { Activity } from "../../models/User";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";
+import { Activity } from "../../models/User";
 import { DefaultButton, DefaultIconButton } from "../Buttons";
 
 interface ModalProps {

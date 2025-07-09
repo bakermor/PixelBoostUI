@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { stopActivity } from "../../api/ActivitiesApi";
-import { Activity } from "../../models/User";
 import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
+import { Activity } from "../../models/User";
+import { createHealthUpdate } from "../../utils/createHealthUpdate";
 import { DefaultButton, DefaultIconButton } from "../Buttons";
 import { StatModifier } from "./StatModifier";
 
@@ -36,32 +37,7 @@ export const CurrentActivityModal = (props: ModalProps) => {
   const handleSubmit = async () => {
     // Update levels first so there is no conflict with the activity modifiers
     if (!loading && health && user?.current_activity) {
-      const update = await updateHealth({
-        energy: {
-          current_level: health.energy,
-          last_updated: Date.now() / 1000,
-        },
-        hunger: {
-          current_level: health.hunger,
-          last_updated: Date.now() / 1000,
-        },
-        thirst: {
-          current_level: health.thirst,
-          last_updated: Date.now() / 1000,
-        },
-        fun: {
-          current_level: health.fun,
-          last_updated: Date.now() / 1000,
-        },
-        social: {
-          current_level: health.social,
-          last_updated: Date.now() / 1000,
-        },
-        hygiene: {
-          current_level: health.hygiene,
-          last_updated: Date.now() / 1000,
-        },
-      });
+      const update = await updateHealth(createHealthUpdate(health));
 
       // Stop Activity
       const result = await stopActivity(user.current_activity.id);

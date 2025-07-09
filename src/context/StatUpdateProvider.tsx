@@ -6,15 +6,8 @@ import {
   useState,
 } from "react";
 import { AuthContext } from "./AuthProvider";
-
-export interface HealthLevels {
-  energy: number;
-  hunger: number;
-  thirst: number;
-  fun: number;
-  social: number;
-  hygiene: number;
-}
+import { HealthLevels } from "../models/User";
+import { createEmptyHealthLevels } from "../utils/userFactory";
 
 interface StatUpdate {
   health: HealthLevels;
@@ -26,27 +19,13 @@ interface UpdateProviderProps {
 }
 
 export const StatUpdateContext = createContext<StatUpdate>({
-  health: {
-    energy: 0,
-    hunger: 0,
-    thirst: 0,
-    fun: 0,
-    social: 0,
-    hygiene: 0,
-  },
+  health: createEmptyHealthLevels(),
   loading: true,
 });
 
 export const StatUpdateProvider = (props: UpdateProviderProps) => {
   const auth = useContext(AuthContext);
-  const [health, setHealth] = useState<HealthLevels>({
-    energy: 0,
-    hunger: 0,
-    thirst: 0,
-    fun: 0,
-    social: 0,
-    hygiene: 0,
-  });
+  const [health, setHealth] = useState<HealthLevels>(createEmptyHealthLevels());
   const [loading, setLoading] = useState(true);
 
   const updateStats = () => {

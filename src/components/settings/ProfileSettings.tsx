@@ -7,9 +7,9 @@ import {
 } from "../../api/AuthApi";
 import { Strings } from "../../constants/Strings";
 import { Colors, pxl } from "../../constants/ThemeConstants";
+import { User } from "../../models/User";
 import { DefaultButton } from "../Buttons";
 import { Input } from "../Input";
-import { User } from "../../models/User";
 
 interface Props {
   user: User;

@@ -35,6 +35,19 @@ export interface User {
   username: string;
   email: string;
   name: string;
+  following: Array<string>;
+  followers: Array<string>;
   current_activity: Activity;
   health: Health;
+}
+
+// OTHER MODELS
+
+export interface HealthLevels {
+  energy: number;
+  hunger: number;
+  thirst: number;
+  fun: number;
+  social: number;
+  hygiene: number;
 }

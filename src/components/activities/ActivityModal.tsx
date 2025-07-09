@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getActivities } from "../../api/ActivitiesApi";
-import { Activity } from "../../models/User";
 import { Colors } from "../../constants/ThemeConstants";
+import { Activity } from "../../models/User";
 import { BaseModal } from "../Modals";
 import { CurrentActivityModal } from "./CurrentActivityModal";
 import { MyActivitiesModal } from "./MyActivitiesModal";

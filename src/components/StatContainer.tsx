@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { allowedStats } from "../constants/StatConstants";
 import { Colors, pxl } from "../constants/ThemeConstants";
-import { HealthLevels } from "../context/StatUpdateProvider";
+import { HealthLevels } from "../models/User";
 import { LabeledStat } from "./LabeledStat";
 
 interface StatContainerProps {

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { SearchBar } from "./SearchBar";
-import { UserInfo } from "./UserInfo";
-import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Strings } from "../constants/Strings";
+import { AuthContext } from "../context/AuthProvider";
+import { SearchBar } from "./SearchBar";
+import { UserInfo } from "./UserInfo";
 
 interface Props {
   tab?: "following" | "followers";

@@ -12,6 +12,7 @@ import { StatUpdateContext } from "../context/StatUpdateProvider";
 const SetLevels = () => {
   const { health, loading } = useContext(StatUpdateContext);
   const { updateAuth } = useContext(AuthContext);
+
   const [modifiers, setModifiers] = useState(
     Object.fromEntries(allowedStats.map((stat) => [stat, 0]))
   );

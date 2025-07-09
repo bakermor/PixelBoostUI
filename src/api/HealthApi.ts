@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { Health } from "../models/User";
+import { Health, HealthLevels } from "../models/User";
 import { api } from "./axiosConfigs";
 
 interface UpdateStatReq {
@@ -19,15 +19,6 @@ export interface UpdateHealthReq {
   fun: UpdateStatReq;
   social: UpdateStatReq;
   hygiene: UpdateStatReq;
-}
-
-interface EquationUpdateReq {
-  energy: number;
-  hunger: number;
-  thirst: number;
-  fun: number;
-  social: number;
-  hygiene: number;
 }
 
 export async function updateStat(
@@ -59,9 +50,7 @@ export async function updateHealth(body: UpdateHealthReq): Promise<BaseRes> {
   }
 }
 
-export async function updateEquations(
-  body: EquationUpdateReq
-): Promise<BaseRes> {
+export async function updateEquations(body: HealthLevels): Promise<BaseRes> {
   try {
     const res = await api.patch("/health/equations", body);
     if (res.status === 200) return { status: res.status, health: res.data };
