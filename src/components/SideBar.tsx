@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 import { Strings } from "../constants/Strings";
 import { Colors, pxl } from "../constants/ThemeConstants";
+import { User } from "../models/User";
 import { DefaultButton } from "./Buttons";
+import { UserInfo } from "./UserInfo";
 
 export const SideBar = () => {
   const navigate = useNavigate();
@@ -42,53 +45,37 @@ export const SideBar = () => {
           colors={[Colors.p6, Colors.p5, Colors.p1]}
         />
       </div>
-      {/* <div className="h-3/5 flex flex-col" style={{ gap: pxl * 10 }}>
-        <div
-          className="border-gray-600"
-          style={{
-            paddingLeft: pxl * 5,
-            paddingRight: pxl * 5,
-            borderTopWidth: pxl * 5,
-            paddingTop: pxl * 15,
-          }}
-        >
-          <div
-            className="flex leading-none bg-gray-600 text-gray-600"
-            style={{
-              height: pxl * 52,
-              fontSize: pxl * 48,
-              fontFamily: "'pxlLarge', monospace",
-            }}
-          ></div>
-        </div>
-        <div
-          className="flex-1 flex flex-col bg-gray-600"
-          style={{ gap: pxl * 5 }}
-        >
-          <div className="flex bg-gray-500" style={{ height: pxl * 65 }} />
-          <div className="flex bg-gray-500" style={{ height: pxl * 65 }} />
-          <div className="flex bg-gray-500" style={{ height: pxl * 65 }} />
-        </div>
-      </div> */}
     </div>
   );
 };
 
 interface Props {
   focused?: string;
+  variant?: "default" | "dashboard";
+
+  friends?: User[];
 }
 
 export const NewSideBar = (props: Props) => {
   const navigate = useNavigate();
 
-  const buttons = ["dashboard", "settings", "search"];
+  const buttons =
+    props.variant === "dashboard"
+      ? ["settings", "search"]
+      : ["dashboard", "settings", "search"];
 
   const clickButton = (path: string) => {
     navigate(path);
   };
 
   return (
-    <div className="h-full flex flex-col gap-3 items-center w-72 bg-linear-to-t from-[#FFC872] to-[#FFF0A6] to-50% outline-3 outline-[#C957BC] pt-48">
+    <div className="h-full flex flex-col gap-3 items-center w-72 min-w-72 pt-6 bg-linear-to-t from-[#FFC872] to-[#FFF0A6] to-50% outline-3 outline-[#C957BC]">
+      <img
+        src={logo}
+        className={`object-contain p-20 ${
+          props.variant === "dashboard" ? "py-7" : "py-4"
+        }`}
+      />
       <div className="w-full flex flex-col">
         {buttons.map((item, index) => (
           <Button
@@ -100,6 +87,18 @@ export const NewSideBar = (props: Props) => {
         ))}
       </div>
       <div className="w-68 h-4 bg-[#FFC872]" />
+      {props.friends ? (
+        <div className="flex flex-col w-full gap-2 items-center overflow-hidden">
+          <div className="kameron flex w-full pt-2 justify-center text-2xl text-[#752092]">
+            {Strings.friends}
+          </div>
+          <div className="flex-1 flex flex-col w-full p-1 gap-1 overflow-y-auto scroll-py-2 scrollbar-hide">
+            {props.friends.map((u, index) => (
+              <UserInfo key={index} user={u} variant="sidebar" />
+            ))}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

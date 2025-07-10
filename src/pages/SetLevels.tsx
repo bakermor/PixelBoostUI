@@ -8,28 +8,29 @@ import { Strings } from "../constants/Strings";
 import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
+import { HealthLevels } from "../models/User";
 import { createHealthUpdate } from "../utils/createHealthUpdate";
+import { createEmptyHealthLevels } from "../utils/userFactory";
 
 const SetLevels = () => {
   const { health, loading } = useContext(StatUpdateContext);
   const { updateAuth } = useContext(AuthContext);
 
-  const [modifiers, setModifiers] = useState(
-    Object.fromEntries(allowedStats.map((stat) => [stat, 0]))
+  const [modifiers, setModifiers] = useState<HealthLevels>(
+    createEmptyHealthLevels()
   );
 
   const navigate = useNavigate();
 
-  const updateMod = (stat: string, value: number) => {
-    let updatedLevel =
-      health[stat as keyof typeof health] + modifiers[stat] + value;
+  const updateMod = (stat: keyof HealthLevels, value: number) => {
+    let updatedLevel = health[stat] + modifiers[stat] + value;
 
     // modifier[stat] should not push health[stat] over 100 or under 0
     let newValue =
       updatedLevel > 100
-        ? 100 - health[stat as keyof typeof health]
+        ? 100 - health[stat]
         : updatedLevel < 0
-        ? -health[stat as keyof typeof health]
+        ? -health[stat]
         : modifiers[stat] + value;
 
     setModifiers({
@@ -41,17 +42,27 @@ const SetLevels = () => {
   const fillAll = () => {
     setModifiers(
       Object.fromEntries(
-        allowedStats.map((stat) => [
-          stat,
-          100 - health[stat as keyof typeof health],
+        Object.keys(modifiers).map((key) => [
+          key,
+          100 - health[key as keyof HealthLevels],
         ])
-      )
+      ) as Record<keyof HealthLevels, number>
     );
   };
 
   const handleSubmit = async () => {
-    const result = await updateHealth(createHealthUpdate(health));
-
+    // Update with sum of health and modifiers
+    const result = await updateHealth(
+      createHealthUpdate(
+        Object.fromEntries(
+          Object.keys(modifiers).map((key) => [
+            key,
+            health[key as keyof HealthLevels] +
+              modifiers[key as keyof HealthLevels],
+          ])
+        ) as Record<keyof HealthLevels, number>
+      )
+    );
     if (result.status === 200) {
       await updateAuth();
       navigate("/dashboard");
@@ -125,10 +136,11 @@ const SetLevels = () => {
           {allowedStats.map((stat) => (
             <div className="flex" key={stat} style={{ paddingBottom: pxl * 5 }}>
               <SetStat
-                stat={stat}
+                stat={stat as keyof HealthLevels}
                 level={Math.min(
                   Math.max(
-                    health[stat as keyof typeof health] + modifiers[stat],
+                    health[stat as keyof HealthLevels] +
+                      modifiers[stat as keyof HealthLevels],
                     0
                   ),
                   100

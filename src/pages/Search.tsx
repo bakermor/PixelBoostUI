@@ -104,7 +104,6 @@ const Search = () => {
               <UserInfo
                 key={index}
                 user={item}
-                navigate={() => navigate(`/${item.username}`)}
                 button={
                   me?.id === item.id
                     ? undefined

@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { Strings } from "../constants/Strings";
 import { pxl } from "../constants/ThemeConstants";
 
@@ -141,16 +142,23 @@ export const AbsoluteButton = (props: ButtonProps) => {
 
 interface NewButtonProps {
   text: string;
-  name?: string;
   onClick: React.MouseEventHandler<any>;
 
-  variant?: string;
-
+  name?: string;
   focused?: boolean;
+  variant?: "default" | "inverted";
   icon?: {
     onClick: () => void;
     colors: string[];
   };
+}
+
+interface NewIconButtonProps {
+  onClick: React.MouseEventHandler<any>;
+  children?: ReactNode;
+
+  variant?: "default";
+  disabled?: boolean;
 }
 
 export const NewDefaultButton = (props: NewButtonProps) => {
@@ -161,11 +169,15 @@ export const NewDefaultButton = (props: NewButtonProps) => {
 
   return (
     <button
-      className="w-full items-center cursor-pointer rounded-xl bg-[#C957BC] border-3 border-[#752092] text-[#FFFFFC] hover:bg-[#FFC872] hover:border-[#FFC872] hover:text-[#752092] transition-colors duration-300"
+      className={`w-full items-center cursor-pointer rounded-xl border-3 ${
+        props.variant === "inverted"
+          ? "bg-[#FFC872] border-[#FFC872] text-[#752092] hover:bg-[#C957BC] hover:border-[#752092] hover:text-[#FFFFFC]"
+          : "bg-[#C957BC] border-[#752092] text-[#FFFFFC] hover:bg-[#FFC872] hover:border-[#FFC872] hover:text-[#752092]"
+      } transition-colors duration-300`}
       onClick={handleClick}
       name={props.name}
     >
-      <div className="flex-1 flex items-center h-14 px-2 py-1 gap-1">
+      <div className="flex-1 flex items-center h-13 px-2 py-1 gap-1">
         <div className="sans w-full flex whitespace-nowrap leading-none justify-center">
           {props.text}
         </div>
@@ -178,5 +190,36 @@ export const NewDefaultButton = (props: NewButtonProps) => {
         ) : null}
       </div>
     </button>
+  );
+};
+
+export const SmallButton = (props: NewButtonProps) => {
+  return (
+    <button
+      className={`flex justify-center items-center w-48 h-8 rounded-sm cursor-pointer ${
+        props.focused
+          ? "bg-[#C957BC] hover:bg-[#FFC872] text-[#FFFFFC] hover:text-[#752092]"
+          : "bg-[#FFC872] hover:bg-[#C957BC] text-[#752092] hover:text-[#FFFFFC]"
+      }  transition-colors duration-300`}
+      onClick={props.onClick}
+    >
+      <div className="sans leading-none text-sm">{props.text}</div>
+    </button>
+  );
+};
+
+export const IconButton = (props: NewIconButtonProps) => {
+  const handleClick = (e: React.MouseEvent<any>) => {
+    e.stopPropagation();
+    props.onClick(e);
+  };
+
+  return (
+    <div
+      className={`flex min-w-7 min-h-7 mt-1 items-center justify-center rounded-xs cursor-pointer outline-3 bg-[#FFF0A6] text-[#C957BC] outline-[#C957BC] hover:bg-[#C957BC] hover:outline-[#752092] hover:text-[#752092] transition-colors duration-300`}
+      onClick={handleClick}
+    >
+      {props.children}
+    </div>
   );
 };

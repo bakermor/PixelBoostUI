@@ -1,56 +1,33 @@
 import { useEffect } from "react";
 import { allowedStats } from "../constants/StatConstants";
-import { Colors, pxl } from "../constants/ThemeConstants";
 import { HealthLevels } from "../models/User";
 import { LabeledStat } from "./LabeledStat";
 
-interface StatContainerProps {
+interface Props {
   health: HealthLevels | undefined;
 }
 
-export const StatContainer = (props: StatContainerProps) => {
+export const StatContainer = (props: Props) => {
   useEffect(() => {}, [props.health]);
 
   return (
-    <div
-      className="flex"
-      style={{
-        height: pxl * 225,
-        width: pxl * 715,
-        gap: pxl * 10,
-        paddingLeft: pxl * 10,
-        paddingRight: pxl * 10,
-        backgroundColor: Colors.p6,
-      }}
-    >
-      <div className="flex-1 flex flex-col justify-evenly">
+    <div className="w-full flex py-6 px-7 gap-8 justify-center rounded-lg bg-linear-to-t from-[#C957BC] to-[#752092] outline-3 outline-[#752092]">
+      <div className="flex-1 flex flex-col justify-evenly gap-3.5">
         {allowedStats.slice(0, 3).map((stat) => (
-          <div key={stat} className="flex">
-            <LabeledStat
-              name={stat}
-              level={
-                props.health
-                  ? props.health[stat as keyof typeof props.health]
-                  : 0
-              }
-              color={Colors.p1}
-            />
-          </div>
+          <LabeledStat
+            key={stat}
+            name={stat}
+            level={props.health ? props.health[stat as keyof HealthLevels] : 0}
+          />
         ))}
       </div>
-      <div className="flex-1 flex flex-col justify-evenly">
+      <div className="flex-1 flex flex-col justify-evenly gap-3.5">
         {allowedStats.slice(3, 7).map((stat) => (
-          <div key={stat} className="flex">
-            <LabeledStat
-              name={stat}
-              level={
-                props.health
-                  ? props.health[stat as keyof typeof props.health]
-                  : 0
-              }
-              color={Colors.p1}
-            />
-          </div>
+          <LabeledStat
+            key={stat}
+            name={stat}
+            level={props.health ? props.health[stat as keyof HealthLevels] : 0}
+          />
         ))}
       </div>
     </div>

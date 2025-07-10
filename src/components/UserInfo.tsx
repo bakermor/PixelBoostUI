@@ -1,28 +1,40 @@
+import { useNavigate } from "react-router-dom";
 import { User } from "../models/User";
 
 interface Props {
   user: User;
-  navigate: () => void;
   button?: {
     text: string;
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     focused?: boolean;
   };
+  variant?: "default" | "sidebar";
 }
 
 export const UserInfo = (props: Props) => {
+  const navigate = useNavigate();
   return (
     <div
-      className="flex justify-between items-center w-full h-14 gap-3 bg-[#FFFFFC] hover:bg-[#F5F5F5] cursor-pointer p-3 transition-colors duration-300"
-      onClick={props.navigate}
+      className={`group flex justify-between items-center w-full h-14 p-2.5 gap-3 cursor-pointer ${
+        props.variant === "sidebar"
+          ? "bg-[#C957BC] hover:bg-[#FFC872] border-2 border-[#752092] hover:border-[#C957BC] text-[#FFFFFC] hover:text-[#752092]"
+          : "bg-[#FFFFFC] hover:bg-[#F5F5F5] text-[#752092]"
+      } transition-colors duration-300`}
+      onClick={() => navigate(`/${props.user.username}`)}
     >
       <div className="flex gap-4">
-        <div className="h-8 w-8 bg-[#FFFEE0] outline-2 outline-[#752092]" />
+        <div className="h-10 w-10 bg-[#FFFEE0] outline-2 outline-[#752092]" />
         <div className="flex flex-col gap-0.5 justify-center">
-          <div className="sans leading-none whitespace-nowrap text-sm text-[#752092]">
+          <div className="sans leading-none whitespace-nowrap text-sm ">
             {props.user.name}
           </div>
-          <div className="kameron leading-none font-semibold whitespace-nowrap text-xs text-[#C957BC]">
+          <div
+            className={`kameron leading-none font-semibold whitespace-nowrap text-xs ${
+              props.variant == "sidebar"
+                ? "text-[#FBC0E5] group-hover:text-[#C957BC]"
+                : "text-[#C957BC]"
+            } transition-colors duration-300`}
+          >
             @{props.user.username}
           </div>
         </div>

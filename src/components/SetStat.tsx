@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { Strings } from "../constants/Strings";
 import { Colors, pxl } from "../constants/ThemeConstants";
+import { HealthLevels } from "../models/User";
 import { DefaultIconButton } from "./Buttons";
 
 interface Props {
-  stat: string;
+  stat: keyof HealthLevels;
   level: number;
-  onClick: (stat: string, value: number) => void;
+  onClick: (stat: keyof HealthLevels, value: number) => void;
 }
 
 interface DragStatProps {
-  stat: string;
+  stat: keyof HealthLevels;
   level: number;
-  onClick: (stat: string, value: number) => void;
+  onClick: (stat: keyof HealthLevels, value: number) => void;
 }
 
 interface LevelDisplayProps {

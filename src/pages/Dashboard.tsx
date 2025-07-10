@@ -1,100 +1,82 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserFollowing } from "../api/FollowApi";
 import { ActivityModal } from "../components/activities/ActivityModal";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
-import { DefaultButton } from "../components/Buttons";
+import { NewDefaultButton } from "../components/Buttons";
 import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
-import { SideBar } from "../components/SideBar";
+import { NewSideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
 import { Strings } from "../constants/Strings";
-import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
+import { User } from "../models/User";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
-  const { health, loading } = useContext(StatUpdateContext);
+  const { health } = useContext(StatUpdateContext);
 
   const navigate = useNavigate();
 
   const [modal, setModal] = useState<string | null>(null);
+  const [friendList, setFriendList] = useState<User[] | undefined>(undefined);
 
-  const doAction = () => {
-    setModal("action");
-  };
-
-  const doActivity = () => {
-    setModal("activities");
+  const chooseModal = (m: string) => {
+    setModal(m);
   };
 
   const exitModal = () => {
     setModal(null);
   };
 
+  const getFriendsList = async (user_id: string) => {
+    const result = await getUserFollowing(user_id);
+    if (result.status === 200) setFriendList(result.data);
+  };
+
   useEffect(() => {
-    if (!loading) console.log(health);
-  }, [loading]);
+    if (user) {
+      getFriendsList(user.id);
+    }
+  }, [user]);
 
   return (
-    <div
-      className="h-screen w-screen flex"
-      style={{ backgroundColor: Colors.p1 }}
-    >
+    <div className="h-screen w-screen flex bg-linear-to-t from-[#FFFEE0] to-[#FFFFFC]">
       {modal === "action" ? (
         <ActionModal exit={exitModal} />
       ) : modal === "activities" ? (
         <ActivityModal exit={exitModal} />
       ) : null}
-      <SideBar />
-      <div className="flex-1 flex" style={{ padding: pxl * 20, gap: 20 }}>
-        <div className="flex-1 flex flex-col" style={{ gap: pxl * 15 }}>
-          <div
-            className="w-full"
-            style={{ height: pxl * 8, backgroundColor: Colors.p4 }}
-          />
-          <div className="w-full" style={{ height: pxl * 170 }}>
-            <AvatarContainer />
-          </div>
-          <div className="w-full flex" style={{ gap: pxl * 10 }}>
-            <StatContainer health={health} />
-            <div
-              className="flex flex-col justify-evenly"
-              style={{
-                width: pxl * 380,
-                paddingLeft: pxl * 10,
-                paddingRight: pxl * 10,
-                backgroundColor: Colors.p3,
+
+      <NewSideBar variant="dashboard" friends={friendList} />
+      <div className="flex-1 flex p-4 gap-4">
+        <div className="flex-1 flex flex-col gap-5 px-5 pt-12">
+          <AvatarContainer />
+          <StatContainer health={health} />
+          <div className="w-full flex justify-around gap-3 px-12">
+            <NewDefaultButton
+              text={Strings.edit_stat}
+              onClick={() => {
+                chooseModal("action");
               }}
-            >
-              <DefaultButton
-                colors={[Colors.p5, Colors.p6, Colors.p1]}
-                text={Strings.edit_stat}
-                onClick={doAction}
-              />
-              <DefaultButton
-                colors={[Colors.p5, Colors.p6, Colors.p1]}
-                text={Strings.set_levels}
-                onClick={() => {
-                  navigate("/set-levels");
-                }}
-              />
-              <DefaultButton
-                colors={[Colors.p5, Colors.p6, Colors.p1]}
-                text={Strings.edit_equations}
-                onClick={() => {
-                  navigate("/settings/stat");
-                }}
-              />
-            </div>
+              variant="inverted"
+            />
+            <NewDefaultButton
+              text={Strings.set_levels}
+              onClick={() => {
+                navigate("/set-levels");
+              }}
+              variant="inverted"
+            />
           </div>
-          <div
-            className="w-full"
-            style={{ height: pxl * 8, backgroundColor: Colors.p4 }}
-          />
-          {/* <div className="flex-1 bg-gray-200" /> */}
         </div>
-        <ProfileCard user={user} setModal={doActivity} />
+        <ProfileCard
+          user={user}
+          onClick={() => {
+            chooseModal("activities");
+          }}
+        />
       </div>
     </div>
   );

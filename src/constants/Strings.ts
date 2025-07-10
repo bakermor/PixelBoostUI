@@ -39,6 +39,8 @@ export const Strings: Record<string, string> = {
   edit_decay_desc:
     "Select an option to make your stats decrease faster or slower",
 
+  friends: "Friends",
+
   // BUTTONS
   signup: "Sign up",
   create_account: "Create account",
