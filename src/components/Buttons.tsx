@@ -7,6 +7,7 @@ interface ButtonProps {
   onClick: React.MouseEventHandler<any>;
 
   colors: string[];
+  variant?: string;
   size?: number;
 
   focused?: boolean;
@@ -133,6 +134,48 @@ export const AbsoluteButton = (props: ButtonProps) => {
         }}
       >
         {Strings[props.text]}
+      </div>
+    </button>
+  );
+};
+
+interface NewButtonProps {
+  text: string;
+  name?: string;
+  onClick: React.MouseEventHandler<any>;
+
+  variant?: string;
+
+  focused?: boolean;
+  icon?: {
+    onClick: () => void;
+    colors: string[];
+  };
+}
+
+export const NewDefaultButton = (props: NewButtonProps) => {
+  const handleClick = (e: React.MouseEvent<any>) => {
+    e.stopPropagation();
+    props.onClick(e);
+  };
+
+  return (
+    <button
+      className="w-full items-center cursor-pointer rounded-xl bg-[#C957BC] border-3 border-[#752092] text-[#FFFFFC] hover:bg-[#FFC872] hover:border-[#FFC872] hover:text-[#752092] transition-colors duration-300"
+      onClick={handleClick}
+      name={props.name}
+    >
+      <div className="flex-1 flex items-center h-14 px-2 py-1 gap-1">
+        <div className="sans w-full flex whitespace-nowrap overflow-clip leading-none justify-center">
+          {props.text}
+        </div>
+        {props.icon ? (
+          <DefaultIconButton
+            onClick={props.icon.onClick}
+            size={[30]}
+            colors={props.icon.colors}
+          />
+        ) : null}
       </div>
     </button>
   );

@@ -6,3 +6,8 @@ export const debounce = (func: Function, ms = 300) => {
     timeoutId = setTimeout(() => func.apply(this, args), ms);
   };
 };
+
+export function isValidEmail(email: string): boolean {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  return emailPattern.test(email);
+}

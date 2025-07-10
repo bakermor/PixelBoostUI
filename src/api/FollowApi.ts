@@ -1,9 +1,7 @@
 import { User } from "../models/User";
 import { api, baseApiCall, BaseRes } from "./axiosConfigs";
 
-export function getUsersFromSearch(
-  search: string
-): Promise<BaseRes<Array<User>>> {
+export function getUsersFromSearch(search: string): Promise<BaseRes<User[]>> {
   return baseApiCall(() =>
     api.get("/search", { params: { search_term: search } })
   );

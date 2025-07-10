@@ -17,7 +17,7 @@ export interface Activity {
 
 export interface Stat {
   current_level: number;
-  equation: Array<number>;
+  equation: number[];
   last_updated: number;
 }
 
@@ -35,8 +35,8 @@ export interface User {
   username: string;
   email: string;
   name: string;
-  following: Array<string>;
-  followers: Array<string>;
+  following: string[];
+  followers: string[];
   current_activity: Activity;
   health: Health;
 }
