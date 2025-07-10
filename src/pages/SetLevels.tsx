@@ -8,6 +8,7 @@ import { Strings } from "../constants/Strings";
 import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
+import { createHealthUpdate } from "../utils/createHealthUpdate";
 
 const SetLevels = () => {
   const { health, loading } = useContext(StatUpdateContext);
@@ -49,32 +50,7 @@ const SetLevels = () => {
   };
 
   const handleSubmit = async () => {
-    const result = await updateHealth({
-      energy: {
-        current_level: health.energy + modifiers.energy,
-        last_updated: Date.now() / 1000,
-      },
-      hunger: {
-        current_level: health.hunger + modifiers.hunger,
-        last_updated: Date.now() / 1000,
-      },
-      thirst: {
-        current_level: health.thirst + modifiers.thirst,
-        last_updated: Date.now() / 1000,
-      },
-      fun: {
-        current_level: health.fun + modifiers.fun,
-        last_updated: Date.now() / 1000,
-      },
-      social: {
-        current_level: health.social + modifiers.social,
-        last_updated: Date.now() / 1000,
-      },
-      hygiene: {
-        current_level: health.hygiene + modifiers.hygiene,
-        last_updated: Date.now() / 1000,
-      },
-    });
+    const result = await updateHealth(createHealthUpdate(health));
 
     if (result.status === 200) {
       await updateAuth();

@@ -3,7 +3,7 @@ import { User } from "../models/User";
 interface Props {
   user: User;
   navigate: () => void;
-  button: {
+  button?: {
     text: string;
     onClick: React.MouseEventHandler<HTMLButtonElement>;
     focused?: boolean;
@@ -27,7 +27,7 @@ export const UserInfo = (props: Props) => {
           </div>
         </div>
       </div>
-      <SmallButton {...props.button} />
+      {props.button ? <SmallButton {...props.button} /> : null}
     </div>
   );
 };

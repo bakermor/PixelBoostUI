@@ -31,7 +31,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
   const updateAuth = useCallback(async () => {
     setLoading(true);
     const res = await getCurrentUser();
-    if (res.status === 200) setUser(res.user);
+    if (res.status === 200) setUser(res.data);
     setLoading(false);
   }, []);
 

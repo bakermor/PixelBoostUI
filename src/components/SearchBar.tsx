@@ -1,9 +1,12 @@
 import SearchIcon from "@mui/icons-material/Search";
+import { KeyboardEventHandler } from "react";
 import { Strings } from "../constants/Strings";
 
 interface Props {
   val: string;
   change: (search: string) => void;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   variant?: string;
 }
 
@@ -20,6 +23,8 @@ export const SearchBar = (props: Props) => {
         placeholder={Strings.search_ph}
         value={props.val}
         onChange={(e) => props.change(e.currentTarget.value)}
+        onKeyDown={props.onKeyDown}
+        onBlur={props.onBlur}
       />
     </div>
   );

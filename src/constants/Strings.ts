@@ -98,6 +98,8 @@ export const Strings: Record<string, string> = {
   warn_user_invalid: "Invalid username or password",
   warn_password_invalid: "Invalid password",
 
+  no_results: "No users found",
+
   required: " is required",
   level_display: " / 100",
   activity: "activity:",

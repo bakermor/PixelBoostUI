@@ -1,5 +1,24 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { refreshUser } from "./AuthApi";
+
+export interface BaseRes<T = any> {
+  status: number;
+  data?: T;
+}
+
+export async function baseApiCall<T = any>(
+  func: () => Promise<any>
+): Promise<BaseRes<T>> {
+  try {
+    const res = await func();
+    return { status: res.status, data: res.data };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      return { status: error.status ?? 500 };
+    }
+    return { status: 500 };
+  }
+}
 
 export const api = axios.create({
   baseURL: "http://localhost:8000/api",

@@ -1,15 +1,9 @@
-import { AxiosError } from "axios";
 import { Health, HealthLevels } from "../models/User";
-import { api } from "./axiosConfigs";
+import { api, baseApiCall, BaseRes } from "./axiosConfigs";
 
 interface UpdateStatReq {
   current_level: number;
   last_updated: number;
-}
-
-interface BaseRes {
-  status: number;
-  health?: Health;
 }
 
 export interface UpdateHealthReq {
@@ -21,44 +15,17 @@ export interface UpdateHealthReq {
   hygiene: UpdateStatReq;
 }
 
-export async function updateStat(
+export function updateStat(
   stat: string,
   body: UpdateStatReq
-): Promise<BaseRes> {
-  try {
-    const res = await api.patch(`/health/${stat}`, body);
-    if (res.status === 200) return { status: res.status, health: res.data };
-    return { status: res.status };
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return { status: error.status ? error.status : 500 };
-    }
-    return { status: 500 };
-  }
+): Promise<BaseRes<Health>> {
+  return baseApiCall(() => api.patch(`/health/${stat}`, body));
 }
 
-export async function updateHealth(body: UpdateHealthReq): Promise<BaseRes> {
-  try {
-    const res = await api.patch("/health/", body);
-    if (res.status === 200) return { status: res.status, health: res.data };
-    return { status: res.status };
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return { status: error.status ? error.status : 500 };
-    }
-    return { status: 500 };
-  }
+export function updateHealth(body: UpdateHealthReq): Promise<BaseRes<Health>> {
+  return baseApiCall(() => api.patch("/health/", body));
 }
 
-export async function updateEquations(body: HealthLevels): Promise<BaseRes> {
-  try {
-    const res = await api.patch("/health/equations", body);
-    if (res.status === 200) return { status: res.status, health: res.data };
-    return { status: res.status };
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return { status: error.status ? error.status : 500 };
-    }
-    return { status: 500 };
-  }
+export function updateEquations(body: HealthLevels): Promise<BaseRes<Health>> {
+  return baseApiCall(() => api.patch("/health/equations", body));
 }

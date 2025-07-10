@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 import { Strings } from "../constants/Strings";
-import { api } from "./axiosConfigs";
 import { User } from "../models/User";
+import { api, baseApiCall, BaseRes } from "./axiosConfigs";
 
-interface BaseRes {
+interface AuthRes {
   status: number;
   field?: string;
   description?: string;
@@ -29,11 +29,6 @@ interface UserLoginReq {
   password: string;
 }
 
-interface CurrentUserRes {
-  status: number;
-  user?: User;
-}
-
 interface UpdateUserReq {
   name: string;
 }
@@ -51,58 +46,7 @@ interface UpdatePasswordReq {
   new_password: string;
 }
 
-export async function usernameCheck(
-  params: UsernameCheckReq
-): Promise<UsernameCheckRes> {
-  try {
-    const res = await api.get("/users/check-username", {
-      params: params,
-    });
-    if (res.data.status) return res.data;
-    else return { status: false, description: Strings.warn_user };
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      // FastAPI Validation Error
-      if (error.status === 422) {
-        let errorDetail = error.response?.data.detail[0];
-        let message = errorDetail.msg;
-
-        // Custom message for regex pattern mismatch
-        if (errorDetail.type === "string_pattern_mismatch")
-          message = Strings.warn_user_pattern;
-        return {
-          status: false,
-          description: message.replace("String", "Username"),
-        };
-      }
-    }
-    return { status: false, description: "" };
-  }
-}
-
-export async function createUser(body: CreateUserReq): Promise<BaseRes> {
-  try {
-    const res = await api.post("/users/register", body);
-    return { status: res.status };
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      // FastAPI Validation Error
-      if (error.status === 422) {
-        let errorDetail = error.response?.data.detail[0];
-        let message = errorDetail.msg;
-        return {
-          status: error.status,
-          field: errorDetail.loc[1],
-          description: message.replace("Value error, ", ""),
-        };
-      }
-      return { status: error.status ?? 500 };
-    }
-    return { status: 500 };
-  }
-}
-
-export async function getToken(body: UserLoginReq): Promise<BaseRes> {
+export async function getToken(body: UserLoginReq): Promise<AuthRes> {
   const encodedBody = new URLSearchParams();
   encodedBody.append("username", body.username);
   encodedBody.append("password", body.password);
@@ -135,34 +79,43 @@ export async function refreshUser(): Promise<{ status: number | undefined }> {
   }
 }
 
-export async function getCurrentUser(): Promise<CurrentUserRes> {
+export async function createUser(body: CreateUserReq): Promise<AuthRes> {
   try {
-    const res = await api.get("/auth/me");
-    return { status: res.status, user: res.data };
+    const res = await api.post("/users/register", body);
+    return { status: res.status };
   } catch (error) {
     if (error instanceof AxiosError) {
+      // FastAPI Validation Error
+      if (error.status === 422) {
+        let errorDetail = error.response?.data.detail[0];
+        let message = errorDetail.msg;
+        return {
+          status: error.status,
+          field: errorDetail.loc[1],
+          description: message.replace("Value error, ", ""),
+        };
+      }
       return { status: error.status ?? 500 };
     }
     return { status: 500 };
   }
+}
+
+export function getCurrentUser(): Promise<BaseRes<User>> {
+  return baseApiCall(() => api.get("/auth/me"));
 }
 
 export async function updateUser(
   id: string,
   body: UpdateUserReq
 ): Promise<BaseRes> {
-  try {
-    const res = await api.patch(`/users/${id}`, body);
-    return { status: res.status };
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return { status: error.status ?? 500 };
-    }
-    return { status: 500 };
-  }
+  return baseApiCall(() => api.patch(`/users/${id}`, body));
 }
 
-export async function updateUsername(id: string, body: UpdateUsernameReq) {
+export async function updateUsername(
+  id: string,
+  body: UpdateUsernameReq
+): Promise<AuthRes> {
   try {
     const res = await api.patch(`/users/${id}/change-username`, body);
     return { status: res.status };
@@ -190,7 +143,10 @@ export async function updateUsername(id: string, body: UpdateUsernameReq) {
   }
 }
 
-export async function updateEmail(id: string, body: UpdateEmailReq) {
+export async function updateEmail(
+  id: string,
+  body: UpdateEmailReq
+): Promise<AuthRes> {
   try {
     const res = await api.patch(`/users/${id}/change-email`, body);
     return { status: res.status };
@@ -211,7 +167,10 @@ export async function updateEmail(id: string, body: UpdateEmailReq) {
   }
 }
 
-export async function updatePassword(id: string, body: UpdatePasswordReq) {
+export async function updatePassword(
+  id: string,
+  body: UpdatePasswordReq
+): Promise<AuthRes> {
   try {
     const res = await api.patch(`/users/${id}/change-password`, body);
     return { status: res.status };
@@ -236,5 +195,34 @@ export async function updatePassword(id: string, body: UpdatePasswordReq) {
       return { status: error.status ?? 500 };
     }
     return { status: 500 };
+  }
+}
+
+export async function usernameCheck(
+  params: UsernameCheckReq
+): Promise<UsernameCheckRes> {
+  try {
+    const res = await api.get("/users/check-username", {
+      params: params,
+    });
+    if (res.data.status) return res.data;
+    else return { status: false, description: Strings.warn_user };
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // FastAPI Validation Error
+      if (error.status === 422) {
+        let errorDetail = error.response?.data.detail[0];
+        let message = errorDetail.msg;
+
+        // Custom message for regex pattern mismatch
+        if (errorDetail.type === "string_pattern_mismatch")
+          message = Strings.warn_user_pattern;
+        return {
+          status: false,
+          description: message.replace("String", "Username"),
+        };
+      }
+    }
+    return { status: false, description: "" };
   }
 }
