@@ -1,27 +1,88 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { User } from "../models/User";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getUserFromUsername } from "../api/AuthApi";
+import { followUser, unfollowUser } from "../api/FollowApi";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
 import { NewSideBar } from "../components/SideBar";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
+import { User } from "../models/User";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const { username } = useParams();
+  const [u, setU] = useState<User | undefined>(undefined);
+  const [me, setMe] = useState<User | undefined>(user);
+
+  const [status, setStatus] = useState<boolean | undefined>(undefined);
+
+  const follow = async (id: string) => {
+    if (u && me) {
+      const result = await followUser(id);
+      if (result.status === 200) {
+        setMe(result.data);
+        setU({
+          ...u,
+          followers: [...u.followers, me.id],
+        });
+      }
+    }
+    if (!me) {
+      navigate("/login");
+    }
+  };
+
+  const unfollow = async (id: string) => {
+    if (u && me) {
+      const result = await unfollowUser(id);
+      if (result.status === 200) {
+        setMe(result.data);
+        setU({
+          ...u,
+          followers: u.following.filter((uid) => uid !== me.id),
+        });
+      }
+    }
+  };
+
+  const onLoad = async () => {
+    if (username) {
+      const result = await getUserFromUsername(username);
+      if (result.status === 200) {
+        setU(result.data);
+        setStatus(true);
+      } else if (result.status === 404) {
+        setStatus(false);
+      }
+    }
+  };
 
   useEffect(() => {
-    //get user from username
+    onLoad();
   }, []);
 
   return (
     <div className="w-screen h-screen flex bg-linear-to-t from-[#FFFEE0] to-[#FFFFFC]">
       <NewSideBar />
-      {user ? <UserProfileCard user={user} /> : null}
-      <div className="flex-1 flex flex-col h-full py-28 pr-10 pl-4">
-        <AvatarContainer />
-      </div>
+      {status === false ? (
+        <div>NotFound</div>
+      ) : u ? (
+        <div className="flex-1 flex">
+          <UserProfileCard
+            user={u}
+            me={me}
+            onClick={() => {
+              me?.following.includes(u.id) ? unfollow(u.id) : follow(u.id);
+            }}
+          />
+          <div className="flex-1 flex flex-col h-full py-28 pr-10 pl-4">
+            <AvatarContainer />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -30,20 +91,32 @@ export default UserProfile;
 
 interface Props {
   user: User;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  me?: User;
 }
 
 const UserProfileCard = (props: Props) => {
-  const updateFollow = () => {};
-
   return (
     <div className="h-full w-96 p-6 flex">
       <div className="flex-1 flex flex-col gap-4 items-center bg-linear-to-t from-[#FFF0A6] from-80% to-[#FFC872] outline-3 outline-[#FFC872] py-4">
         <div className="flex flex-col gap-3">
           <div className="w-[310px] h-80 bg-[#FFFEE0] outline-3 outline-[#C957BC]" />
-          <div className="flex w-full justify-end gap-2 items-center">
-            <MoreHorizIcon className="bg-[#FFD785] outline-4 outline-[#FFD785] rounded-sm text-[#752092] cursor-pointer hover:bg-[#FFC872] hover:outline-[#FFC872] transition-colors duration-300" />
-            <SmallButton text={Strings.follow} onClick={updateFollow} />
-          </div>
+          {props.user.id != props.me?.id ? (
+            <div className="flex w-full justify-end gap-2 items-center">
+              <MoreHorizIcon className="bg-[#FFD785] outline-4 outline-[#FFD785] rounded-sm text-[#752092] cursor-pointer hover:bg-[#FFC872] hover:outline-[#FFC872] transition-colors duration-300" />
+              <SmallButton
+                text={
+                  props.me?.following.includes(props.user.id)
+                    ? Strings.following
+                    : Strings.follow
+                }
+                onClick={props.onClick}
+                focused={props.me?.following.includes(props.user.id)}
+              />
+            </div>
+          ) : (
+            <div className="w-full h-4" />
+          )}
         </div>
         <div className="kameron px-5 mt-2 w-full leading-none whitespace-nowrap font-semibold text-3xl text-[#752092]">
           {props.user.name}
@@ -54,10 +127,10 @@ const UserProfileCard = (props: Props) => {
           </div>
           <div className="flex w-full items-center h-4 rounded-sm cursor-pointer bg-[#FFD785] kameron font-semibold text-xs text-[#752092]">
             <div className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300">
-              0 {Strings.followers}
+              {props.user.followers.length} {Strings.followers}
             </div>
             <div className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300">
-              0 {Strings.following}
+              {props.user.following.length} {Strings.following}
             </div>
           </div>
         </div>

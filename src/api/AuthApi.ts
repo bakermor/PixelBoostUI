@@ -105,6 +105,10 @@ export function getCurrentUser(): Promise<BaseRes<User>> {
   return baseApiCall(() => api.get("/auth/me"));
 }
 
+export function getUserFromUsername(username: string): Promise<BaseRes<User>> {
+  return baseApiCall(() => api.get(`/users/name/${username}`));
+}
+
 export async function updateUser(
   id: string,
   body: UpdateUserReq
