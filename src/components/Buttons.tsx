@@ -166,7 +166,7 @@ export const NewDefaultButton = (props: NewButtonProps) => {
       name={props.name}
     >
       <div className="flex-1 flex items-center h-14 px-2 py-1 gap-1">
-        <div className="sans w-full flex whitespace-nowrap overflow-clip leading-none justify-center">
+        <div className="sans w-full flex whitespace-nowrap leading-none justify-center">
           {props.text}
         </div>
         {props.icon ? (

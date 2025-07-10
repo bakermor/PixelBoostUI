@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../api/AuthApi";
-import { DefaultButton } from "../components/Buttons";
-import { Input } from "../components/Input";
+import login from "../assets/login.png";
+import { NewDefaultButton } from "../components/Buttons";
+import { NewInput } from "../components/Input";
 import { Strings } from "../constants/Strings";
-import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 
 const Login = () => {
@@ -50,23 +50,25 @@ const Login = () => {
     }
   };
 
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
+  const checkNoWarnings = (): boolean => {
     // Check all fields have values
     const requiredWarnings = { ...warnings };
     for (const [key, value] of Object.entries(formData)) {
+      // If empty add warning that field is required
       if (value === "") {
-        let test = `${Strings[`in_${key}`]}${Strings.required}`;
-        requiredWarnings[key] = test;
+        requiredWarnings[key] = `${Strings[`in_${key}`]}${Strings.required}`;
       }
     }
     setWarnings(requiredWarnings);
 
     // Check no field is invalid
-    const noWarnings = Object.values(warnings).every((field) => field === "");
-    if (noWarnings) {
-      // Create a new user
+    return Object.values(warnings).every((field) => field === "");
+  };
+
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (checkNoWarnings()) {
+      // Login user
       const result = await loginUser();
       if (result) {
         // Move on to user's dashboard
@@ -77,149 +79,55 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="h-screen w-screen flex justify-end"
-      style={{ backgroundColor: Colors.p1 }}
-    >
-      <div
-        className="flex-1"
-        style={{ backgroundColor: Colors.p4, width: pxl * 1050 }}
-      ></div>
-      <div
-        className="h-full flex flex-col justify-center"
-        style={{
-          width: pxl * 780,
-          gap: pxl * 20,
-          paddingRight: pxl * 45,
-          paddingLeft: pxl * 45,
-        }}
-      >
-        <div
-          className="w-full flex"
-          style={{ backgroundColor: Colors.p4, height: pxl * 64 }}
-        ></div>
-        <div
-          className="flex flex-col"
-          style={{
-            marginTop: pxl * 10,
-            paddingLeft: pxl * 80,
-            paddingRight: pxl * 80,
-          }}
-        >
-          <div className="w-full flex justify-end" style={{ height: pxl * 72 }}>
-            <div
-              className="w-full flex leading-none justify-center"
-              style={{
-                height: pxl * 66,
-                fontSize: pxl * 60,
-                fontFamily: "'pxlLarge', monospace",
-                color: Colors.a5,
-              }}
-            >
-              {Strings.login_title}
-            </div>
+    <div className="h-screen w-screen flex justify-end bg-[#FFFFFC]">
+      <div className="flex justify-start p-10 pr-0">
+        <img
+          src={login}
+          width={700}
+          className="h-full max-h-screen overflow-clip"
+          style={{ imageRendering: "pixelated" }}
+        />
+      </div>
+      <div className="flex-1 h-full min-w-2xl gap-3 px-16 flex flex-col justify-center items-center">
+        <div className="flex flex-col mt-12 mb-6 px-20 min-w-xl">
+          <div className="kameron w-full py-1 flex items-end justify-center leading-none font-semibold text-5xl text-[#000000]">
+            {Strings.login_title}
           </div>
-          <div
-            className="w-full flex items-start"
-            style={{ height: pxl * 35, marginTop: pxl * 5 }}
-          >
-            <div
-              className="w-full flex leading-none justify-center items-start"
-              style={{
-                height: pxl * 18,
-                fontSize: pxl * 16,
-                fontFamily: "'pxlSmall', monospace",
-                color: Colors.a3,
-              }}
-            >
-              {Strings.login_desc}
-            </div>
+          <div className="sans w-full mt-1 flex justify-center leading-none text-[#919191]">
+            {Strings.login_desc}
           </div>
           {warnings.invalid !== "" ? (
-            <div
-              className="w-full flex items-start"
-              style={{ height: pxl * 35, marginTop: pxl * 15 }}
-            >
-              <div
-                className="w-full flex leading-none justify-center items-start"
-                style={{
-                  height: pxl * 18,
-                  fontSize: pxl * 16,
-                  fontFamily: "'pxlSmall', monospace",
-                  color: Colors.a3,
-                }}
-              >
-                {warnings.invalid}
-              </div>
+            <div className="sans w-full flex mt-5 justify-center leading-none text-[#C957BC]">
+              {warnings.invalid}
             </div>
           ) : null}
         </div>
-        <div
-          className="flex flex-col"
-          style={{
-            paddingLeft: pxl * 60,
-            paddingRight: pxl * 60,
-            gap: pxl * 25,
-          }}
-        >
-          <form className="flex flex-col" style={{ gap: pxl * 8 }}>
+        <div className="flex flex-col w-full min-w-xl px-14 gap-6">
+          <form className="flex w-full flex-col gap-4">
             {Object.entries(formData).map(([input, value]) => (
-              <div key={input} className="flex">
-                <Input
-                  name={input}
-                  type={input.includes("password") ? "password" : "text"}
-                  warning={warnings[input]}
-                  value={value}
-                  onChange={handleChange}
-                  colors={[Colors.p6, Colors.p2, Colors.a6, Colors.a3]}
-                />
-              </div>
-            ))}
-            <div style={{ marginTop: pxl * 10 }}>
-              <DefaultButton
-                text={Strings.login}
-                onClick={handleLogin}
-                size={70}
-                colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
+              <NewInput
+                key={input}
+                name={input}
+                type={input.includes("password") ? "password" : "text"}
+                warning={warnings[input]}
+                value={value}
+                onChange={handleChange}
               />
+            ))}
+            <div className="mt-6">
+              <NewDefaultButton text={Strings.login} onClick={handleLogin} />
             </div>
           </form>
         </div>
-        <div
-          className="w-full flex justify-center"
-          style={{ height: pxl * 35, gap: pxl * 10 }}
-        >
-          <div
-            className="h-full flex items-center"
-            style={{ width: pxl * 260 }}
-          >
-            <div
-              className="w-full flex leading-none justify-end"
-              style={{
-                height: pxl * 18,
-                fontSize: pxl * 16,
-                fontFamily: "'pxlSmall', monospace",
-                color: Colors.p4,
-              }}
-            >
-              {Strings.signup_prompt}
+        <div className="w-full flex justify-center gap-1 mt-2">
+          <div className="sans flex leading-none text-[#919191]">
+            {Strings.signup_prompt}
+          </div>
+          <Link to="/signup">
+            <div className="sans flex leading-none text-[#C957BC] hover:text-[#752092] underline underline-offset-1 transition-colors duration-300">
+              {Strings.signup}
             </div>
-          </div>
-          <div className="h-full flex items-center justify-start">
-            <Link to="/signup">
-              <div
-                className="flex leading-none"
-                style={{
-                  height: pxl * 18,
-                  fontSize: pxl * 16,
-                  fontFamily: "'pxlSmall', monospace",
-                  color: Colors.a3,
-                }}
-              >
-                {Strings.signup}
-              </div>
-            </Link>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
