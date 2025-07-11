@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getActivities } from "../../api/ActivitiesApi";
-import { Colors } from "../../constants/ThemeConstants";
 import { Activity } from "../../models/User";
 import { BaseModal } from "../Modals";
 import { CurrentActivityModal } from "./CurrentActivityModal";
@@ -8,11 +7,11 @@ import { MyActivitiesModal } from "./MyActivitiesModal";
 import { SetActivityModal } from "./SetActivityModal";
 import { UpdateActivityModal } from "./UpdateActivityModal";
 
-interface ModalProps {
+interface Props {
   exit: () => void;
 }
 
-export const ActivityModal = (props: ModalProps) => {
+export const ActivityModal = (props: Props) => {
   const [modal, setModal] = useState("all");
   const [prev, setPrev] = useState("");
 
@@ -41,7 +40,7 @@ export const ActivityModal = (props: ModalProps) => {
   }, [activities]);
 
   return (
-    <BaseModal {...props} color={Colors.p2}>
+    <BaseModal {...props}>
       {modal === "all" ? (
         <MyActivitiesModal
           {...modalProps}

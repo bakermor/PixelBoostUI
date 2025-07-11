@@ -1,12 +1,14 @@
+import AddIcon from "@mui/icons-material/Add";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { createActivity, updateActivity } from "../../api/ActivitiesApi";
-import { Activity, Modifiers } from "../../models/User";
 import { allowedStats } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
-import { Colors, pxl } from "../../constants/ThemeConstants";
-import { DefaultButton, DefaultIconButton } from "../Buttons";
-import { Input } from "../Input";
-import { StatModifier } from "./StatModifier";
+import { Activity, Modifiers } from "../../models/User";
+import { IconButton, NewDefaultButton, SmallButton } from "../Buttons";
+import { NewInput } from "../Input";
+import { StatModifier } from "./ActivityDisplay";
 
 interface ModalProps {
   exit: React.MouseEventHandler<HTMLButtonElement>;
@@ -116,105 +118,57 @@ export const UpdateActivityModal = (props: ModalProps) => {
 
   return (
     <div className="flex-1 flex relative">
-      <div
-        className="absolute flex"
-        style={{
-          right: pxl * 5,
-          top: pxl * 5,
-          gap: pxl * 8,
-        }}
-      >
-        <DefaultIconButton
-          onClick={props.nav.goBack}
-          size={[40]}
-          colors={[Colors.p4, Colors.p6]}
-        />
-        <DefaultIconButton
-          onClick={props.exit}
-          size={[40]}
-          colors={[Colors.p4, Colors.p6]}
-        />
+      <div className="absolute flex right-0 top-0 gap-2">
+        <IconButton onClick={props.nav.goBack}>
+          <ArrowBackIcon fontSize="large" />
+        </IconButton>
+        <IconButton onClick={props.exit}>
+          <CloseIcon fontSize="large" />
+        </IconButton>
       </div>
-      <div
-        className="flex flex-col w-full"
-        style={{
-          gap: pxl * 10,
-          padding: pxl * 20,
-        }}
-      >
-        <div
-          className="flex flex-col"
-          style={{ gap: pxl * 5, padding: pxl * 10 }}
-        >
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 39,
-              fontSize: pxl * 36,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.a5,
-            }}
-          >
+      <div className="flex flex-col w-full gap-4 p-3 pt-2">
+        <div className="flex flex-col gap-1 p-2">
+          <div className="kameron mt-3 w-full leading-none whitespace-nowrap text-4xl text-[#000000]">
             {props.state.current ? Strings.edit_activity : Strings.new_activity}
           </div>
-          <div
-            className="flex leading-none"
-            style={{
-              height: pxl * 18,
-              fontSize: pxl * 16,
-              fontFamily: "'pxlSmall', monospace",
-              color: Colors.a3,
-            }}
-          >
+          <div className="sans w-full leading-none whitespace-nowrap text-[#919191]">
             {Strings.new_activity_desc}
           </div>
         </div>
-        <div className="flex flex-col w-full relative">
-          <div className="absolute right-0">
-            <DefaultIconButton
+        <div className="flex flex-col w-full relative mt-2">
+          <div className="absolute right-0 -top-3">
+            <SmallButton
+              text={Strings.select}
               onClick={handleSet}
-              size={[50, 30]}
-              colors={[Colors.p4, Colors.p5]}
+              variant="activity"
             />
           </div>
 
-          <Input
+          <NewInput
             name="act_name"
             type="text"
             value={formData.act_name}
             onChange={handleChange}
-            colors={[Colors.a5, Colors.a2, Colors.a6, Colors.a3]}
+            variant="activity"
           />
         </div>
-        <div
-          className="flex-1 flex flex-col"
-          style={{ marginTop: pxl * 15, gap: pxl * 10 }}
-        >
+        <div className="flex-1 flex flex-col mt-2 gap-2">
           <div className="flex w-full justify-between items-end">
-            <div
-              className="flex justify-start leading-none"
-              style={{
-                height: pxl * 26,
-                fontSize: pxl * 24,
-                fontFamily: "'pxlLarge', monospace",
-                color: Colors.p6,
-              }}
-            >
+            <div className="kameron flex leading-none font-semibold text-2xl text-[#C957BC]">
               {Strings.activity_modifiers}
             </div>
-            <DefaultIconButton
+            <IconButton
               onClick={() => {
                 setDropdown(!openDropdown);
               }}
-              size={[50, 30]}
-              colors={[Colors.p4, Colors.p5]}
-            />
+              variant="add"
+              focused={openDropdown}
+            >
+              <AddIcon />
+            </IconButton>
           </div>
-          <div
-            className="w-full flex"
-            style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
-          />
-          <div className="flex-1 flex relative">
+          <div className="w-full h-1 rounded-lg bg-[#752092]" />
+          <div className="flex-1 flex relative overflow-clip">
             {openDropdown ? (
               <StatDropdown
                 onClick={addModifier}
@@ -223,34 +177,26 @@ export const UpdateActivityModal = (props: ModalProps) => {
                 )}
               />
             ) : null}
-            <div
-              className="flex-1 flex flex-col overflow-y-auto"
-              style={{
-                maxHeight: pxl * 290,
-                gap: pxl * 15,
-                marginTop: pxl * 10,
-              }}
-            >
+            <div className="flex-1 max-h-54 flex flex-col p-2 mt-1 gap-3 overflow-y-auto overflow-x-clip scrollbar scrollbar-thumb-[#FFC872] scrollbar-track-[#FFF0A6]">
               {statModifiers.map((option) => (
-                <div key={option} className="flex">
-                  <StatModifier
-                    stat={option}
-                    value={
-                      formData.modifiers[
-                        option as keyof typeof formData.modifiers
-                      ] ?? 0
-                    }
-                    onClick={handleChangeModifier}
-                  />
-                </div>
+                <StatModifier
+                  key={option}
+                  stat={option}
+                  value={
+                    formData.modifiers[
+                      option as keyof typeof formData.modifiers
+                    ] ?? 0
+                  }
+                  onClick={handleChangeModifier}
+                />
               ))}
             </div>
           </div>
         </div>
-        <DefaultButton
+        <NewDefaultButton
           text={props.state.current ? Strings.update : Strings.create_activity}
           onClick={props.state.current ? handleUpdate : handleCreate}
-          colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
+          size="large"
         />
       </div>
     </div>
@@ -264,27 +210,18 @@ interface StatDropdownProps {
 
 const StatDropdown = (props: StatDropdownProps) => {
   return (
-    <div
-      className="absolute top-0 right-0 flex flex-col self-end"
-      style={{
-        width: pxl * 160,
-        gap: pxl * 3,
-        padding: pxl * 3,
-        backgroundColor: Colors.a6,
-      }}
-    >
+    <div className="absolute top-0 right-0 w-32 flex flex-col self-end border-3 border-[#C957BC]">
       {props.options.map((option) => (
-        <div key={option} className="flex">
-          <DefaultButton
-            text={Strings[option]}
-            onClick={() => {
-              props.onClick(option);
-            }}
-            size={26}
-            alignLeft
-            colors={[Colors.a2, Colors.a3, Colors.a5, Colors.p1]}
-          />
-        </div>
+        <NewDefaultButton
+          key={option}
+          text={Strings[option]}
+          onClick={() => {
+            props.onClick(option);
+          }}
+          variant="dropdown"
+          size="2xs"
+          align="left"
+        />
       ))}
     </div>
   );

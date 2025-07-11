@@ -118,7 +118,7 @@ const Login = () => {
               <NewDefaultButton
                 text={Strings.login}
                 onClick={handleLogin}
-                variant="large"
+                size="large"
               />
             </div>
           </form>

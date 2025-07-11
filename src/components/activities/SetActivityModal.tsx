@@ -1,14 +1,16 @@
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import CloseIcon from "@mui/icons-material/Close";
 import { useContext, useState } from "react";
 import { startActivity } from "../../api/ActivitiesApi";
 import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
-import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { Activity } from "../../models/User";
 import { createHealthUpdate } from "../../utils/createHealthUpdate";
-import { DefaultButton, DefaultIconButton } from "../Buttons";
-import { StatModifier } from "./StatModifier";
+import { IconButton, NewDefaultButton } from "../Buttons";
+import { ActivityDisplay } from "./ActivityDisplay";
 
 interface ModalProps {
   exit: () => void;
@@ -60,87 +62,45 @@ export const SetActivityModal = (props: ModalProps) => {
 
   return (
     <div className="flex-1 flex relative">
-      <div
-        className="absolute flex"
-        style={{
-          right: pxl * 5,
-          top: pxl * 5,
-          gap: pxl * 8,
-        }}
-      >
-        <DefaultIconButton
-          onClick={props.nav.goBack}
-          size={[40]}
-          colors={[Colors.p4, Colors.p6]}
-        />
-        <DefaultIconButton
-          onClick={props.exit}
-          size={[40]}
-          colors={[Colors.p4, Colors.p6]}
-        />
+      <div className="absolute flex right-0 top-0 gap-2">
+        <IconButton onClick={props.nav.goBack}>
+          <ArrowBackIcon fontSize="large" />
+        </IconButton>
+        <IconButton onClick={props.exit}>
+          <CloseIcon fontSize="large" />
+        </IconButton>
       </div>
-
-      <div
-        className="flex flex-col w-full"
-        style={{
-          gap: pxl * 35,
-          padding: pxl * 15,
-          paddingTop: pxl * 25,
-        }}
-      >
-        <div
-          className="flex flex-col"
-          style={{ gap: pxl * 5, padding: pxl * 5 }}
-        >
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 39,
-              fontSize: pxl * 36,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.a5,
-            }}
-          >
+      <div className="flex flex-col w-full gap-6 p-3 pt-2">
+        <div className="flex flex-col gap-1 p-2">
+          <div className="kameron mt-3 w-full leading-none whitespace-nowrap text-4xl text-[#000000]">
             {Strings.set_activity}
           </div>
-          <div
-            className="flex leading-none"
-            style={{
-              height: pxl * 18,
-              fontSize: pxl * 16,
-              fontFamily: "'pxlSmall', monospace",
-              color: Colors.a3,
-            }}
-          >
+          <div className="sans w-full leading-none whitespace-nowrap text-[#919191]">
             {Strings.set_activity_desc}
           </div>
         </div>
-        <div className="w-full flex flex-col" style={{ padding: pxl * 10 }}>
+        <div className="w-full flex flex-col p-2">
           <button
-            className="w-full flex justify-between items-center cursor-pointer"
-            style={{
-              height: pxl * 55,
-              paddingRight: pxl * 10,
-              paddingLeft: pxl * 10,
-              gap: pxl * 10,
-              backgroundColor: Colors.a3,
-            }}
+            className={`w-full h-12 pl-3 pr-1 gap-2 flex justify-between items-center cursor-pointer bg-[#FFF0A6] border-3 hover:border-[#C957BC] ${
+              openDropdown
+                ? "border-[#C957BC] rounded-t-sm"
+                : "border-[#FFC872] rounded-sm"
+            } transition-colors duration-300`}
             onClick={() => setDropdown(!openDropdown)}
           >
             <div
-              className="flex-1 flex leading-none overflow-clip"
-              style={{
-                height: pxl * 18,
-                fontSize: pxl * 16,
-                fontFamily: "'pxlSmall', monospace",
-                color: props.state.current ? Colors.p1 : Colors.a1,
-              }}
+              className={`sans flex-1 flex leading-none whitespace-nowrap overflow-x-clip ${
+                props.state.current ? "text-[#752092]" : "text-[#C957BC]"
+              }`}
             >
               {props.state.current
                 ? props.state.current.name
                 : Strings.set_activity_placeholder}
             </div>
-            <div className="" style={{ width: pxl * 25, height: pxl * 25 }} />
+            <ArrowDropDownIcon
+              className="text-[#C957BC] hover:text-[#752092]"
+              fontSize="large"
+            />
           </button>
           <div className="flex relative w-full">
             {openDropdown ? (
@@ -153,15 +113,15 @@ export const SetActivityModal = (props: ModalProps) => {
             ) : null}
           </div>
         </div>
-        <div className="flex-1 flex">
+        <div className="flex-1 flex overflow-clip">
           {props.state.current ? (
             <ActivityDisplay activity={props.state.current} />
           ) : null}
         </div>
-        <DefaultButton
+        <NewDefaultButton
           text={Strings.submit}
           onClick={handleSubmit}
-          colors={[Colors.a5, Colors.a4, Colors.a2, Colors.p1]}
+          size="large"
         />
       </div>
     </div>
@@ -170,85 +130,38 @@ export const SetActivityModal = (props: ModalProps) => {
 
 interface DropdownProps {
   options: Activity[] | undefined;
+  onClick: (option: Activity) => void;
+
   focused?: string;
   create?: { name: string; onClick: () => void };
-  onClick: (option: Activity) => void;
 }
 
 const FullDropdown = (props: DropdownProps) => {
   return (
-    <div
-      className="absolute top-0 left-0 w-full flex flex-col"
-      style={{
-        gap: pxl * 3,
-        padding: pxl * 3,
-        backgroundColor: Colors.a6,
-      }}
-    >
-      {props.create ? (
-        <DefaultButton
-          text={Strings[props.create.name]}
-          onClick={props.create.onClick}
-          size={30}
-          alignLeft={true}
-          colors={[Colors.a2, Colors.a3, Colors.a4, Colors.a2]}
-        />
-      ) : null}
+    <div className="absolute top-0 left-0 w-full max-h-75 flex overflow-clip">
+      <div className="w-full flex flex-col border-3 border-t-0 border-[#C957BC] overflow-y-auto overflow-x-clip scrollbar-hide">
+        {props.create ? (
+          <NewDefaultButton
+            text={Strings[props.create.name]}
+            onClick={props.create.onClick}
+            variant="dropdown_ph"
+            size="xs"
+            align="left"
+          />
+        ) : null}
 
-      {props.options?.map((option) => (
-        <div key={option.id} className="flex">
-          <DefaultButton
+        {props.options?.map((option) => (
+          <NewDefaultButton
+            key={option.id}
             text={option.name}
             onClick={() => {
               props.onClick(option);
             }}
-            size={30}
-            alignLeft={true}
-            colors={[Colors.a2, Colors.a3, Colors.a5, Colors.p1]}
+            variant="dropdown"
+            size="xs"
+            align="left"
           />
-        </div>
-      ))}
-    </div>
-  );
-};
-
-interface ActivityDisplayProps {
-  activity: Activity;
-}
-
-const ActivityDisplay = (props: ActivityDisplayProps) => {
-  return (
-    <div className="flex-1 flex flex-col" style={{ gap: pxl * 5 }}>
-      <div
-        className="flex justify-start leading-none"
-        style={{
-          height: pxl * 26,
-          fontSize: pxl * 24,
-          fontFamily: "'pxlLarge', monospace",
-          color: Colors.p6,
-        }}
-      >
-        {props.activity.name}
-      </div>
-      <div
-        className="w-full flex"
-        style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
-      />
-      <div
-        className="flex-1 flex flex-col overflow-y-auto"
-        style={{
-          maxHeight: pxl * 285,
-          marginTop: pxl * 15,
-          gap: pxl * 15,
-        }}
-      >
-        {Object.entries(props.activity.modifiers).map(([key, value]) =>
-          value ? (
-            <div key={key} className="flex pointer-events-none">
-              <StatModifier stat={key} value={value ?? 0} onClick={() => {}} />
-            </div>
-          ) : null
-        )}
+        ))}
       </div>
     </div>
   );

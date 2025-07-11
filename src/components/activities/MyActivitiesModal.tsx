@@ -1,9 +1,10 @@
+import AddIcon from "@mui/icons-material/Add";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useState } from "react";
 import { deleteActivity } from "../../api/ActivitiesApi";
 import { Strings } from "../../constants/Strings";
-import { Colors, pxl } from "../../constants/ThemeConstants";
 import { Activity } from "../../models/User";
-import { DefaultButton, DefaultIconButton } from "../Buttons";
+import { IconButton, NewDefaultButton } from "../Buttons";
 
 interface ModalProps {
   exit: React.MouseEventHandler<HTMLButtonElement>;
@@ -51,90 +52,63 @@ export const MyActivitiesModal = (props: ModalProps) => {
   };
 
   return (
-    <div className="flex-1 flex">
-      <div
-        className={`flex-1 flex flex-col ${
-          !props.state.activities ? "cursor-progress" : ""
-        }`}
-        style={{
-          gap: pxl * 40,
-          marginTop: 40 * pxl,
-          marginLeft: 15 * pxl,
-          marginRight: 15 * pxl,
-        }}
-      >
-        <div
-          className="flex"
-          style={{ marginLeft: pxl * 5, marginRight: pxl * 5 }}
-        >
-          <DefaultButton
-            text={Strings.now_activity}
+    <div
+      className={`flex-1 flex flex-col gap-10 mt-8 mx-3 ${
+        !props.state.activities ? "cursor-progress" : ""
+      }`}
+    >
+      <div className="flex mx-1">
+        <NewDefaultButton
+          text={Strings.now_activity}
+          onClick={() => {
+            nextModal("current");
+          }}
+          size="large"
+        />
+      </div>
+      <div className="flex-1 flex flex-col relative gap-1 overflow-hidden pb-2.5">
+        {deletePopup ? (
+          <Popup
+            name={deletePopup.name}
+            cancel={cancelDelete}
+            onClick={handleDelete}
+          />
+        ) : null}
+        <div className="flex w-full justify-between items-end">
+          <div className="kameron flex leading-none font-semibold text-2xl text-[#C957BC]">
+            {Strings.my_activity}
+          </div>
+          <IconButton
             onClick={() => {
-              nextModal("current");
+              nextModal("create");
             }}
-            colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
-          />
-        </div>
-        <div className="flex-1 flex flex-col relative" style={{ gap: pxl * 8 }}>
-          {deletePopup ? (
-            <Popup
-              name={deletePopup.name}
-              cancel={cancelDelete}
-              onClick={handleDelete}
-            />
-          ) : null}
-          <div className="flex w-full justify-between items-end">
-            <div
-              className="flex justify-start leading-none"
-              style={{
-                height: pxl * 26,
-                fontSize: pxl * 24,
-                fontFamily: "'pxlLarge', monospace",
-                color: Colors.p6,
-              }}
-            >
-              {Strings.my_activity}
-            </div>
-            <DefaultIconButton
-              onClick={() => {
-                nextModal("create");
-              }}
-              size={[50, 30]}
-              colors={[Colors.p4, Colors.p5]}
-            />
-          </div>
-          <div
-            className="w-full"
-            style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
-          />
-          <div
-            className="flex-1 flex flex-col overflow-y-auto"
-            style={{ gap: pxl * 5, maxHeight: pxl * 490 }}
+            variant="add"
           >
-            {props.state.activities?.map((activity) => (
-              <div
-                className="flex"
-                style={{ maxWidth: pxl * 390 }}
-                key={activity.id}
-              >
-                <DefaultButton
-                  text={activity.name}
-                  icon={{
-                    onClick: () => {
-                      setPopup(activity);
-                    },
-                    colors: [Colors.a5, Colors.a6],
-                  }}
-                  onClick={() => {
-                    editActivity(activity);
-                  }}
-                  alignLeft={true}
-                  size={50}
-                  colors={[Colors.a3, Colors.a4, Colors.p1]}
-                />
-              </div>
-            ))}
-          </div>
+            <AddIcon />
+          </IconButton>
+        </div>
+        <div className="w-full h-1 rounded-lg bg-[#752092]" />
+        <div className="flex-1 flex flex-col overflow-y-auto overflow-x-clip p-2 mt-1 gap-1.5 scrollbar scrollbar-thumb-[#FFC872] scrollbar-track-[#FFF0A6]">
+          {props.state.activities?.map((activity) => (
+            <NewDefaultButton
+              key={activity.id}
+              text={activity.name}
+              onClick={() => {
+                editActivity(activity);
+              }}
+              variant="light_invert"
+              size="small"
+              align="left"
+            >
+              <DeleteOutlineIcon
+                className="text-[#C957BC] hover:text-[#752092] transition-colors duration-300"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPopup(activity);
+                }}
+              />
+            </NewDefaultButton>
+          ))}
         </div>
       </div>
     </div>
@@ -150,65 +124,27 @@ interface PopupProps {
 const Popup = (props: PopupProps) => {
   return (
     <div className="absolute w-full h-full flex justify-center">
-      <div
-        className="flex flex-col"
-        style={{
-          width: pxl * 310,
-          height: pxl * 160,
-          marginTop: pxl * 88,
-          padding: pxl * 20,
-          gap: pxl * 10,
-          borderWidth: pxl * 5,
-          borderColor: Colors.a6,
-          backgroundColor: Colors.p4,
-        }}
-      >
-        <div
-          className="flex-1 flex flex-col items-center overflow-clip"
-          style={{ gap: pxl * 10 }}
-        >
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 26,
-              fontSize: pxl * 24,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.a6,
-            }}
-          >
+      <div className="flex flex-col w-62 h-34 mt-18 p-4 justify-center gap-1 bg-[#C957BC] border-3 border-[#752092]">
+        <div className="flex-1 flex flex-col items-center overflow-clip gap-1">
+          <div className="kameron leading-none mt-1 text-xl text-[#FFFFFC]">
             {Strings.delete}:
           </div>
-          <div
-            className="max-w-full flex leading-none whitespace-nowrap"
-            style={{
-              height: pxl * 18,
-              fontSize: pxl * 16,
-              fontFamily: "'pxlSmall', monospace",
-              color: Colors.a5,
-            }}
-          >
+          <div className="sans leading-none whitespace-nowrap text-[#FBC0E5]">
             {props.name}
           </div>
         </div>
-        <div
-          className="flex w-full justify-between"
-          style={{
-            gap: pxl * 10,
-            paddingRight: pxl * 15,
-            paddingLeft: pxl * 15,
-          }}
-        >
-          <DefaultButton
+        <div className="flex w-full justify-around gap-2 px-2">
+          <NewDefaultButton
             text={Strings.cancel}
             onClick={props.cancel}
-            size={40}
-            colors={[Colors.p2, Colors.p3, Colors.p6]}
+            variant="delete1"
+            size="small"
           />
-          <DefaultButton
+          <NewDefaultButton
             text={Strings.delete}
             onClick={props.onClick}
-            size={40}
-            colors={[Colors.a3, Colors.a4, Colors.a6, Colors.p1]}
+            variant="delete2"
+            size="small"
           />
         </div>
       </div>

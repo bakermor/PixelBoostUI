@@ -1,14 +1,15 @@
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CloseIcon from "@mui/icons-material/Close";
 import { useContext } from "react";
 import { stopActivity } from "../../api/ActivitiesApi";
 import { updateHealth } from "../../api/HealthApi";
 import { Strings } from "../../constants/Strings";
-import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { Activity } from "../../models/User";
 import { createHealthUpdate } from "../../utils/createHealthUpdate";
-import { DefaultButton, DefaultIconButton } from "../Buttons";
-import { StatModifier } from "./StatModifier";
+import { IconButton, NewDefaultButton } from "../Buttons";
+import { ActivityDisplay } from "./ActivityDisplay";
 
 interface ModalProps {
   exit: () => void;
@@ -50,119 +51,41 @@ export const CurrentActivityModal = (props: ModalProps) => {
 
   return (
     <div className="flex-1 flex relative">
-      <div
-        className="absolute flex"
-        style={{
-          right: pxl * 5,
-          top: pxl * 5,
-          gap: pxl * 8,
-        }}
-      >
-        <DefaultIconButton
-          onClick={props.nav.goBack}
-          size={[40]}
-          colors={[Colors.p4, Colors.p6]}
-        />
-        <DefaultIconButton
-          onClick={props.exit}
-          size={[40]}
-          colors={[Colors.p4, Colors.p6]}
-        />
+      <div className="absolute flex right-0 top-0 gap-2">
+        <IconButton onClick={props.nav.goBack}>
+          <ArrowBackIcon fontSize="large" />
+        </IconButton>
+        <IconButton onClick={props.exit}>
+          <CloseIcon fontSize="large" />
+        </IconButton>
       </div>
-      <div
-        className="flex flex-col w-full"
-        style={{
-          gap: pxl * 35,
-          padding: pxl * 15,
-          paddingTop: pxl * 25,
-        }}
-      >
-        <div
-          className="flex flex-col"
-          style={{ gap: pxl * 5, padding: pxl * 5 }}
-        >
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 39,
-              fontSize: pxl * 36,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.a5,
-            }}
-          >
+      <div className="flex flex-col w-full gap-6 p-3 pt-2">
+        <div className="flex flex-col gap-1 p-2">
+          <div className="kameron mt-3 w-full leading-none whitespace-nowrap text-4xl text-[#000000]">
             {Strings.current_activity}
           </div>
-          <div
-            className="flex leading-none"
-            style={{
-              height: pxl * 18,
-              fontSize: pxl * 16,
-              fontFamily: "'pxlSmall', monospace",
-              color: Colors.a3,
-            }}
-          >
+          <div className="sans w-full leading-none whitespace-nowrap text-[#919191]">
             {Strings.current_activity_desc}
           </div>
         </div>
-        <DefaultButton
+        <NewDefaultButton
           text={Strings.choose_activity}
           onClick={clickSet}
-          colors={[Colors.a5, Colors.a3, Colors.a2, Colors.p1]}
+          variant="inverted"
+          size="large"
         />
-        <div className="flex-1 flex">
+        <div className="flex-1 flex overflow-clip">
           {user && user.current_activity ? (
             <ActivityDisplay activity={user.current_activity} />
           ) : null}
         </div>
         {user && user.current_activity ? (
-          <DefaultButton
+          <NewDefaultButton
             text={Strings.stop_activity}
             onClick={handleSubmit}
-            colors={[Colors.a3, Colors.a4, Colors.p1]}
+            size="large"
           />
         ) : null}
-      </div>
-    </div>
-  );
-};
-
-interface ActivityDisplayProps {
-  activity: Activity;
-}
-
-const ActivityDisplay = (props: ActivityDisplayProps) => {
-  return (
-    <div className="flex-1 flex flex-col" style={{ gap: pxl * 5 }}>
-      <div
-        className="flex justify-start leading-none"
-        style={{
-          height: pxl * 26,
-          fontSize: pxl * 24,
-          fontFamily: "'pxlLarge', monospace",
-          color: Colors.p6,
-        }}
-      >
-        {props.activity.name}
-      </div>
-      <div
-        className="w-full flex"
-        style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
-      />
-      <div
-        className="flex-1 flex flex-col overflow-y-auto"
-        style={{
-          maxHeight: pxl * 285,
-          marginTop: pxl * 15,
-          gap: pxl * 15,
-        }}
-      >
-        {Object.entries(props.activity.modifiers).map(([key, value]) =>
-          value ? (
-            <div key={key} className="flex pointer-events-none">
-              <StatModifier stat={key} value={value ?? 0} onClick={() => {}} />
-            </div>
-          ) : null
-        )}
       </div>
     </div>
   );

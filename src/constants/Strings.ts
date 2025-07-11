@@ -68,6 +68,7 @@ export const Strings: Record<string, string> = {
   followers: "Followers",
   dashboard: "Dashboard",
   search: "Find Friends",
+  select: "Select",
 
   // INPUT box title and placeholders
   in_confirm_password: "Confirm Password",

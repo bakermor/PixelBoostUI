@@ -5,17 +5,12 @@ import { allowedStats } from "../constants/StatConstants";
 import { Strings } from "../constants/Strings";
 import { IconButton, NewDefaultButton } from "./Buttons";
 
-interface BaseModalProps {
-  color?: string;
+interface Props {
   exit: React.MouseEventHandler<any>;
   children?: ReactNode;
 }
 
-interface ActionModalProps {
-  exit: React.MouseEventHandler<HTMLButtonElement>;
-}
-
-export const BaseModal = (props: BaseModalProps) => {
+export const BaseModal = (props: Props) => {
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)]"
@@ -31,7 +26,7 @@ export const BaseModal = (props: BaseModalProps) => {
   );
 };
 
-export const ActionModal = (props: ActionModalProps) => {
+export const ActionModal = (props: Props) => {
   const navigate = useNavigate();
 
   const navigateAction = (stat: string) => {
@@ -63,7 +58,8 @@ export const ActionModal = (props: ActionModalProps) => {
                 onClick={() => {
                   navigateAction(stat);
                 }}
-                variant="inverted large"
+                variant="inverted"
+                size="large"
               />
             </div>
           ))}

@@ -83,7 +83,7 @@ interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 
-  variant?: "default";
+  variant?: string;
 }
 
 export const NewInput = (props: Props) => {
@@ -99,7 +99,13 @@ export const NewInput = (props: Props) => {
           </div>
         ) : null}
       </div>
-      <div className="w-full flex p-1.5 rounded-lg border-3 border-[#C957BC] hover:border-[#752092] focus-within:!border-[#752092] transition-colors duration-300">
+      <div
+        className={`w-full flex p-1.5 rounded-lg border-3 ${
+          props.variant === "activity"
+            ? "bg-[#FFF0A6] border-[#FFC872] hover:border-[#C957BC] focus-within:!border-[#C957BC]"
+            : "border-[#C957BC] hover:border-[#752092] focus-within:!border-[#752092]"
+        } transition-colors duration-300`}
+      >
         <input
           className="sans flex-1 outline-none p-1.5 placeholder-[#C957BC] text-[#752092]"
           name={props.name}
