@@ -149,7 +149,7 @@ export const Strings: Record<string, string> = {
   input_placeholder: "Enter a number",
 
   drink_quantity_input: "Enter how much you drank",
-  oz: "Ounces",
+  in_oz: "Ounces",
   drink_quantity_range: "Select your drink size",
   drink_quantity_range_small: "Glass",
   drink_quantity_range_medium: "Bottle",
@@ -168,8 +168,8 @@ export const Strings: Record<string, string> = {
   do_fun_desc: "Select the following options that apply",
 
   fun_length: "Enter how long you did something fun",
-  hours: "Hours",
-  minutes: "Minutes",
+  in_hours: "Hours",
+  in_minutes: "Minutes",
 
   fun_quality: "From 1-5, select how much fun you had",
   fun_quality_small: "Kinda Fun",
@@ -183,7 +183,7 @@ export const Strings: Record<string, string> = {
   coffee: "Have some caffeine",
   coffee_desc: "Select the following options that apply",
   coffee_quantity: "Enter how much caffeine you drank",
-  mg: "Milligrams",
+  in_mg: "Milligrams",
 
   sleep_b: "Sleep",
   sleep: "Get some sleep",

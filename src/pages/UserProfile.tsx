@@ -4,7 +4,7 @@ import { getUserFromUsername } from "../api/AuthApi";
 import { followUser, unfollowUser } from "../api/FollowApi";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
 import { UserProfileCard } from "../components/ProfileCard";
-import { NewSideBar } from "../components/SideBar";
+import { SideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
 import { AuthContext } from "../context/AuthProvider";
 import { HealthLevels, User } from "../models/User";
@@ -66,7 +66,7 @@ const UserProfile = () => {
 
   return (
     <div className="w-screen h-screen flex bg-linear-to-t from-[#FFFEE0] to-[#FFFFFC]">
-      <NewSideBar />
+      <SideBar />
       {status === false ? (
         <div>NotFound</div>
       ) : u ? (

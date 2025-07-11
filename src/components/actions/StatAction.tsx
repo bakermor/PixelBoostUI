@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ActionComponents } from "../../constants/ActionConstants";
-import { Colors, pxl } from "../../constants/ThemeConstants";
-import { AbsoluteButton } from "../Buttons";
+import { Strings } from "../../constants/Strings";
+import { SmallButton } from "../Buttons";
 import { ActionForm, BaseAction } from "./ActionBase";
 
 interface StatActionProps {
@@ -41,12 +41,16 @@ export const StatAction = (props: StatActionProps) => {
     )
   );
 
-  const updateFormType = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const updateFormType = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    type?: string
+  ) => {
+    console.log(e.currentTarget.name);
     ActionComponents[props.action]?.map((form) => {
       if (form.name === e.currentTarget.name) {
         setVisibleForm({
           ...visibleForm,
-          [e.currentTarget.name]: e.currentTarget.value,
+          [e.currentTarget.name]: type ?? "",
         });
 
         updateModifier(e.currentTarget.name, 0);
@@ -56,48 +60,62 @@ export const StatAction = (props: StatActionProps) => {
 
   useEffect(() => {
     props.setModifier(
-      Object.values(modifiers).reduce((acc, val) => acc * val, 1)
+      Object.values(modifiers).reduce((item, val) => item * val, 1)
     );
   }, [modifiers]);
 
   return (
     <BaseAction {...props}>
-      <div className="flex flex-col" style={{ gap: pxl * 40 }}>
-        {ActionComponents[props.action]?.map((form) => (
-          <div className="flex" key={form.name}>
-            {!form.types ? (
+      <div className="flex-1 h-full flex flex-col gap-8 justify-between">
+        {ActionComponents[props.action]?.map((form) =>
+          !form.types ? (
+            <ActionForm
+              key={form.name}
+              name={form.name}
+              type={form.type}
+              setModifier={
+                form.multiple ? multipleSelectUpdate : updateModifier
+              }
+              multiple={form.multiple ? true : false}
+            />
+          ) : (
+            <div className="relative flex-1" key={form.name}>
+              <div className="absolute -top-1 -right-0.5">
+                <SmallButton
+                  name={form.name}
+                  text={
+                    Strings[
+                      form.types[
+                        (form.types.indexOf(visibleForm[form.name]) + 1) %
+                          form.types.length
+                      ]
+                    ]
+                  }
+                  onClick={(e) =>
+                    updateFormType(
+                      e,
+                      form.types
+                        ? form.types[
+                            (form.types.indexOf(visibleForm[form.name]) + 1) %
+                              form.types.length
+                          ]
+                        : ""
+                    )
+                  }
+                  variant="activity"
+                />
+              </div>
+
               <ActionForm
-                name={form.name}
-                type={form.type}
+                name={`${form.name}_${visibleForm[form.name]}`}
+                type={visibleForm[form.name]}
                 setModifier={
                   form.multiple ? multipleSelectUpdate : updateModifier
                 }
-                multiple={form.multiple ? true : false}
               />
-            ) : (
-              <div className="relative flex-1">
-                <AbsoluteButton
-                  name={form.name}
-                  text={
-                    form.types[
-                      (form.types.indexOf(visibleForm[form.name]) + 1) %
-                        form.types.length
-                    ]
-                  }
-                  onClick={updateFormType}
-                  colors={[Colors.a5, Colors.a4, Colors.a2]}
-                />
-                <ActionForm
-                  name={`${form.name}_${visibleForm[form.name]}`}
-                  type={visibleForm[form.name]}
-                  setModifier={
-                    form.multiple ? multipleSelectUpdate : updateModifier
-                  }
-                />
-              </div>
-            )}
-          </div>
-        ))}
+            </div>
+          )
+        )}
       </div>
     </BaseAction>
   );

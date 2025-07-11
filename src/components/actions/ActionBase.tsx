@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { updateStat } from "../../api/HealthApi";
 import { PickActions } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
-import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
-import { DefaultButton } from "../Buttons";
+import { NewDefaultButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
 import { InputForm, RangeForm, SelectForm } from "./ActionFormTypes";
 
@@ -35,8 +34,6 @@ export const BaseAction = (props: Props) => {
 
   const updateLevel = async () => {
     // update level to level + modifier
-    console.log(`new level: ${props.level + props.modifier}`);
-
     if (user) {
       const result = await updateStat(props.stat, {
         current_level: props.level + props.modifier,
@@ -50,60 +47,36 @@ export const BaseAction = (props: Props) => {
     navigate("/dashboard");
   };
 
+  // TODO: actions don't increase levels enough
+
   useEffect(() => {}, [props]);
 
   return (
-    <div
-      className="flex-1 flex flex-col overflow-clip"
-      style={{ padding: pxl * 70, paddingTop: pxl * 30, gap: pxl * 20 }}
-    >
-      <div
-        className="flex flex-col w-full"
-        style={{ paddingRight: pxl * 150, gap: pxl * 5 }}
-      >
-        <div
-          className="flex justify-start whitespace-nowrap leading-none"
-          style={{
-            height: pxl * 52,
-            fontSize: pxl * 48,
-            fontFamily: "'pxlLarge', monospace",
-            color: Colors.a5,
-          }}
-        >
+    <div className="flex-1 flex flex-col p-12 pt-2 gap-4">
+      <div className="flex flex-col gap-1 p-2">
+        <div className="kameron mt-3 w-full leading-none whitespace-nowrap text-4xl text-[#000000]">
           {Strings[props.action]}
         </div>
-        <div
-          className="flex justify-start leading-none"
-          style={{
-            height: pxl * 18,
-            fontSize: pxl * 16,
-            fontFamily: "'pxlSmall', monospace",
-            color: Colors.a3,
-          }}
-        >
+        <div className="sans w-full leading-none whitespace-nowrap text-[#919191]">
           {Strings[`${props.action}_desc`]}
         </div>
       </div>
-      <div className="flex self-end">
-        <ModifiedStat
-          name={props.stat}
-          level={props.level}
-          color={Colors.a5}
-          modifier={props.modifier}
-        />
-      </div>
-      <div
-        className="flex-1"
-        style={{ marginTop: pxl * 60, marginBottom: pxl * 10 }}
-      >
-        {props.children}
-      </div>
-      <div className="flex self-end" style={{ width: pxl * 400 }}>
-        <DefaultButton
-          text={Strings.complete_action}
-          onClick={updateLevel}
-          colors={[Colors.a3, Colors.a4, Colors.p1]}
-        />
+      <div className="flex-1 flex flex-col justify-between gap-3 px-30">
+        <div className="flex self-end">
+          <ModifiedStat
+            name={props.stat}
+            level={props.level}
+            modifier={props.modifier}
+          />
+        </div>
+        <div className="flex-1">{props.children}</div>
+        <div className="flex self-end w-90 ">
+          <NewDefaultButton
+            text={Strings.complete_action}
+            onClick={updateLevel}
+            size="large"
+          />
+        </div>
       </div>
     </div>
   );
@@ -111,27 +84,11 @@ export const BaseAction = (props: Props) => {
 
 export const ActionForm = (props: ActionFormProps) => {
   return (
-    <div className="w-full flex flex-col" style={{ gap: pxl * 10 }}>
-      <div
-        className="flex justify-start leading-none"
-        style={{
-          marginRight: pxl * 80,
-          height: pxl * 26,
-          fontSize: pxl * 24,
-          fontFamily: "'pxlLarge', monospace",
-          color: Colors.a3,
-        }}
-      >
+    <div className="flex-1 flex flex-col gap-2 justify-center">
+      <div className="kameron flex leading-none mr-20 text-2xl text-[#752092]">
         {Strings[props.name]}
       </div>
-      <div
-        className="w-full flex"
-        style={{
-          height: pxl * 180,
-          padding: pxl * 15,
-          backgroundColor: Colors.p6,
-        }}
-      >
+      <div className="w-full h-42 flex p-3 bg-linear-to-t from-[#FFF0A6] to-[#FFC872] outline-3 outline-[#FFC872]">
         {props.type === "range" ? (
           <RangeForm name={props.name} setModifier={props.setModifier} />
         ) : props.type === "select" ? (
@@ -150,56 +107,25 @@ export const ActionForm = (props: ActionFormProps) => {
 
 export const PickAction = (props: PickActionProps) => {
   return (
-    <div
-      className="flex-1 flex flex-col"
-      style={{ padding: pxl * 70, paddingTop: pxl * 30, gap: pxl * 20 }}
-    >
-      <div
-        className="flex flex-col w-full"
-        style={{ paddingRight: pxl * 150, gap: pxl * 5 }}
-      >
-        <div
-          className="flex justify-start whitespace-nowrap leading-none"
-          style={{
-            height: pxl * 52,
-            fontSize: pxl * 48,
-            fontFamily: "'pxlLarge', monospace",
-            color: Colors.a5,
-          }}
-        >
+    <div className="flex-1 flex flex-col p-12 pt-2 gap-12">
+      <div className="flex flex-col gap-1 p-2">
+        <div className="kameron mt-3 w-full leading-none whitespace-nowrap text-4xl text-[#000000]">
           {Strings[`${props.stat}_actions`]}
         </div>
-        <div
-          className="flex justify-start leading-none"
-          style={{
-            height: pxl * 18,
-            fontSize: pxl * 16,
-            fontFamily: "'pxlSmall', monospace",
-            color: Colors.a3,
-          }}
-        >
+        <div className="sans w-full leading-none whitespace-nowrap text-[#919191]">
           {Strings[`${props.stat}_actions_desc`]}
         </div>
       </div>
-      <div
-        className="flex flex-col justify-center"
-        style={{
-          marginTop: pxl * 60,
-          paddingLeft: pxl * 60,
-          paddingRight: pxl * 60,
-          gap: pxl * 15,
-        }}
-      >
+      <div className="flex flex-col justify-center px-30 gap-3">
         {PickActions[props.stat]?.map((option) => (
-          <div className="flex" key={option}>
-            <DefaultButton
-              text={Strings[`${option}_b`]}
-              name={option}
-              onClick={props.onClick}
-              colors={[Colors.a3, Colors.a4, Colors.p1]}
-              size={65}
-            />
-          </div>
+          <NewDefaultButton
+            key={option}
+            text={Strings[`${option}_b`]}
+            name={option}
+            onClick={props.onClick}
+            variant="inverted"
+            size="large"
+          />
         ))}
       </div>
     </div>

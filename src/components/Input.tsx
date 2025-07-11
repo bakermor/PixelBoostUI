@@ -103,6 +103,8 @@ export const NewInput = (props: Props) => {
         className={`w-full flex p-1.5 rounded-lg border-3 ${
           props.variant === "activity"
             ? "bg-[#FFF0A6] border-[#FFC872] hover:border-[#C957BC] focus-within:!border-[#C957BC]"
+            : props.variant === "action"
+            ? "bg-[#FFFEE0] border-[#C957BC] hover:border-[#752092] focus-within:!border-[#752092]"
             : "border-[#C957BC] hover:border-[#752092] focus-within:!border-[#752092]"
         } transition-colors duration-300`}
       >

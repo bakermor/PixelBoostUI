@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { followUser, getUsersFromSearch, unfollowUser } from "../api/FollowApi";
 import { SearchBar } from "../components/SearchBar";
-import { NewSideBar } from "../components/SideBar";
+import { SideBar } from "../components/SideBar";
 import { UserInfo } from "../components/UserInfo";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
@@ -87,7 +87,7 @@ const Search = () => {
 
   return (
     <div className="w-screen h-screen flex bg-linear-to-t from-[#FFFFFC] to-[#FFFEE0]">
-      <NewSideBar focused="search" />
+      <SideBar focused="search" />
       <div className="flex-1 flex flex-col py-5 px-12 gap-2">
         <div className="flex pb-4">
           <SearchBar

@@ -2,31 +2,31 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { PickAction } from "../components/actions/ActionBase";
 import { StatAction } from "../components/actions/StatAction";
+import { SideBar } from "../components/SideBar";
 import {
   ActionComponentStat,
   ActionComponents,
 } from "../constants/ActionConstants";
 import { allowedStats } from "../constants/StatConstants";
-import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
+import { HealthLevels } from "../models/User";
 
 const Action = () => {
   const { health, loading } = useContext(StatUpdateContext);
   const { user } = useContext(AuthContext);
-  const [params] = useSearchParams();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
   const stat = params.get("stat");
 
   const [action, setAction] = useState("");
   const [level, setLevel] = useState(0);
-
   const [modifier, setModifier] = useState(0);
 
   const updateModifier = (modifier: number) => {
     if (user?.health) {
-      const currentStat = user.health[stat as keyof typeof health];
+      const currentStat = user.health[stat as keyof HealthLevels];
       let equation = currentStat?.equation.reduce((sum, n) => sum + n, 0);
       setModifier(equation * modifier);
     }
@@ -52,7 +52,7 @@ const Action = () => {
   useEffect(() => {
     if (stat && allowedStats.includes(stat) && action !== "") {
       const statKey = ActionComponentStat[action];
-      const currentLevel = health[statKey as keyof typeof health];
+      const currentLevel = health[statKey as keyof HealthLevels];
 
       setLevel(currentLevel);
     }
@@ -62,11 +62,8 @@ const Action = () => {
 
   return (
     <div className="w-screen h-screen flex">
-      <div className="flex-1" style={{ backgroundColor: Colors.p4 }} />
-      <div
-        className="flex h-full"
-        style={{ width: pxl * 850, backgroundColor: Colors.p1 }}
-      >
+      <SideBar />
+      <div className="flex-1 flex h-full p-8 pt-6 pb-2 bg-linear-to-t from-[#FFFFFC] to-[#FFFEE0] overflow-auto">
         {action === "" ? (
           <PickAction stat={stat} onClick={chooseAction} />
         ) : ActionComponents[action] ? (
@@ -79,7 +76,6 @@ const Action = () => {
           />
         ) : null}
       </div>
-      <div className="flex-1" style={{ backgroundColor: Colors.p4 }} />
     </div>
   );
 };

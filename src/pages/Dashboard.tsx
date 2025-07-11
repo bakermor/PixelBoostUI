@@ -6,7 +6,7 @@ import { AvatarContainer } from "../components/avatar/AvatarContainer";
 import { NewDefaultButton } from "../components/Buttons";
 import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
-import { NewSideBar } from "../components/SideBar";
+import { SideBar } from "../components/SideBar";
 import { StatContainer } from "../components/StatContainer";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
@@ -55,7 +55,7 @@ const Dashboard = () => {
         <ActivityModal exit={exitModal} />
       ) : null}
 
-      <NewSideBar variant="dashboard" friends={friendList} />
+      <SideBar variant="dashboard" friends={friendList} />
       <div className="flex-1 flex p-4 gap-4">
         <div className="flex-1 flex flex-col gap-5 px-5 pt-12">
           <AvatarContainer />

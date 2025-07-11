@@ -1,53 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Strings } from "../constants/Strings";
-import { Colors, pxl } from "../constants/ThemeConstants";
 import { User } from "../models/User";
-import { DefaultButton } from "./Buttons";
 import { UserInfo } from "./UserInfo";
-
-export const SideBar = () => {
-  const navigate = useNavigate();
-
-  const clickButton = (path: string) => {
-    navigate(path);
-  };
-
-  return (
-    <div
-      className="h-full flex flex-col items-center"
-      style={{
-        width: pxl * 350,
-        paddingLeft: pxl * 10,
-        paddingRight: pxl * 10,
-        gap: pxl * 20,
-        backgroundColor: Colors.p4,
-      }}
-    >
-      <div
-        style={{
-          width: pxl * 200,
-          height: pxl * 180,
-          marginTop: pxl * 50,
-          marginBottom: pxl * 10,
-          backgroundColor: Colors.p1,
-        }}
-      />
-      <div className="w-full flex flex-col gap-1">
-        <DefaultButton
-          text={Strings.settings}
-          onClick={() => clickButton("/settings")}
-          colors={[Colors.p6, Colors.p5, Colors.p1]}
-        />
-        <DefaultButton
-          text={Strings.find_users}
-          onClick={() => clickButton("/search")}
-          colors={[Colors.p6, Colors.p5, Colors.p1]}
-        />
-      </div>
-    </div>
-  );
-};
 
 interface Props {
   focused?: string;
@@ -56,7 +11,7 @@ interface Props {
   friends?: User[];
 }
 
-export const NewSideBar = (props: Props) => {
+export const SideBar = (props: Props) => {
   const navigate = useNavigate();
 
   const buttons =

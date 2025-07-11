@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Strings } from "../constants/Strings";
 import { pxl } from "../constants/ThemeConstants";
 
 interface ButtonProps {
@@ -108,38 +107,6 @@ export const DefaultIconButton = (props: IconButtonProps) => {
   );
 };
 
-export const AbsoluteButton = (props: ButtonProps) => {
-  return (
-    <button
-      className="clickable absolute top-0 flex justify-center items-center cursor-pointer"
-      style={
-        {
-          width: `${pxl * 120}px`,
-          height: `${pxl * 30}px`,
-          right: `${pxl * 5}px`,
-          "--main-color": props.colors[0],
-          "--hover-color": props.colors[1],
-        } as React.CSSProperties & Record<string, string>
-      }
-      onClick={props.onClick}
-      name={props.name}
-      value={props.text}
-    >
-      <div
-        className="flex justify-start leading-none"
-        style={{
-          height: pxl * 18,
-          fontSize: pxl * 16,
-          fontFamily: "'pxlSmall', monospace",
-          color: props.colors[2],
-        }}
-      >
-        {Strings[props.text]}
-      </div>
-    </button>
-  );
-};
-
 interface NewButtonProps {
   text: string;
   onClick: React.MouseEventHandler<any>;
@@ -230,6 +197,7 @@ export const SmallButton = (props: NewButtonProps) => {
           : "w-48 h-8 bg-[#FFC872] hover:bg-[#C957BC] text-[#752092] hover:text-[#FFFFFC]"
       }  transition-colors duration-300`}
       onClick={props.onClick}
+      name={props.name}
     >
       <div className="sans leading-none text-sm">{props.text}</div>
     </button>

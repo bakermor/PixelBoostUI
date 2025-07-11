@@ -5,7 +5,6 @@ import {
   InputValues,
   SelectValues,
 } from "../../constants/ActionConstants";
-import { pxl } from "../../constants/ThemeConstants";
 import {
   InputContainer,
   MidRangeContainer,
@@ -22,8 +21,6 @@ interface FormProps {
 export const RangeForm = (props: FormProps) => {
   const [focused, setFocused] = useState("");
 
-  console.log(props);
-
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setFocused(e.currentTarget.name);
     props.setModifier(
@@ -33,10 +30,7 @@ export const RangeForm = (props: FormProps) => {
   };
 
   return (
-    <div
-      className="flex-1 flex justify-between"
-      style={{ paddingTop: pxl * 5, paddingBottom: pxl * 1 }}
-    >
+    <div className="flex-1 w-full flex justify-evenly px-2 gap-2">
       <RangeContainer
         action={props.name}
         name="small"
@@ -107,22 +101,21 @@ export const SelectForm = (props: FormProps) => {
   };
 
   return (
-    <div className="flex-1 flex justify-evenly" style={{ gap: pxl * 20 }}>
+    <div className="flex-1 flex justify-between gap-2 px-4">
       {ActionSelect[props.name]?.map((option) => (
-        <div className="flex-1 flex" key={option}>
-          <SelectContainer
-            name={option}
-            value={
-              SelectValues[props.name] ? SelectValues[props.name][option] : 0
-            }
-            focused={
-              props.multiple
-                ? focusedMultiple.has(option)
-                : focusedSingle === option
-            }
-            onClick={handleClick}
-          />
-        </div>
+        <SelectContainer
+          key={option}
+          name={option}
+          value={
+            SelectValues[props.name] ? SelectValues[props.name][option] : 0
+          }
+          focused={
+            props.multiple
+              ? focusedMultiple.has(option)
+              : focusedSingle === option
+          }
+          onClick={handleClick}
+        />
       ))}
     </div>
   );
@@ -155,26 +148,19 @@ export const InputForm = (props: FormProps) => {
 
   return (
     <div
-      className={`flex-1 flex ${
+      className={`flex-1 flex  py-2 gap-6 ${
         ActionInput[props.name].length === 1
-          ? "justify-start"
-          : "justify-evenly"
+          ? "justify-start px-10"
+          : "justify-evenly px-3"
       }`}
-      style={{
-        padding: pxl * 15,
-        paddingTop: pxl * 10,
-        paddingBottom: pxl * 10,
-        gap: pxl * 30,
-      }}
     >
       {ActionInput[props.name]?.map((option) => (
-        <div className="flex-1 flex" key={option}>
-          <InputContainer
-            name={option}
-            value={value[option]}
-            onChange={handleChange}
-          />
-        </div>
+        <InputContainer
+          key={option}
+          name={option}
+          value={value[option]}
+          onChange={handleChange}
+        />
       ))}
     </div>
   );

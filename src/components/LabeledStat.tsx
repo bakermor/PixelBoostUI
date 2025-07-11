@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Strings } from "../constants/Strings";
-import { pxl } from "../constants/ThemeConstants";
 
 interface Props {
   name: string;
@@ -8,7 +7,6 @@ interface Props {
 }
 
 interface ModifiedStatProps extends Props {
-  color: string;
   modifier: number;
 }
 
@@ -51,19 +49,9 @@ export const ModifiedStat = (props: ModifiedStatProps) => {
   useEffect(() => {}, [props.level, props.modifier]);
 
   return (
-    <div className="flex flex-col" style={{ width: pxl * 342, gap: pxl * 5 }}>
-      <div className="w-full flex justify-end">
-        <div
-          className="flex leading-none"
-          style={{
-            height: pxl * 18,
-            fontSize: pxl * 16,
-            fontFamily: "'pxlSmall', monospace",
-            color: props.color,
-          }}
-        >
-          {Strings[props.name]}
-        </div>
+    <div className="flex flex-col w-70 gap-1">
+      <div className="kameron flex w-full justify-end leading-none font-semibold text-sm text-[#752092]">
+        {Strings[props.name]}
       </div>
       <Stat name={props.name} level={props.level + props.modifier} />
     </div>
