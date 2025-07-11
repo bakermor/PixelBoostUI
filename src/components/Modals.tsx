@@ -1,12 +1,12 @@
+import CloseIcon from "@mui/icons-material/Close";
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { allowedStats } from "../constants/StatConstants";
 import { Strings } from "../constants/Strings";
-import { Colors, pxl } from "../constants/ThemeConstants";
-import { DefaultButton, DefaultIconButton } from "./Buttons";
+import { IconButton, NewDefaultButton } from "./Buttons";
 
 interface BaseModalProps {
-  color: string;
+  color?: string;
   exit: React.MouseEventHandler<any>;
   children?: ReactNode;
 }
@@ -22,13 +22,7 @@ export const BaseModal = (props: BaseModalProps) => {
       onClick={props.exit}
     >
       <div
-        className="flex bg-gray-200 overflow-clip relative"
-        style={{
-          width: pxl * 440,
-          height: pxl * 720,
-          padding: pxl * 10,
-          backgroundColor: props.color,
-        }}
+        className="flex w-92 h-150 p-2 bg-linear-to-t from-[#FFFEE0] to-[#FFFFFC] outline-3 outline-[#752092] overflow-clip relative"
         onClick={(e) => e.stopPropagation()}
       >
         {props.children}
@@ -46,66 +40,30 @@ export const ActionModal = (props: ActionModalProps) => {
   };
 
   return (
-    <BaseModal {...props} color={Colors.p4}>
-      <div
-        className="absolute"
-        style={{
-          right: pxl * 5,
-          top: pxl * 5,
-        }}
-      >
-        <DefaultIconButton
-          onClick={props.exit}
-          size={[40]}
-          colors={[Colors.p5, Colors.p6]}
-        />
+    <BaseModal {...props}>
+      <div className="absolute right-2 top-2">
+        <IconButton onClick={props.exit}>
+          <CloseIcon fontSize="large" />
+        </IconButton>
       </div>
-      <div
-        className="flex flex-col w-full"
-        style={{
-          gap: pxl * 50,
-        }}
-      >
-        <div
-          className="flex flex-col"
-          style={{ gap: pxl * 5, padding: pxl * 10 }}
-        >
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 52,
-              fontSize: pxl * 48,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.p1,
-            }}
-          >
+      <div className="flex flex-col w-full gap-8">
+        <div className="flex flex-col gap-1 p-2">
+          <div className="kameron mt-3 w-full leading-none whitespace-nowrap text-4xl text-[#000000]">
             {Strings.do_action}
           </div>
-          <div
-            className="flex leading-none"
-            style={{
-              height: pxl * 18,
-              fontSize: pxl * 16,
-              fontFamily: "'pxlSmall', monospace",
-              color: Colors.p6,
-            }}
-          >
+          <div className="sans w-full leading-none whitespace-nowrap text-[#919191]">
             {Strings.do_action_desc}
           </div>
         </div>
-        <div
-          className="flex-1 flex flex-col"
-          style={{ gap: pxl * 15, padding: pxl * 10 }}
-        >
+        <div className="flex-1 flex flex-col gap-3 px-2">
           {allowedStats.map((stat) => (
             <div key={stat} className="flex">
-              <DefaultButton
+              <NewDefaultButton
                 text={Strings[stat]}
                 onClick={() => {
                   navigateAction(stat);
                 }}
-                size={65}
-                colors={[Colors.a3, Colors.a2, Colors.p1, Colors.a6]}
+                variant="inverted large"
               />
             </div>
           ))}

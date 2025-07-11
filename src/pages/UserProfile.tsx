@@ -5,8 +5,9 @@ import { followUser, unfollowUser } from "../api/FollowApi";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
 import { UserProfileCard } from "../components/ProfileCard";
 import { NewSideBar } from "../components/SideBar";
+import { StatContainer } from "../components/StatContainer";
 import { AuthContext } from "../context/AuthProvider";
-import { User } from "../models/User";
+import { HealthLevels, User } from "../models/User";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
@@ -77,8 +78,18 @@ const UserProfile = () => {
               me?.following.includes(u.id) ? unfollow(u.id) : follow(u.id);
             }}
           />
-          <div className="flex-1 flex flex-col h-full py-28 pr-10 pl-4">
+          <div className="flex-1 flex flex-col h-full py-28 pr-10 pl-4 gap-6">
             <AvatarContainer />
+            <StatContainer
+              health={
+                Object.fromEntries(
+                  Object.keys(u.health).map((key) => [
+                    key,
+                    u.health[key as keyof HealthLevels].current_level,
+                  ])
+                ) as Record<keyof HealthLevels, number>
+              }
+            />
           </div>
         </div>
       ) : null}

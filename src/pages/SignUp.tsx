@@ -166,6 +166,7 @@ const SignUp = () => {
               <NewDefaultButton
                 text={Strings.create_account}
                 onClick={createAccount}
+                variant="large"
               />
             </div>
           </form>

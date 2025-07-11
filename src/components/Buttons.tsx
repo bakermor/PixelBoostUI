@@ -146,7 +146,7 @@ interface NewButtonProps {
 
   name?: string;
   focused?: boolean;
-  variant?: "default" | "inverted";
+  variant?: string;
   icon?: {
     onClick: () => void;
     colors: string[];
@@ -157,7 +157,7 @@ interface NewIconButtonProps {
   onClick: React.MouseEventHandler<any>;
   children?: ReactNode;
 
-  variant?: "default";
+  variant?: string;
   disabled?: boolean;
 }
 
@@ -170,14 +170,18 @@ export const NewDefaultButton = (props: NewButtonProps) => {
   return (
     <button
       className={`w-full items-center cursor-pointer rounded-xl border-3 ${
-        props.variant === "inverted"
+        props.variant?.includes("inverted")
           ? "bg-[#FFC872] border-[#FFC872] text-[#752092] hover:bg-[#C957BC] hover:border-[#752092] hover:text-[#FFFFFC]"
           : "bg-[#C957BC] border-[#752092] text-[#FFFFFC] hover:bg-[#FFC872] hover:border-[#FFC872] hover:text-[#752092]"
       } transition-colors duration-300`}
       onClick={handleClick}
       name={props.name}
     >
-      <div className="flex-1 flex items-center h-13 px-2 py-1 gap-1">
+      <div
+        className={`flex-1 flex items-center px-2 py-1 gap-1 ${
+          props.variant?.includes("large") ? "h-13" : "h-11"
+        }`}
+      >
         <div className="sans w-full flex whitespace-nowrap leading-none justify-center">
           {props.text}
         </div>
@@ -216,7 +220,11 @@ export const IconButton = (props: NewIconButtonProps) => {
 
   return (
     <div
-      className={`flex min-w-7 min-h-7 mt-1 items-center justify-center rounded-xs cursor-pointer outline-3 bg-[#FFF0A6] text-[#C957BC] outline-[#C957BC] hover:bg-[#C957BC] hover:outline-[#752092] hover:text-[#752092] transition-colors duration-300`}
+      className={`flex min-w-7 min-h-7 max-h-7 max-w-7 items-center justify-center rounded-xs cursor-pointer outline-3 ${
+        props.variant === "edit"
+          ? "mt-1 bg-[#FFF0A6] text-[#C957BC] outline-[#C957BC] hover:bg-[#C957BC] hover:outline-[#752092] hover:text-[#752092]"
+          : "bg-[#FFF0A6] text-[#FFC872] outline-[#FFC872] hover:bg-[#FFC872] hover:outline-[#C957BC] hover:text-[#C957BC]"
+      } transition-colors duration-300`}
       onClick={handleClick}
     >
       {props.children}

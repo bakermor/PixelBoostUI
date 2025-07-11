@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getUserFollowing } from "../api/FollowApi";
 import { ActivityModal } from "../components/activities/ActivityModal";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
@@ -18,16 +18,22 @@ const Dashboard = () => {
   const { health } = useContext(StatUpdateContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
 
-  const [modal, setModal] = useState<string | null>(null);
+  const [modal, setModal] = useState<string | null>(params.get("open"));
   const [friendList, setFriendList] = useState<User[] | undefined>(undefined);
 
   const chooseModal = (m: string) => {
+    params.set("open", m);
     setModal(m);
+    navigate({ search: params.toString() }, { replace: true });
   };
 
   const exitModal = () => {
+    params.delete("open");
     setModal(null);
+    navigate({ search: params.toString() }, { replace: true });
   };
 
   const getFriendsList = async (user_id: string) => {

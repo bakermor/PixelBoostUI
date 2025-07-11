@@ -58,7 +58,7 @@ export const ProfileCard = (props: Props) => {
             value={name}
             onChange={handleChange}
           />
-          <IconButton onClick={edit ? handleSave : startEdit}>
+          <IconButton onClick={edit ? handleSave : startEdit} variant="edit">
             {edit ? <DoneOutlineIcon /> : <EditIcon />}
           </IconButton>
         </div>

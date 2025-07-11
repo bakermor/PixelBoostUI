@@ -22,7 +22,6 @@ const Search = () => {
 
   // Add search to params on keydown/blur
   const updateURL = (q: string) => {
-    const params = new URLSearchParams(location.search);
     if (q) params.set("q", q);
     else params.delete("q");
 

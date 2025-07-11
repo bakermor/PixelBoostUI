@@ -115,7 +115,11 @@ const Login = () => {
               />
             ))}
             <div className="mt-6">
-              <NewDefaultButton text={Strings.login} onClick={handleLogin} />
+              <NewDefaultButton
+                text={Strings.login}
+                onClick={handleLogin}
+                variant="large"
+              />
             </div>
           </form>
         </div>
