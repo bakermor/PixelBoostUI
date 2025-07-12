@@ -6,10 +6,10 @@ import {
   updateUsername,
 } from "../../api/AuthApi";
 import { Strings } from "../../constants/Strings";
-import { Colors, pxl } from "../../constants/ThemeConstants";
 import { User } from "../../models/User";
-import { DefaultButton } from "../Buttons";
-import { Input } from "../Input";
+import { isValidEmail } from "../../utils/helperFuncs";
+import { NewDefaultButton } from "../Buttons";
+import { NewInput } from "../Input";
 
 interface Props {
   user: User;
@@ -33,8 +33,7 @@ export const ProfileSettings = (props: Props) => {
   };
 
   const saveEmail = async (newData: { email: string }) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    if (newData.email != "" && !emailPattern.test(newData.email)) {
+    if (newData.email != "" && !isValidEmail(newData.email)) {
       return {
         status: 400,
         field: "email",
@@ -63,7 +62,7 @@ export const ProfileSettings = (props: Props) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col" style={{ gap: pxl * 50 }}>
+    <div className="flex-1 flex flex-col gap-10">
       <SettingsSection
         title="set_profile"
         inputs={{ name: props.user.name }}
@@ -131,40 +130,30 @@ const SettingsSection = (props: SectionProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col" style={{ gap: pxl * 8 }}>
-      <div
-        className="flex justify-start leading-none whitespace-nowrap"
-        style={{
-          height: pxl * 26,
-          fontSize: pxl * 24,
-          fontFamily: "'pxlLarge', monospace",
-          color: Colors.p6,
-        }}
-      >
-        {Strings[props.title]}
+    <div className="w-full flex flex-col gap-3.5">
+      <div className="w-full flex flex-col gap-1 mb-1">
+        <div className="kameron flex leading-none font-semibold text-xl text-[#C957BC]">
+          {Strings[props.title]}
+        </div>
+        <div className="w-full h-1 rounded-lg bg-[#C957BC]" />
       </div>
-      <div
-        className="w-full"
-        style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
-      />
       {Object.entries(formData).map(([key, value]) => (
-        <div key={key} style={{ width: pxl * 820 }}>
-          <Input
+        <div key={key} className="w-180">
+          <NewInput
             name={key}
             value={value}
             type={key.includes("password") ? "password" : "text"}
             warning={warnings[key]}
             onChange={handleChange}
-            colors={[Colors.p5, Colors.p3, Colors.a6, Colors.a3]}
           />
         </div>
       ))}
-      <div className="flex" style={{ width: pxl * 180, paddingTop: pxl * 25 }}>
-        <DefaultButton
+      <div className="flex w-40">
+        <NewDefaultButton
           text={Strings.save}
           onClick={handleSubmit}
-          size={50}
-          colors={[Colors.a3, Colors.a4, Colors.p1]}
+          variant="inverted"
+          size="small"
         />
       </div>
     </div>

@@ -3,10 +3,12 @@ import logo from "../assets/logo.png";
 import { Strings } from "../constants/Strings";
 import { User } from "../models/User";
 import { UserInfo } from "./UserInfo";
+import { NewDefaultButton } from "./Buttons";
 
 interface Props {
   focused?: string;
-  variant?: "default" | "dashboard";
+  focused_sec?: string;
+  variant?: string;
 
   friends?: User[];
 }
@@ -18,6 +20,10 @@ export const SideBar = (props: Props) => {
     props.variant === "dashboard"
       ? ["settings", "search"]
       : ["dashboard", "settings", "search"];
+
+  const subsections: Record<string, string[]> = {
+    settings: ["profile", "stat"],
+  };
 
   const clickButton = (path: string) => {
     navigate(path);
@@ -32,14 +38,42 @@ export const SideBar = (props: Props) => {
         }`}
       />
       <div className="w-full flex flex-col">
-        {buttons.map((item, index) => (
-          <Button
-            key={index}
-            text={Strings[item]}
-            onClick={() => clickButton(`/${item}`)}
-            focused={item === props.focused}
-          />
-        ))}
+        {buttons.map((item, index) =>
+          props.focused === item && subsections[item] ? (
+            <div className="flex flex-col">
+              <NewDefaultButton
+                key={index}
+                text={Strings[item]}
+                onClick={() => clickButton(`/${item}`)}
+                variant={
+                  item === props.focused && !props.focused_sec
+                    ? "nav_focus"
+                    : "nav"
+                }
+                align="left"
+              />
+              {subsections[item].map((subitem, subindex) => (
+                <NewDefaultButton
+                  key={`${index}_${subindex}`}
+                  text={Strings[subitem]}
+                  onClick={() => clickButton(`/${item}/${subitem}`)}
+                  variant={
+                    subitem === props.focused_sec ? "nav_focus" : "nav_sec"
+                  }
+                  align="left_indent"
+                />
+              ))}
+            </div>
+          ) : (
+            <NewDefaultButton
+              key={index}
+              text={Strings[item]}
+              onClick={() => clickButton(`/${item}`)}
+              variant={item === props.focused ? "nav_focus" : "nav"}
+              align="left"
+            />
+          )
+        )}
       </div>
       <div className="w-68 h-4 bg-[#FFC872]" />
       {props.friends ? (
@@ -55,24 +89,5 @@ export const SideBar = (props: Props) => {
         </div>
       ) : null}
     </div>
-  );
-};
-
-interface ButtonProps {
-  text: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  focused?: boolean;
-}
-
-const Button = (props: ButtonProps) => {
-  return (
-    <button
-      className={`sans text-start px-4 w-full h-11 cursor-pointer ${
-        props.focused ? "bg-[#FFD785]" : "bg-[#FFF0A6]"
-      } hover:bg-[#FFC872] outline-2 outline-[#FFC872] text-[#752092] transition-colors duration-300`}
-      onClick={props.onClick}
-    >
-      {props.text}
-    </button>
   );
 };

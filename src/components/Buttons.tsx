@@ -117,7 +117,7 @@ interface NewButtonProps {
   focused?: boolean;
   variant?: string;
   size?: "2xs" | "xs" | "small" | "large";
-  align?: "left" | "right" | "center";
+  align?: "left" | "right" | "center" | "left_indent";
 }
 
 interface NewIconButtonProps {
@@ -145,6 +145,11 @@ export const NewDefaultButton = (props: NewButtonProps) => {
       "outline-3 bg-[#FBC0E5] text-[#752092] outline-[#C957BC] hover:bg-[#C957BC] hover:text-[#FFFFFC]",
     dropdown_ph:
       "outline-3 bg-[#FBC0E5] text-[#C957BC] outline-[#C957BC] hover:bg-[#C957BC] hover:text-[#FFFFFC]",
+    nav: "bg-[#FFF0A6] hover:bg-[#FFC872] outline-2 outline-[#FFC872] text-[#752092]",
+    nav_sec:
+      "bg-[#FFE497] hover:bg-[#FFC872] outline-2 outline-[#FFC872] text-[#752092]",
+    nav_focus:
+      "bg-[#FFD785] hover:bg-[#FFC872] outline-2 outline-[#FFC872] text-[#752092]",
   };
 
   const handleClick = (e: React.MouseEvent<any>) => {
@@ -175,7 +180,11 @@ export const NewDefaultButton = (props: NewButtonProps) => {
       >
         <div
           className={`sans w-full flex whitespace-nowrap leading-none ${
-            props.align === "left" ? "justify-start" : "justify-center"
+            props.align === "left"
+              ? "justify-start"
+              : props.align === "left_indent"
+              ? "justify-start pl-4"
+              : "justify-center"
           }`}
         >
           {props.text}

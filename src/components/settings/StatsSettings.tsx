@@ -1,23 +1,15 @@
-import { ReactNode, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { updateEquations, updateHealth } from "../../api/HealthApi";
 import { statEquations } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
-import { Colors, pxl } from "../../constants/ThemeConstants";
 import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { User } from "../../models/User";
 import { createHealthUpdate } from "../../utils/createHealthUpdate";
-import { DefaultButton } from "../Buttons";
+import { SettingsSection } from "./SettingsSection";
 
 interface Props {
   user: User;
-}
-
-interface SectionProps {
-  title: string;
-  subtitle?: boolean;
-  children?: ReactNode;
-  onSubmit: (props?: any) => Promise<Record<string, any>>;
 }
 
 interface StatEquationProps {
@@ -68,107 +60,32 @@ export const StatsSettings = (props: Props) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col" style={{ gap: pxl * 50 }}>
+    <div className="flex-1 flex flex-col gap-10">
       <SettingsSection
         title="edit_decay"
         subtitle={true}
         onSubmit={handleSubmit}
       >
-        <div
-          className="flex justify-between"
-          style={{
-            marginTop: pxl * 10,
-            marginLeft: pxl * 150,
-            width: pxl * 370,
-          }}
-        >
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 13,
-              fontSize: pxl * 12,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.a6,
-            }}
-          >
+        <div className="kameron flex justify-between mt-3 ml-30 w-75 font-semibold text-xs text-[#752092]">
+          <div className="flex justify-start leading-none">
             {Strings.dec_fast}
           </div>
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 13,
-              fontSize: pxl * 12,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.a6,
-            }}
-          >
+          <div className="flex justify-start leading-none">
             {Strings.dec_slow}
           </div>
         </div>
 
-        <div className="flex flex-col" style={{ gap: pxl * 10 }}>
+        <div className="flex flex-col mb-3 gap-4">
           {Object.entries(equations).map(([stat, value]) => (
-            <div key={stat} className="flex">
-              <EquationSection
-                stat={stat}
-                equation={value}
-                onClick={handleChange}
-              />
-            </div>
+            <EquationSection
+              key={stat}
+              stat={stat}
+              equation={value}
+              onClick={handleChange}
+            />
           ))}
         </div>
       </SettingsSection>
-    </div>
-  );
-};
-
-const SettingsSection = (props: SectionProps) => {
-  const handleSubmit = async () => {
-    const result = await props.onSubmit();
-    console.log(result);
-  };
-
-  return (
-    <div className="w-full flex flex-col" style={{ gap: pxl * 8 }}>
-      <div
-        className="flex justify-start leading-none"
-        style={{
-          height: pxl * 26,
-          fontSize: pxl * 24,
-          fontFamily: "'pxlLarge', monospace",
-          color: Colors.p6,
-        }}
-      >
-        {Strings[props.title]}
-      </div>
-      {props.subtitle ? (
-        <div
-          className="flex justify-start leading-none"
-          style={{
-            marginTop: pxl * 10,
-            height: pxl * 18,
-            fontSize: pxl * 16,
-            fontFamily: "'pxlSmall', monospace",
-            color: Colors.p6,
-          }}
-        >
-          {Strings[`${props.title}_desc`]}
-        </div>
-      ) : null}
-
-      <div
-        className="w-full"
-        style={{ height: pxl * 5, backgroundColor: Colors.p4 }}
-      />
-      {props.children}
-      <div className="flex" style={{ width: pxl * 180, paddingTop: pxl * 25 }}>
-        <DefaultButton
-          text={Strings.save}
-          onClick={handleSubmit}
-          size={50}
-          colors={[Colors.a3, Colors.a4, Colors.p1]}
-        />
-      </div>
     </div>
   );
 };
@@ -177,44 +94,22 @@ const EquationSection = (props: StatEquationProps) => {
   const equationModifiers = [4, 3, 2, 1, 0.5, 0.3, 0.25];
 
   return (
-    <div
-      className="w-full flex items-center"
-      style={{
-        paddingLeft: pxl * 20,
-        paddingRight: pxl * 20,
-        height: pxl * 40,
-        gap: pxl * 30,
-      }}
-    >
-      <div
-        className="flex justify-start leading-none"
-        style={{
-          height: pxl * 18,
-          width: pxl * 100,
-          fontSize: pxl * 16,
-          fontFamily: "'pxlSmall', monospace",
-          color: Colors.a5,
-        }}
-      >
+    <div className="w-full flex items-center px-2 gap-8.5">
+      <div className="sans w-20 flex justify-start leading-none text-[#752092]">
         {Strings[props.stat]}
       </div>
-      <div className="flex-1 flex items-end" style={{ gap: pxl * 15 }}>
+      <div className="flex-1 flex items-end gap-3">
         {equationModifiers.map((value) => (
           <button
             key={value}
             name={props.stat}
             value={value}
             onClick={props.onClick}
-            className="clickable cursor-pointer"
-            style={
-              {
-                "--main-color":
-                  props.equation === value ? Colors.a4 : Colors.p3,
-                "--hover-color": Colors.a4,
-                height: `${pxl * 30}px`,
-                width: `${pxl * 40}px`,
-              } as React.CSSProperties & Record<string, string>
-            }
+            className={`w-8 h-6 cursor-pointer rounded-sm ${
+              props.equation === value
+                ? "bg-[#C957BC]"
+                : "bg-[#FFED93] hover:bg-[#C957BC]"
+            } transition-colors duration-300`}
           />
         ))}
       </div>
