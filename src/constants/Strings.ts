@@ -22,8 +22,7 @@ export const Strings: Record<string, string> = {
   current_activity_desc: "Set or stop your current activity",
 
   set_levels: "Set stat levels",
-  set_levels_desc:
-    "Click the buttons to increase and decrease or click and drag to set each level",
+  set_levels_desc: "Drag the slider to set the level of each stat",
 
   signup_title: "Sign up",
   signup_desc: "Welcome to Pixel Boost - Let's create an account",

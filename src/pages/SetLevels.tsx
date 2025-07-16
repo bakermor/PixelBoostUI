@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateHealth } from "../api/HealthApi";
-import { DefaultButton } from "../components/Buttons";
+import { NewDefaultButton, SmallButton } from "../components/Buttons";
 import { SetStat } from "../components/SetStat";
+import { SideBar } from "../components/SideBar";
 import { allowedStats } from "../constants/StatConstants";
 import { Strings } from "../constants/Strings";
-import { Colors, pxl } from "../constants/ThemeConstants";
 import { AuthContext } from "../context/AuthProvider";
 import { StatUpdateContext } from "../context/StatUpdateProvider";
 import { HealthLevels } from "../models/User";
@@ -74,94 +74,46 @@ const SetLevels = () => {
   }, [loading]);
 
   return (
-    <div
-      className="h-screen w-screen flex justify-end"
-      style={{ backgroundColor: Colors.p4 }}
-    >
-      <div
-        className="h-full flex flex-col overflow-x-auto"
-        style={{
-          width: pxl * 1480,
-          gap: pxl * 30,
-          padding: pxl * 45,
-          backgroundColor: Colors.p1,
-        }}
-      >
-        <div className="flex flex-col w-full" style={{ gap: pxl * 5 }}>
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 52,
-              fontSize: pxl * 48,
-              fontFamily: "'pxlLarge', monospace",
-              color: Colors.a5,
-            }}
-          >
+    <div className="h-screen w-screen flex gap-10 bg-linear-to-t from-[#FFFFFC] to-[#FFFEE0]">
+      <SideBar />
+      <div className="flex-1 flex flex-col overflow-x-auto p-8 gap-8">
+        <div className="flex flex-col gap-1 p-2 px-4">
+          <div className="kameron mt-3 w-full leading-none whitespace-nowrap text-4xl text-[#000000]">
             {Strings.set_levels}
           </div>
-          <div
-            className="flex justify-start leading-none"
-            style={{
-              height: pxl * 18,
-              fontSize: pxl * 16,
-              fontFamily: "'pxlSmall', monospace",
-              color: Colors.a3,
-            }}
-          >
+          <div className="sans w-full leading-none whitespace-nowrap text-[#919191]">
             {Strings.set_levels_desc}
           </div>
         </div>
-        <div
-          className="flex-1 flex flex-col"
-          style={{
-            paddingLeft: pxl * 30,
-            paddingRight: pxl * 30,
-            gap: pxl * 15,
-            minWidth: pxl * 1350,
-          }}
-        >
-          <div
-            className="self-end flex"
-            style={{ width: pxl * 180, marginRight: pxl * 218 }}
-          >
-            <DefaultButton
+        <div className="flex-1 flex flex-col min-w-100 max-w-230 justify-between px-5 gap-6 relative">
+          <div className="absolute -top-4 left-181.5">
+            <SmallButton
               text={Strings.fill_all}
               name="fill_all"
               onClick={fillAll}
-              size={30}
-              colors={[Colors.a2, Colors.a3, Colors.a6, Colors.p1]}
+              variant="activity"
             />
           </div>
-
           {allowedStats.map((stat) => (
-            <div className="flex" key={stat} style={{ paddingBottom: pxl * 5 }}>
-              <SetStat
-                stat={stat as keyof HealthLevels}
-                level={Math.min(
-                  Math.max(
-                    health[stat as keyof HealthLevels] +
-                      modifiers[stat as keyof HealthLevels],
-                    0
-                  ),
-                  100
-                )}
-                onClick={updateMod}
-              />
-            </div>
+            <SetStat
+              key={stat}
+              stat={stat as keyof HealthLevels}
+              level={Math.min(
+                Math.max(
+                  health[stat as keyof HealthLevels] +
+                    modifiers[stat as keyof HealthLevels],
+                  0
+                ),
+                100
+              )}
+              onClick={updateMod}
+            />
           ))}
-          <div
-            className="flex self-end"
-            style={{
-              width: pxl * 320,
-              marginRight: pxl * 100,
-              marginTop: pxl * 25,
-              marginBottom: pxl * 40,
-            }}
-          >
-            <DefaultButton
+          <div className="flex self-end w-90 mb-10 mt-6">
+            <NewDefaultButton
               text={Strings.update}
               onClick={handleSubmit}
-              colors={[Colors.a5, Colors.a4, Colors.a2, Colors.p1]}
+              size="large"
             />
           </div>
         </div>

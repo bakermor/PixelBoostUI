@@ -1,6 +1,6 @@
 import { ActionRanges, RangeValues } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
-import { NewInput } from "../Input";
+import { Input } from "../Input";
 
 interface RangeContainerProps {
   action: string;
@@ -98,7 +98,7 @@ export const SelectContainer = (props: SelectContainerProps) => {
 export const InputContainer = (props: InputContainerProps) => {
   return (
     <div className="flex-1 flex flex-col max-w-80 gap-3 justify-center">
-      <NewInput
+      <Input
         name={props.name}
         type="text"
         value={props.value}

@@ -9,7 +9,7 @@ import { Strings } from "../../constants/Strings";
 import { User } from "../../models/User";
 import { isValidEmail } from "../../utils/helperFuncs";
 import { NewDefaultButton } from "../Buttons";
-import { NewInput } from "../Input";
+import { Input } from "../Input";
 
 interface Props {
   user: User;
@@ -139,7 +139,7 @@ const SettingsSection = (props: SectionProps) => {
       </div>
       {Object.entries(formData).map(([key, value]) => (
         <div key={key} className="w-180">
-          <NewInput
+          <Input
             name={key}
             value={value}
             type={key.includes("password") ? "password" : "text"}

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUser, getToken, usernameCheck } from "../api/AuthApi";
 import sign_up from "../assets/sign_up.png";
 import { NewDefaultButton } from "../components/Buttons";
-import { NewInput } from "../components/Input";
+import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
 import { isValidEmail } from "../utils/helperFuncs";
@@ -152,7 +152,7 @@ const SignUp = () => {
         <div className="flex flex-col w-full min-w-xl px-14 gap-6">
           <form className="flex w-full flex-col gap-3.5">
             {Object.entries(formData).map(([input, value]) => (
-              <NewInput
+              <Input
                 key={input}
                 name={input}
                 type={input.includes("password") ? "password" : "text"}

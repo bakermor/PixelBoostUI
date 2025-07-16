@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../api/AuthApi";
 import login from "../assets/login.png";
 import { NewDefaultButton } from "../components/Buttons";
-import { NewInput } from "../components/Input";
+import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
 
@@ -105,7 +105,7 @@ const Login = () => {
         <div className="flex flex-col w-full min-w-xl px-14 gap-6">
           <form className="flex w-full flex-col gap-4">
             {Object.entries(formData).map(([input, value]) => (
-              <NewInput
+              <Input
                 key={input}
                 name={input}
                 type={input.includes("password") ? "password" : "text"}

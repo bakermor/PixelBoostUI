@@ -7,7 +7,7 @@ import { allowedStats } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
 import { Activity, Modifiers } from "../../models/User";
 import { IconButton, NewDefaultButton, SmallButton } from "../Buttons";
-import { NewInput } from "../Input";
+import { Input } from "../Input";
 import { StatModifier } from "./ActivityDisplay";
 
 interface ModalProps {
@@ -144,7 +144,7 @@ export const UpdateActivityModal = (props: ModalProps) => {
             />
           </div>
 
-          <NewInput
+          <Input
             name="act_name"
             type="text"
             value={formData.act_name}
