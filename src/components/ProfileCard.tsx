@@ -9,7 +9,7 @@ import { IconButton, NewDefaultButton, SmallButton } from "./Buttons";
 
 interface Props {
   user?: User;
-  onClick: () => void;
+  onClick: (modal: string) => void;
 
   edit?: boolean;
 }
@@ -17,6 +17,7 @@ interface Props {
 interface ProfileProps {
   user: User;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  modal: (modal: string) => void;
   me?: User;
 }
 
@@ -70,11 +71,17 @@ export const ProfileCard = (props: Props) => {
                 @{props.user.username}
               </div>
               <div className="flex w-full items-center h-4 rounded-sm cursor-pointer bg-[#FFD785] kameron font-semibold text-xs text-[#752092]">
-                <div className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300">
-                  {props.user.followers.length} {Strings.followers}
-                </div>
-                <div className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300">
+                <div
+                  className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300"
+                  onClick={() => props.onClick("following")}
+                >
                   {props.user.following.length} {Strings.following}
+                </div>
+                <div
+                  className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300"
+                  onClick={() => props.onClick("followers")}
+                >
+                  {props.user.followers.length} {Strings.followers}
                 </div>
               </div>
             </div>
@@ -91,7 +98,7 @@ export const ProfileCard = (props: Props) => {
             </div>
             <NewDefaultButton
               text={Strings.my_activity}
-              onClick={props.onClick}
+              onClick={() => props.onClick("activities")}
             />
           </div>
         ) : null}
@@ -131,11 +138,17 @@ export const UserProfileCard = (props: ProfileProps) => {
             @{props.user.username}
           </div>
           <div className="flex w-full items-center h-4 rounded-sm cursor-pointer bg-[#FFD785] kameron font-semibold text-xs text-[#752092]">
-            <div className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300">
-              {props.user.followers.length} {Strings.followers}
-            </div>
-            <div className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300">
+            <div
+              className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300"
+              onClick={() => props.modal("following")}
+            >
               {props.user.following.length} {Strings.following}
+            </div>
+            <div
+              className="flex-1 h-full rounded-sm flex items-center justify-center leading-none whitespace-nowrap hover:bg-[#FFC872] transition-colors duration-300"
+              onClick={() => props.modal("followers")}
+            >
+              {props.user.followers.length} {Strings.followers}
             </div>
           </div>
         </div>

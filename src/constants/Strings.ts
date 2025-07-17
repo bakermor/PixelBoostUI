@@ -65,6 +65,7 @@ export const Strings: Record<string, string> = {
   following: "Following",
   follow: "Follow",
   followers: "Followers",
+  remove: "Remove",
   dashboard: "Dashboard",
   search: "Find Friends",
   select: "Select",

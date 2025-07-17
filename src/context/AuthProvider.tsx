@@ -12,6 +12,7 @@ interface Auth {
   user: User | undefined;
   loading: boolean;
   updateAuth: () => Promise<void>;
+  updateFollowers: (followers: string[], following: string[]) => void;
 }
 
 interface AuthProviderProps {
@@ -22,6 +23,7 @@ export const AuthContext = createContext<Auth>({
   user: undefined,
   loading: true,
   updateAuth: async () => {},
+  updateFollowers: () => {},
 });
 
 export const AuthProvider = (props: AuthProviderProps) => {
@@ -35,12 +37,20 @@ export const AuthProvider = (props: AuthProviderProps) => {
     setLoading(false);
   }, []);
 
+  const updateFollowers = (followers: string[], following: string[]) => {
+    if (user) setUser({ ...user, followers: followers, following: following });
+  };
+
   useEffect(() => {
     updateAuth();
-  }, []);
+    const interval = setInterval(updateAuth, 900000);
+    return () => clearInterval(interval);
+  }, [updateAuth]);
 
   return (
-    <AuthContext.Provider value={{ user, loading, updateAuth }}>
+    <AuthContext.Provider
+      value={{ user, loading, updateAuth, updateFollowers }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

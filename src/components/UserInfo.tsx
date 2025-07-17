@@ -1,18 +1,63 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { followUser, removeFollower, unfollowUser } from "../api/FollowApi";
+import { AuthContext } from "../context/AuthProvider";
 import { User } from "../models/User";
 
 interface Props {
   user: User;
   button?: {
     text: string;
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
     focused?: boolean;
+    type: "follow" | "unfollow" | "remove";
   };
   variant?: "default" | "sidebar";
 }
 
 export const UserInfo = (props: Props) => {
+  const { updateFollowers } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const follow = async (id: string) => {
+    const result = await followUser(id);
+    if (result.status === 200) {
+      return result.data;
+    }
+  };
+
+  const unfollow = async (id: string) => {
+    const result = await unfollowUser(id);
+    if (result.status === 200) {
+      return result.data;
+    }
+  };
+
+  const remove = async (id: string) => {
+    const result = await removeFollower(id);
+    if (result.status === 200) {
+      return result.data;
+    }
+  };
+
+  const onClick = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    if (props.button) {
+      let result = undefined;
+      if (props.button.type === "follow") {
+        result = await follow(props.user.id);
+      } else if (props.button.type === "unfollow") {
+        result = await unfollow(props.user.id);
+      } else {
+        result = await remove(props.user.id);
+      }
+      if (result) {
+        updateFollowers(result.followers, result.following);
+      }
+    }
+  };
+
   return (
     <div
       className={`group flex justify-between items-center w-full h-14 p-2.5 gap-3 cursor-pointer ${
@@ -39,7 +84,9 @@ export const UserInfo = (props: Props) => {
           </div>
         </div>
       </div>
-      {props.button ? <SmallButton {...props.button} /> : null}
+      {props.button ? (
+        <SmallButton {...props.button} onClick={(e) => onClick(e)} />
+      ) : null}
     </div>
   );
 };

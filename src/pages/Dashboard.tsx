@@ -4,6 +4,7 @@ import { getUserFollowing } from "../api/FollowApi";
 import { ActivityModal } from "../components/activities/ActivityModal";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
 import { NewDefaultButton } from "../components/Buttons";
+import { FollowModal } from "../components/FollowModal";
 import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
 import { SideBar } from "../components/SideBar";
@@ -53,6 +54,20 @@ const Dashboard = () => {
         <ActionModal exit={exitModal} />
       ) : modal === "activities" ? (
         <ActivityModal exit={exitModal} />
+      ) : modal === "followers" && user ? (
+        <FollowModal
+          exit={exitModal}
+          tab="followers"
+          user={user}
+          changeTab={chooseModal}
+        />
+      ) : modal === "following" && user ? (
+        <FollowModal
+          exit={exitModal}
+          tab="following"
+          user={user}
+          changeTab={chooseModal}
+        />
       ) : null}
 
       <SideBar variant="dashboard" friends={friendList} />
@@ -77,12 +92,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <ProfileCard
-          user={user}
-          onClick={() => {
-            chooseModal("activities");
-          }}
-        />
+        <ProfileCard user={user} onClick={chooseModal} />
       </div>
     </div>
   );

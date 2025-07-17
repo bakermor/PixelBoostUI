@@ -15,6 +15,10 @@ export function unfollowUser(user_id: string): Promise<BaseRes<User>> {
   return baseApiCall(() => api.post(`/unfollow/${user_id}`));
 }
 
+export function removeFollower(user_id: string): Promise<BaseRes<User>> {
+  return baseApiCall(() => api.post(`/follow/remove/${user_id}`));
+}
+
 export function getUserFollowers(user_id: string): Promise<BaseRes<User[]>> {
   return baseApiCall(() => api.get(`/followers/${user_id}`));
 }

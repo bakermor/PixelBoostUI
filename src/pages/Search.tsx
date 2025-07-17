@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { followUser, getUsersFromSearch, unfollowUser } from "../api/FollowApi";
+import { getUsersFromSearch } from "../api/FollowApi";
 import { SearchBar } from "../components/SearchBar";
 import { SideBar } from "../components/SideBar";
 import { UserInfo } from "../components/UserInfo";
@@ -16,7 +16,6 @@ const Search = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
 
-  const [me, setMe] = useState<User | undefined>(user);
   const [search, setSearch] = useState(params.get("q") ?? "");
   const [results, setResults] = useState<User[] | undefined>(undefined);
 
@@ -51,36 +50,6 @@ const Search = () => {
 
   const onPause = useMemo(() => debounce(searchUsers, 300), []);
 
-  // Follow/unfollow users
-  const onClick = (
-    e: React.MouseEvent<any>,
-    id: string,
-    following: boolean
-  ) => {
-    e.stopPropagation();
-
-    if (!user) {
-      navigate("/login");
-    } else {
-      if (following) follow(id);
-      else unfollow(id);
-    }
-  };
-
-  const follow = async (id: string) => {
-    const result = await followUser(id);
-    if (result.status === 200) {
-      setMe(result.data);
-    }
-  };
-
-  const unfollow = async (id: string) => {
-    const result = await unfollowUser(id);
-    if (result.status === 200) {
-      setMe(result.data);
-    }
-  };
-
   useEffect(() => {
     onPause(search);
   }, [search]);
@@ -104,20 +73,17 @@ const Search = () => {
                 key={index}
                 user={item}
                 button={
-                  me?.id === item.id
+                  user?.id === item.id
                     ? undefined
                     : {
-                        text: me?.following.includes(item.id)
+                        text: user?.following.includes(item.id)
                           ? Strings.following
                           : Strings.follow,
-                        onClick: (e) => {
-                          onClick(
-                            e,
-                            item.id,
-                            me?.following.includes(item.id) ? false : true
-                          );
-                        },
-                        focused: me?.following.includes(item.id),
+                        type: user?.following.includes(item.id)
+                          ? "unfollow"
+                          : "follow",
+
+                        focused: user?.following.includes(item.id),
                       }
                 }
               />
