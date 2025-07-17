@@ -104,9 +104,7 @@ export const UpdateActivityModal = (props: ModalProps) => {
       const result = await updateActivity(props.state.current.id, {
         ...formData,
         // TODO: change modifiers that have no effect to null
-        modifiers: Object.fromEntries(
-          Object.entries(formData.modifiers).filter(([_, value]) => value !== 1)
-        ),
+        modifiers: formData.modifiers,
       });
       if (result.status === 200) {
         props.state.setActivities(undefined);

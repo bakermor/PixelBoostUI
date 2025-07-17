@@ -19,10 +19,24 @@ export function removeFollower(user_id: string): Promise<BaseRes<User>> {
   return baseApiCall(() => api.post(`/follow/remove/${user_id}`));
 }
 
-export function getUserFollowers(user_id: string): Promise<BaseRes<User[]>> {
-  return baseApiCall(() => api.get(`/followers/${user_id}`));
+export function getUserFollowers(
+  user_id: string,
+  search?: string
+): Promise<BaseRes<User[]>> {
+  return baseApiCall(() =>
+    api.get(`/followers/${user_id}`, {
+      params: { search_term: search && search.length > 0 ? search : undefined },
+    })
+  );
 }
 
-export function getUserFollowing(user_id: string): Promise<BaseRes<User[]>> {
-  return baseApiCall(() => api.get(`/following/${user_id}`));
+export function getUserFollowing(
+  user_id: string,
+  search?: string
+): Promise<BaseRes<User[]>> {
+  return baseApiCall(() =>
+    api.get(`/following/${user_id}`, {
+      params: { search_term: search && search.length > 0 ? search : undefined },
+    })
+  );
 }

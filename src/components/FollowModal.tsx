@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getUserFollowers, getUserFollowing } from "../api/FollowApi";
 import { Strings } from "../constants/Strings";
 import { User } from "../models/User";
+import { debounce } from "../utils/helperFuncs";
 import { SearchBar } from "./SearchBar";
 import { UserInfo } from "./UserInfo";
 
@@ -15,15 +16,15 @@ interface Props {
 
 export const FollowModal = (props: Props) => {
   const [tab, setTab] = useState<"following" | "followers">(props.tab);
-  const [search, setSearch] = useState("");
   const [userList, setUserList] = useState<User[] | undefined>(undefined);
+  const [search, setSearch] = useState("");
 
-  const getUsers = async () => {
+  const getUsers = async (q?: string) => {
     if (tab === "following") {
-      const result = await getUserFollowing(props.user.id);
+      const result = await getUserFollowing(props.user.id, q);
       if (result.status === 200) setUserList(result.data);
     } else {
-      const result = await getUserFollowers(props.user.id);
+      const result = await getUserFollowers(props.user.id, q);
       if (result.status === 200) setUserList(result.data);
     }
   };
@@ -45,6 +46,12 @@ export const FollowModal = (props: Props) => {
       else return 1;
     }
   };
+
+  const onPause = useMemo(() => debounce(getUsers, 300), [tab, props.user.id]);
+
+  useEffect(() => {
+    onPause(search);
+  }, [search]);
 
   useEffect(() => {
     getUsers();

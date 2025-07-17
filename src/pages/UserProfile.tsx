@@ -81,7 +81,7 @@ const UserProfile = () => {
     const params = new URLSearchParams(location.search);
     setModal(params.get("open"));
     onLoad();
-  }, [u]);
+  }, [username]);
 
   return (
     <div className="w-screen h-screen flex bg-linear-to-t from-[#FFFEE0] to-[#FFFFFC]">
