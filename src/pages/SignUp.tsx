@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, getToken, usernameCheck } from "../api/AuthApi";
 import sign_up from "../assets/sign_up.png";
-import { NewDefaultButton } from "../components/Buttons";
+import { DefaultButton } from "../components/Buttons";
 import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
@@ -163,7 +163,7 @@ const SignUp = () => {
               />
             ))}
             <div className="mt-3">
-              <NewDefaultButton
+              <DefaultButton
                 text={Strings.create_account}
                 onClick={createAccount}
                 size="large"

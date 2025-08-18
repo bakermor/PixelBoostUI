@@ -1,4 +1,5 @@
 export const Strings: Record<string, string> = {
+  site: "Pixel Boost",
   // PAGE TITLES and descriptions
   create_activity: "Create activity",
 
@@ -40,9 +41,26 @@ export const Strings: Record<string, string> = {
 
   friends: "Friends",
 
+  // Home Page Text
+  home_sec1_t: "Keep Your Avatar Happy",
+  home_sec1:
+    "Your avatar's health stats decrease in real time, so you'll always know when it's time for a recharge. Track energy, hunger, hydration, and more as they go down throughout the day.",
+  home_sec2_t: "When Their Health is Low...",
+  home_sec2:
+    "When your avatar's health drops, it's your cue to take action in real life! Grab a snack, drink some water, call a friend, or take a shower. Track your action in the app, and watch your avatar's health bars fill back up.",
+  home_sec3_t: "You Can Also...",
+  home_sec3_1:
+    "Create Custom Activities: Have the stats change differently while the activity is active.",
+  home_sec3_2:
+    "Personalize Decay Speeds: need less social time? Lower the decay speed!",
+  home_sec3_3: "Fine Tune Each Level: Set each health stat directly.",
+  home_sec4_t: "Find and Connect with Friends",
+  home_sec4: "Get started now!",
+
   // BUTTONS
   signup: "Sign up",
   create_account: "Create account",
+  go_signup: "Get started",
   login: "Login",
   continue: "Continue",
   time_limit: "Time Limit",

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Strings } from "../../constants/Strings";
-import { NewDefaultButton } from "../Buttons";
+import { DefaultButton } from "../Buttons";
 
 interface SectionProps {
   title: string;
@@ -30,7 +30,7 @@ export const SettingsSection = (props: SectionProps) => {
       </div>
       {props.children}
       <div className="flex w-40 mt-1.5">
-        <NewDefaultButton
+        <DefaultButton
           text={Strings.save}
           onClick={handleSubmit}
           variant="inverted"

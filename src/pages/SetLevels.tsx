@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateHealth } from "../api/HealthApi";
-import { NewDefaultButton, SmallButton } from "../components/Buttons";
+import { DefaultButton, SmallButton } from "../components/Buttons";
 import { SetStat } from "../components/SetStat";
 import { SideBar } from "../components/SideBar";
 import { allowedStats } from "../constants/StatConstants";
@@ -110,7 +110,7 @@ const SetLevels = () => {
             />
           ))}
           <div className="flex self-end w-90 mb-10 mt-6">
-            <NewDefaultButton
+            <DefaultButton
               text={Strings.update}
               onClick={handleSubmit}
               size="large"

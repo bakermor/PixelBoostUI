@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { allowedStats } from "../constants/StatConstants";
 import { Strings } from "../constants/Strings";
-import { IconButton, NewDefaultButton } from "./Buttons";
+import { IconButton, DefaultButton } from "./Buttons";
 
 interface Props {
   exit: React.MouseEventHandler<any>;
@@ -53,7 +53,7 @@ export const ActionModal = (props: Props) => {
         <div className="flex-1 flex flex-col gap-3 px-2">
           {allowedStats.map((stat) => (
             <div key={stat} className="flex">
-              <NewDefaultButton
+              <DefaultButton
                 text={Strings[stat]}
                 onClick={() => {
                   navigateAction(stat);

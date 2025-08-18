@@ -4,7 +4,7 @@ import { useState } from "react";
 import { deleteActivity } from "../../api/ActivitiesApi";
 import { Strings } from "../../constants/Strings";
 import { Activity } from "../../models/User";
-import { IconButton, NewDefaultButton } from "../Buttons";
+import { IconButton, DefaultButton } from "../Buttons";
 
 interface ModalProps {
   exit: React.MouseEventHandler<HTMLButtonElement>;
@@ -58,7 +58,7 @@ export const MyActivitiesModal = (props: ModalProps) => {
       }`}
     >
       <div className="flex mx-1">
-        <NewDefaultButton
+        <DefaultButton
           text={Strings.now_activity}
           onClick={() => {
             nextModal("current");
@@ -90,7 +90,7 @@ export const MyActivitiesModal = (props: ModalProps) => {
         <div className="w-full h-1 rounded-lg bg-[#752092]" />
         <div className="flex-1 flex flex-col overflow-y-auto overflow-x-clip p-2 mt-1 gap-1.5 scrollbar scrollbar-thumb-[#FFC872] scrollbar-track-[#FFF0A6]">
           {props.state.activities?.map((activity) => (
-            <NewDefaultButton
+            <DefaultButton
               key={activity.id}
               text={activity.name}
               onClick={() => {
@@ -107,7 +107,7 @@ export const MyActivitiesModal = (props: ModalProps) => {
                   setPopup(activity);
                 }}
               />
-            </NewDefaultButton>
+            </DefaultButton>
           ))}
         </div>
       </div>
@@ -134,13 +134,13 @@ const Popup = (props: PopupProps) => {
           </div>
         </div>
         <div className="flex w-full justify-around gap-2 px-2">
-          <NewDefaultButton
+          <DefaultButton
             text={Strings.cancel}
             onClick={props.cancel}
             variant="delete1"
             size="small"
           />
-          <NewDefaultButton
+          <DefaultButton
             text={Strings.delete}
             onClick={props.onClick}
             variant="delete2"

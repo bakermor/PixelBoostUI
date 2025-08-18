@@ -4,7 +4,7 @@ import { updateStat } from "../../api/HealthApi";
 import { PickActions } from "../../constants/ActionConstants";
 import { Strings } from "../../constants/Strings";
 import { AuthContext } from "../../context/AuthProvider";
-import { NewDefaultButton } from "../Buttons";
+import { DefaultButton } from "../Buttons";
 import { ModifiedStat } from "../LabeledStat";
 import { InputForm, RangeForm, SelectForm } from "./ActionFormTypes";
 
@@ -71,7 +71,7 @@ export const BaseAction = (props: Props) => {
         </div>
         <div className="flex-1">{props.children}</div>
         <div className="flex self-end w-90 ">
-          <NewDefaultButton
+          <DefaultButton
             text={Strings.complete_action}
             onClick={updateLevel}
             size="large"
@@ -118,7 +118,7 @@ export const PickAction = (props: PickActionProps) => {
       </div>
       <div className="flex flex-col justify-center px-30 gap-3">
         {PickActions[props.stat]?.map((option) => (
-          <NewDefaultButton
+          <DefaultButton
             key={option}
             text={Strings[`${option}_b`]}
             name={option}

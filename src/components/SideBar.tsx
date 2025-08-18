@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 import { Strings } from "../constants/Strings";
 import { User } from "../models/User";
 import { UserInfo } from "./UserInfo";
-import { NewDefaultButton } from "./Buttons";
+import { DefaultButton } from "./Buttons";
 
 interface Props {
   focused?: string;
@@ -41,7 +41,7 @@ export const SideBar = (props: Props) => {
         {buttons.map((item, index) =>
           props.focused === item && subsections[item] ? (
             <div className="flex flex-col">
-              <NewDefaultButton
+              <DefaultButton
                 key={index}
                 text={Strings[item]}
                 onClick={() => clickButton(`/${item}`)}
@@ -53,7 +53,7 @@ export const SideBar = (props: Props) => {
                 align="left"
               />
               {subsections[item].map((subitem, subindex) => (
-                <NewDefaultButton
+                <DefaultButton
                   key={`${index}_${subindex}`}
                   text={Strings[subitem]}
                   onClick={() => clickButton(`/${item}/${subitem}`)}
@@ -65,7 +65,7 @@ export const SideBar = (props: Props) => {
               ))}
             </div>
           ) : (
-            <NewDefaultButton
+            <DefaultButton
               key={index}
               text={Strings[item]}
               onClick={() => clickButton(`/${item}`)}

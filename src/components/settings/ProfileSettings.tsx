@@ -8,7 +8,7 @@ import {
 import { Strings } from "../../constants/Strings";
 import { User } from "../../models/User";
 import { isValidEmail } from "../../utils/helperFuncs";
-import { NewDefaultButton } from "../Buttons";
+import { DefaultButton } from "../Buttons";
 import { Input } from "../Input";
 
 interface Props {
@@ -149,7 +149,7 @@ const SettingsSection = (props: SectionProps) => {
         </div>
       ))}
       <div className="flex w-40">
-        <NewDefaultButton
+        <DefaultButton
           text={Strings.save}
           onClick={handleSubmit}
           variant="inverted"

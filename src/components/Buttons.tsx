@@ -1,113 +1,6 @@
 import { ReactNode } from "react";
-import { pxl } from "../constants/ThemeConstants";
 
 interface ButtonProps {
-  text: string;
-  name?: string;
-  onClick: React.MouseEventHandler<any>;
-
-  colors: string[];
-  variant?: string;
-  size?: number;
-
-  focused?: boolean;
-  alignLeft?: boolean;
-  icon?: {
-    onClick: () => void;
-    colors: string[];
-  };
-}
-
-interface IconButtonProps {
-  onClick: React.MouseEventHandler<any>;
-
-  colors: string[];
-  size?: number[];
-
-  disabled?: boolean;
-}
-
-export const DefaultButton = (props: ButtonProps) => {
-  const handleClick = (e: React.MouseEvent<any>) => {
-    e.stopPropagation();
-    props.onClick(e);
-  };
-
-  return (
-    <button
-      style={
-        {
-          "--main-color": props.focused ? props.colors[1] : props.colors[0],
-          "--hover-color": props.colors[1],
-          "--text-color": props.focused
-            ? props.colors[3] ?? props.colors[2]
-            : props.colors[2],
-          "--text-hover": props.colors[3] ?? props.colors[2],
-          marginRight: props.icon ? `${pxl * 5}px` : null,
-          marginLeft: props.icon ? `${pxl * 5}px` : null,
-        } as React.CSSProperties & Record<string, string>
-      }
-      className="clickable w-full items-center cursor-pointer"
-      onClick={handleClick}
-      name={props.name}
-    >
-      <div
-        className="flex-1 flex items-center"
-        style={{
-          height: pxl * (props.size ?? 60),
-          paddingLeft: pxl * 10,
-          paddingRight: pxl * 10,
-          gap: pxl * 10,
-        }}
-      >
-        <div
-          className="w-full flex whitespace-nowrap overflow-clip leading-none"
-          style={{
-            height: pxl * 18,
-            fontSize: pxl * 16,
-            fontFamily: "'pxlSmall', monospace",
-            justifyContent: props.alignLeft ? undefined : "center",
-          }}
-        >
-          {props.text}
-        </div>
-        {props.icon ? (
-          <DefaultIconButton
-            onClick={props.icon.onClick}
-            size={[30]}
-            colors={props.icon.colors}
-          />
-        ) : null}
-      </div>
-    </button>
-  );
-};
-
-export const DefaultIconButton = (props: IconButtonProps) => {
-  const handleClick = (e: React.MouseEvent<any>) => {
-    e.stopPropagation();
-    props.onClick(e);
-  };
-
-  return (
-    <div
-      className={`clickable ${props.disabled ? null : "cursor-pointer"}`}
-      style={
-        {
-          width: `${pxl * (props.size ? props.size[0] : 36)}px`,
-          height: `${
-            pxl * (props.size ? props.size[1] ?? props.size[0] : 36)
-          }px`,
-          "--main-color": props.disabled ? props.colors[2] : props.colors[0],
-          "--hover-color": props.disabled ? props.colors[2] : props.colors[1],
-        } as React.CSSProperties & Record<string, string>
-      }
-      onClick={handleClick}
-    />
-  );
-};
-
-interface NewButtonProps {
   text: string;
   onClick: React.MouseEventHandler<any>;
 
@@ -120,7 +13,7 @@ interface NewButtonProps {
   align?: "left" | "right" | "center" | "left_indent";
 }
 
-interface NewIconButtonProps {
+interface IconButtonProps {
   onClick: React.MouseEventHandler<any>;
   children?: ReactNode;
 
@@ -129,7 +22,7 @@ interface NewIconButtonProps {
   disabled?: boolean;
 }
 
-export const NewDefaultButton = (props: NewButtonProps) => {
+export const DefaultButton = (props: ButtonProps) => {
   const variantStyles: Record<string, string> = {
     default:
       "rounded-xl border-3 bg-[#C957BC] border-[#752092] text-[#FFFFFC] hover:bg-[#FFC872] hover:border-[#FFC872] hover:text-[#752092]",
@@ -195,7 +88,7 @@ export const NewDefaultButton = (props: NewButtonProps) => {
   );
 };
 
-export const SmallButton = (props: NewButtonProps) => {
+export const SmallButton = (props: ButtonProps) => {
   return (
     <button
       className={`flex justify-center items-center rounded-sm cursor-pointer ${
@@ -213,7 +106,7 @@ export const SmallButton = (props: NewButtonProps) => {
   );
 };
 
-export const IconButton = (props: NewIconButtonProps) => {
+export const IconButton = (props: IconButtonProps) => {
   const handleClick = (e: React.MouseEvent<any>) => {
     e.stopPropagation();
     props.onClick(e);

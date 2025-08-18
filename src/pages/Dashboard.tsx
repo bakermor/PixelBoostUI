@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getUserFollowing } from "../api/FollowApi";
 import { ActivityModal } from "../components/activities/ActivityModal";
 import { AvatarContainer } from "../components/avatar/AvatarContainer";
-import { NewDefaultButton } from "../components/Buttons";
+import { DefaultButton } from "../components/Buttons";
 import { FollowModal } from "../components/FollowModal";
 import { ActionModal } from "../components/Modals";
 import { ProfileCard } from "../components/ProfileCard";
@@ -76,14 +76,14 @@ const Dashboard = () => {
           <AvatarContainer />
           <StatContainer health={health} />
           <div className="w-full flex justify-around gap-3 px-12">
-            <NewDefaultButton
+            <DefaultButton
               text={Strings.edit_stat}
               onClick={() => {
                 chooseModal("action");
               }}
               variant="inverted"
             />
-            <NewDefaultButton
+            <DefaultButton
               text={Strings.set_levels}
               onClick={() => {
                 navigate("/set-levels");

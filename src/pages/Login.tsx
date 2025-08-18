@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../api/AuthApi";
 import login from "../assets/login.png";
-import { NewDefaultButton } from "../components/Buttons";
+import { DefaultButton } from "../components/Buttons";
 import { Input } from "../components/Input";
 import { Strings } from "../constants/Strings";
 import { AuthContext } from "../context/AuthProvider";
@@ -115,7 +115,7 @@ const Login = () => {
               />
             ))}
             <div className="mt-6">
-              <NewDefaultButton
+              <DefaultButton
                 text={Strings.login}
                 onClick={handleLogin}
                 size="large"

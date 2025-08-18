@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { Activity } from "../../models/User";
 import { createHealthUpdate } from "../../utils/createHealthUpdate";
-import { IconButton, NewDefaultButton } from "../Buttons";
+import { IconButton, DefaultButton } from "../Buttons";
 import { ActivityDisplay } from "./ActivityDisplay";
 
 interface ModalProps {
@@ -118,7 +118,7 @@ export const SetActivityModal = (props: ModalProps) => {
             <ActivityDisplay activity={props.state.current} />
           ) : null}
         </div>
-        <NewDefaultButton
+        <DefaultButton
           text={Strings.submit}
           onClick={handleSubmit}
           size="large"
@@ -141,7 +141,7 @@ const FullDropdown = (props: DropdownProps) => {
     <div className="absolute top-0 left-0 w-full max-h-75 flex overflow-clip">
       <div className="w-full flex flex-col border-3 border-t-0 border-[#C957BC] overflow-y-auto overflow-x-clip scrollbar-hide">
         {props.create ? (
-          <NewDefaultButton
+          <DefaultButton
             text={Strings[props.create.name]}
             onClick={props.create.onClick}
             variant="dropdown_ph"
@@ -151,7 +151,7 @@ const FullDropdown = (props: DropdownProps) => {
         ) : null}
 
         {props.options?.map((option) => (
-          <NewDefaultButton
+          <DefaultButton
             key={option.id}
             text={option.name}
             onClick={() => {

@@ -8,7 +8,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { StatUpdateContext } from "../../context/StatUpdateProvider";
 import { Activity } from "../../models/User";
 import { createHealthUpdate } from "../../utils/createHealthUpdate";
-import { IconButton, NewDefaultButton } from "../Buttons";
+import { IconButton, DefaultButton } from "../Buttons";
 import { ActivityDisplay } from "./ActivityDisplay";
 
 interface ModalProps {
@@ -68,7 +68,7 @@ export const CurrentActivityModal = (props: ModalProps) => {
             {Strings.current_activity_desc}
           </div>
         </div>
-        <NewDefaultButton
+        <DefaultButton
           text={Strings.choose_activity}
           onClick={clickSet}
           variant="inverted"
@@ -80,7 +80,7 @@ export const CurrentActivityModal = (props: ModalProps) => {
           ) : null}
         </div>
         {user && user.current_activity ? (
-          <NewDefaultButton
+          <DefaultButton
             text={Strings.stop_activity}
             onClick={handleSubmit}
             size="large"

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { updateUser } from "../api/AuthApi";
 import { Strings } from "../constants/Strings";
 import { User } from "../models/User";
-import { IconButton, NewDefaultButton, SmallButton } from "./Buttons";
+import { IconButton, DefaultButton, SmallButton } from "./Buttons";
 
 interface Props {
   user?: User;
@@ -96,7 +96,7 @@ export const ProfileCard = (props: Props) => {
                 {props.user.current_activity?.name}
               </div>
             </div>
-            <NewDefaultButton
+            <DefaultButton
               text={Strings.my_activity}
               onClick={() => props.onClick("activities")}
             />

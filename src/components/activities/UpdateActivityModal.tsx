@@ -6,7 +6,7 @@ import { createActivity, updateActivity } from "../../api/ActivitiesApi";
 import { allowedStats } from "../../constants/StatConstants";
 import { Strings } from "../../constants/Strings";
 import { Activity, Modifiers } from "../../models/User";
-import { IconButton, NewDefaultButton, SmallButton } from "../Buttons";
+import { IconButton, DefaultButton, SmallButton } from "../Buttons";
 import { Input } from "../Input";
 import { StatModifier } from "./ActivityDisplay";
 
@@ -191,7 +191,7 @@ export const UpdateActivityModal = (props: ModalProps) => {
             </div>
           </div>
         </div>
-        <NewDefaultButton
+        <DefaultButton
           text={props.state.current ? Strings.update : Strings.create_activity}
           onClick={props.state.current ? handleUpdate : handleCreate}
           size="large"
@@ -210,7 +210,7 @@ const StatDropdown = (props: StatDropdownProps) => {
   return (
     <div className="absolute top-0 right-0 w-32 flex flex-col self-end border-3 border-[#C957BC]">
       {props.options.map((option) => (
-        <NewDefaultButton
+        <DefaultButton
           key={option}
           text={Strings[option]}
           onClick={() => {
