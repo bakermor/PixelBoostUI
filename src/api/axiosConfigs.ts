@@ -21,7 +21,7 @@ export async function baseApiCall<T = any>(
 }
 
 export const api = axios.create({
-  baseURL: "http://3.88.183.50:8080/api",
+  baseURL: "/api",
   withCredentials: true,
 });
 
